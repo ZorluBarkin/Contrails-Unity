@@ -1,6 +1,7 @@
 using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using System.Collections;
 using System.Collections.Generic;
+//using System.Numerics;
 using Unity.VisualScripting;
 using UnityEditor.Search;
 using UnityEngine;
@@ -24,15 +25,19 @@ public class BombScript : MonoBehaviour
     #region Guidance Variables
     public bool guided = false;
     public bool targetSet = false;
-    public Vector3 impactPoint = Vector3.zero;
+    [HideInInspector] public Vector3 impactPoint = Vector3.zero;
+    public GameObject target = null;
+    public float turnRate = 5f;
     #endregion
 
-    #region Explosion Variable
+    #region Explosion Variables
     public float TNTPayload = 0f;
+    public Vector2 blastRadius = Vector2.zero;
     private BoxCollider boxCollider = null;
+    [SerializeField] private GameObject explosionEffect = null; // assign in editor
 
     // fuze
-    public bool timerStarter = false;
+    private bool timerStarter = false;
     public float fuzeTime = 0f;
     private float fuzeTimer = 0f;
     #endregion
@@ -40,6 +45,9 @@ public class BombScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (explosionEffect == null)
+            explosionEffect = null; // make the default effect here
+
         if(boxCollider == null)
             boxCollider = GetComponent<BoxCollider>();
 
@@ -53,9 +61,13 @@ public class BombScript : MonoBehaviour
 
     private void Update()
     {
-        if (guided && targetSet)
-        {   
-            DoGuidance(impactPoint);
+        if (targetSet)
+        {
+            if(target != null)
+                impactPoint = target.transform.position;
+
+            if (guided)
+                DoGuidance(impactPoint);
         }
 
         if (timerStarter)
@@ -65,10 +77,13 @@ public class BombScript : MonoBehaviour
             if(fuzeTimer >= fuzeTime)
             {
                 // do explosion
-                //Physics.SphereCast();
+                RaycastHit hit;
+                Physics.SphereCast(transform.position, blastRadius.x, Vector3.up, out hit, blastRadius.y);
+                Instantiate(explosionEffect, transform.position, Quaternion.identity);
+
+                //Debug.Log(hit.transform);
 
                 //delete object
-                fuzeTimer = 0f;
                 Destroy(this.gameObject);
             }
         }
@@ -82,7 +97,11 @@ public class BombScript : MonoBehaviour
 
     private void DoGuidance(Vector3 impactPoint)
     {
-        //return;
+        Vector3 guidanceVector = impactPoint - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(guidanceVector);
+        rotation = Quaternion.Euler(Mathf.Clamp(rotation.eulerAngles.x, 45, 135), rotation.eulerAngles.y, rotation.eulerAngles.z);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, turnRate * Time.deltaTime);
+        rb.velocity = transform.forward * Vector3.Dot(transform.forward, rb.velocity);
     }
 
     private float SetDragCoefficient()
@@ -117,7 +136,7 @@ public class BombScript : MonoBehaviour
             shortCylinder = false;
             midCylidner = false;
             capcule = false;
-            return 0.25f;
+            return 0.24f;
         }
         else if (capcule)
         {
