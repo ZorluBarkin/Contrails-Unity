@@ -9,9 +9,9 @@ public class AAMissileScript : MonoBehaviour
     public float mass = 85.3f;
 
     #region Manuverability Variables
-    public float maxSpeed = 2.5f * 340.29f; // in m/s 340.29f
+    public float maxSpeed = 2.5f * 340.29f; // in m/s 340.29f // this might not be needed
     public float maxOveroad = 30f; // G's it can pull
-    public float burnTime = 2.2f;
+    public float burnTime = 6f; // A and B models have 2.2 seconds burn time
     public float burnTimer = 0f;
     #endregion
 
@@ -38,8 +38,6 @@ public class AAMissileScript : MonoBehaviour
     [SerializeField] private GameObject explosionEffect = null;
     #endregion
 
-    public float distanceToTarget = 0f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +53,6 @@ public class AAMissileScript : MonoBehaviour
         rb.mass = mass;
 
         DefineTrackingStyle();
-
     }
 
     // Update is called once per frame
@@ -65,33 +62,19 @@ public class AAMissileScript : MonoBehaviour
 
         if (targetLocked)
         {
-
-            //if (//out of search cone) // self destruction when lock is lost
-            //{
-            //    target = null;
-            //    targetLocked = false;
-            //    RaycastHit hit;
-            //    Physics.SphereCast(transform.position, blastRadius.x, Vector3.up, out hit, blastRadius.y);
-            //    Instantiate(explosionEffect, transform.position, Quaternion.identity);
-            //    // do explosion
-            //    Destroy(this.gameObject);
-            //}
+            dt = Vector3.Dot(this.transform.position.normalized, target.transform.position.normalized);
+            if (Vector3.Dot(this.transform.position.normalized, target.transform.position.normalized) < 0.303) // this means it cant track
+                Explode();
 
             if (targetLocked)
             {
                 DoGuidance(target.transform.position);
 
                 if ( proximityDistance > Vector3.Distance(target.transform.position, transform.position))
-                {
-                    //RaycastHit hit;
-                    //Physics.SphereCast(transform.position, blastRadius.x, Vector3.up, out hit, blastRadius.y);
-                    Instantiate(explosionEffect, transform.position, Quaternion.identity);
-
-                    Destroy(this.gameObject);
-                }
+                    Explode();
+                
             }
                 
-
         }
     }
 
@@ -103,11 +86,22 @@ public class AAMissileScript : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(guidanceVector);
         
         if(burnTimer > 0.2f)
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, maxOveroad * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, maxOveroad * 9.81f * Time.deltaTime);
 
         if (burnTimer < burnTime)
-            rb.velocity += transform.forward * 10f;
+            rb.velocity += transform.forward * 5f; // 5f for now
         //rb.velocity = transform.forward * Vector3.Dot(transform.forward, rb.velocity);
+    }
+
+    private void Explode()
+    {
+        // do explosion
+        //RaycastHit hit;
+        //Physics.SphereCast(transform.position, blastRadius.x, Vector3.up, out hit, blastRadius.y);
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
+
+        //delete object
+        Destroy(this.gameObject);
     }
 
     private void DefineTrackingStyle()
@@ -138,6 +132,9 @@ public class AAMissileScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This decides Weather to go Active or Semi-Active radar per missile.
+    /// </summary>
     private void SetTrackingMode() // defines the ARH to go from SA to AR
     {
 

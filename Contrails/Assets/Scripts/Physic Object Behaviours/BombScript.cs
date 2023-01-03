@@ -75,17 +75,8 @@ public class BombScript : MonoBehaviour
             fuzeTimer += Time.deltaTime;
 
             if(fuzeTimer >= fuzeTime)
-            {
-                // do explosion
-                RaycastHit hit;
-                Physics.SphereCast(transform.position, blastRadius.x, Vector3.up, out hit, blastRadius.y);
-                Instantiate(explosionEffect, transform.position, Quaternion.identity);
-
-                //Debug.Log(hit.transform);
-
-                //delete object
-                Destroy(this.gameObject);
-            }
+                Explode();
+            
         }
 
     }
@@ -102,6 +93,19 @@ public class BombScript : MonoBehaviour
         rotation = Quaternion.Euler(Mathf.Clamp(rotation.eulerAngles.x, 45, 135), rotation.eulerAngles.y, rotation.eulerAngles.z);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, turnRate * Time.deltaTime);
         rb.velocity = transform.forward * Vector3.Dot(transform.forward, rb.velocity);
+    }
+
+    private void Explode()
+    {
+        // do explosion
+        RaycastHit hit;
+        Physics.SphereCast(transform.position, blastRadius.x, Vector3.up, out hit, blastRadius.y);
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
+
+        //Debug.Log(hit.transform);
+
+        //delete object
+        Destroy(this.gameObject);
     }
 
     private float SetDragCoefficient()
