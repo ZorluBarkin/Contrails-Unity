@@ -56,7 +56,7 @@ public class BombScript : MonoBehaviour
 
         rb.drag = SetDragCoefficient();
         rb.mass = mass;
-        rb.velocity = Vector3.forward * dropVelocity;
+        rb.velocity = transform.forward * dropVelocity;
     }
 
     private void Update()
