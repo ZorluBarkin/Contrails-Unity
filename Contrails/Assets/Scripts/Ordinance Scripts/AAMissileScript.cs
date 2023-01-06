@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AAMissileScript : MonoBehaviour
@@ -9,17 +12,26 @@ public class AAMissileScript : MonoBehaviour
     public bool Active = false;
     private readonly float warmUpTime = 2f;
     private float warmingUp = 0f;
+    public GameObject propulsionEffect = null;
+    private float effectDeletionTimer = 3f;
+    private float effectDeletionTime = 0f;
+    private ParticleSystem.MainModule particleMain; // something empty
+    private ParticleSystem.MinMaxGradient particleColor = new Color(0, 0, 0, 0);
 
     #region Maneuverability Variables
     public float maxSpeed = 2.7f * 340.29f; // in m/s 340.29f // this might not be needed //this is baseline speed
-    public float maxOveroad = 30f; // G's it can pull // aim9 L can pull 30g's Aim9x can pull 60 // AMRAAM pulls 30g's
+    public float maxOverload = 40f; // G's it can pull // aim9 L can pull 30g's Aim9x can pull 60 // AMRAAM pulls 30g's
+    public float trackingRate = 24f; // its just better to make it 40 at this point
     public float initialSpeed = 0f;
-    public float burnTime = 6f; // A and B models have 2.2 seconds burn time
+    public float burnTime = 5.3f; // A and B models have 2.2 seconds burn time
     public float burnTimer = 0f;
+    public float fuelAmount = 40f; // in kg
+    public float thrust = 1206f; // in kg
     #endregion
 
     #region Missile Tracking Modes
     [SerializeField] private bool IR = false;
+    [SerializeField] private bool allAspect = false; // only meaningful for IR missiles
     [SerializeField] private bool SARH = false;
     [SerializeField] private bool ARH = false;
     [SerializeField] private bool beamRider = false;
@@ -35,6 +47,9 @@ public class AAMissileScript : MonoBehaviour
     public float lockRange = 0f; // range where the missile can lock onto a target
     public float missileRadarRange = 0f; // Active seacrh range
     public float trackingTime = 0f; // seconds
+    public float gimbalLimit = 40f;
+    public float FOV = 2.5f;
+
     private float distanceToTarget = -1f;
     public float leadStopDistance = -1f;
     #endregion
@@ -57,15 +72,20 @@ public class AAMissileScript : MonoBehaviour
             targetLocked = true;
             targetRb = target.GetComponent<Rigidbody>();
         }
-            
 
         if (rb == null)
             rb = GetComponent<Rigidbody>();
 
+        if(propulsionEffect == null)
+            propulsionEffect = transform.GetChild(1).gameObject; // make trail child object always at index 1
+            
+
         rb.mass = mass;
         rb.maxAngularVelocity = Mathf.Infinity;
         DefineTrackingStyle();
-        
+
+        particleMain = propulsionEffect.GetComponent<ParticleSystem>().main;
+
     }
 
     // Update is called once per frame
@@ -84,21 +104,20 @@ public class AAMissileScript : MonoBehaviour
         {
             distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
             CalculateLead(distanceToTarget, leadStopDistance);
-
+            
             // self destruct conditions
             if (burnTimer > burnTime)
             {
-                if (Vector3.Angle(this.transform.position, target.transform.position) > 45 || rb.velocity.magnitude < 50) // this means it cant track
-                    Explode();
+                if (Vector3.Angle(this.transform.position, target.transform.position) > gimbalLimit / 2 || rb.velocity.magnitude < 70) // this means it cant track
+                    Debug.Log("SD");//Explode();
             }
                 
             if (targetLocked)
             {
                 DoGuidance(impactPoint);
 
-                if ( proximityDistance > distanceToTarget)
+                if (proximityDistance > distanceToTarget)
                     Explode();
-                
             }       
         }
         else
@@ -111,6 +130,11 @@ public class AAMissileScript : MonoBehaviour
             }
         }
 
+        // mark the trajectory debugging
+        //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        //sphere.transform.position = transform.position;
+        //sphere.transform.localScale = new Vector3(10, 10, 10);
+        //Destroy(sphere.GetComponent<SphereCollider>());
     }
 
     private GameObject SearchTarget()
@@ -119,6 +143,10 @@ public class AAMissileScript : MonoBehaviour
 
         if (IR) // FF
         {
+            if (allAspect)
+            {
+
+            }
             // unless its aim9x search target in a 45 degree cone or less dependent on the model
 
             // send a raycast to check for high heat source, select the highest one.
@@ -147,6 +175,13 @@ public class AAMissileScript : MonoBehaviour
 
     private void CalculateLead(float distanceToTarget, float trackingStopDistance)
     {
+        if(rb.velocity.magnitude < 250 && burnTimer < burnTime)
+        {
+            impactPoint = target.transform.position;
+            return;
+        }
+            
+
         if (distanceToTarget > trackingStopDistance)
         {
             float interceptTime = distanceToTarget / rb.velocity.magnitude;
@@ -162,17 +197,32 @@ public class AAMissileScript : MonoBehaviour
 
         Vector3 guidanceVector = impactPoint - transform.position;
         Quaternion rotation = Quaternion.LookRotation(guidanceVector);
+        //Quaternion rotation = transform.Rotae(impactPoint);
 
         if (burnTimer > 0.2f)
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, maxOveroad * 9.81f);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, trackingRate * Time.deltaTime);
 
-        if (burnTimer < burnTime)
-            rb.velocity += transform.forward * 5f; // 5f for now
-        //rb.velocity = transform.forward * Vector3.Dot(transform.forward, rb.velocity);
+        if (burnTimer <= burnTime)
+            rb.AddForce(transform.forward * (thrust * Physics.gravity.magnitude / fuelAmount * 0.60f - Physics.gravity.magnitude), ForceMode.Acceleration); // 
+                                                                                                                                                            //rb.AddForce(transform.forward * 1206 * Physics.gravity.magnitude, ForceMode.Force);
+                                                                                                                                                            //rb.velocity += transform.forward * 5f; // 5f for now
+        else
+        {
+            DestroyTrailParticle();
+
+            //rb.velocity += new Vector3(maxOverload * Vector3.SignedAngle(transform.forward, Vector3.forward, Vector3.right) / 90, 
+            //    0f, 
+            //    maxOverload * Vector3.SignedAngle(transform.forward, Vector3.forward, Vector3.forward) / 90);
+        }
+            
+            //rb.velocity = transform.forward * rb.velocity.magnitude; // works but turn too fast at a point
     }
 
     private void Explode()
     {
+        if (propulsionEffect != null)
+            DestroyTrailParticle();
+
         // do explosion
         //RaycastHit hit;
         //Physics.SphereCast(transform.position, blastRadius.x, Vector3.up, out hit, blastRadius.y);
@@ -181,6 +231,35 @@ public class AAMissileScript : MonoBehaviour
         Debug.Log("Distance to Target: " + distanceToTarget);
         //delete object
         Destroy(this.gameObject);
+    }
+
+    /// <summary>
+    /// Used to destroy the particle
+    /// </summary>
+    private void DestroyTrailParticle()
+    {
+        if (propulsionEffect != null)
+        {
+            if (effectDeletionTime == 0)
+            {
+                propulsionEffect.transform.parent = null;
+                particleColor = particleMain.startColor;
+            }
+
+            particleColor.color = new Color(1, 1, 1, Mathf.Clamp01((3 - effectDeletionTime) / 3));
+            particleMain.startColor = particleColor;
+
+            propulsionEffect.transform.position += propulsionEffect.transform.forward * 1f;
+
+            if (effectDeletionTimer * 2f < effectDeletionTime)
+                Destroy(propulsionEffect);
+
+            effectDeletionTime += Time.deltaTime;
+        }
+        else
+        {
+            propulsionEffect = null;
+        }
     }
 
     private void DefineTrackingStyle()

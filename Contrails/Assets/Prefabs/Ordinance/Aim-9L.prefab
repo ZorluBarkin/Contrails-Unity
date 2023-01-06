@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4335747335971432316}
   - component: {fileID: 166824991}
   m_Layer: 0
-  m_Name: Aim-9
+  m_Name: Aim-9L
   m_TagString: AAM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5872415258577652918}
-  - {fileID: 2873016467272762043}
+  - {fileID: 4093440229962830119}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45,8 +45,8 @@ Rigidbody:
   m_GameObject: {fileID: 8034195259763838458}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.2
-  m_AngularDrag: 0.1
+  m_Drag: 0.05
+  m_AngularDrag: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -65,12 +65,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mass: 85.3
+  Active: 1
+  propulsionEffect: {fileID: 3684191002983061560, guid: 9c6879596ab44c948991650e567487dd, type: 3}
   maxSpeed: 850.72504
-  maxOveroad: 30
-  initialSpeed: 200
-  burnTime: 6
+  maxOverload: 40
+  trackingRate: 24
+  initialSpeed: 0
+  burnTime: 5.3
   burnTimer: 0
+  fuelAmount: 40
+  thrust: 1206
   IR: 1
+  allAspect: 1
   SARH: 0
   ARH: 0
   beamRider: 0
@@ -79,9 +85,12 @@ MonoBehaviour:
   launchRange: 18000
   lockRange: 0
   missileRadarRange: 0
-  trackingTime: 30
+  trackingTime: 60
+  gimbalLimit: 40
+  FOV: 2.5
+  leadStopDistance: 1000
   proximityDistance: 10
-  explosiveFiller: 3.6
+  explosiveFiller: 9.5
   explosionEffect: {fileID: 1552366338733322475, guid: da6105ea9378a8144bf5243ddcab522b, type: 3}
 --- !u!114 &166824991
 MonoBehaviour:
@@ -106,7 +115,7 @@ MonoBehaviour:
   MaxSpeed: 0
   stallSpeed: 85
   lift: 0
---- !u!1001 &4335747334976579254
+--- !u!1001 &2538473592568313130
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -163,10 +172,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c6879596ab44c948991650e567487dd, type: 3}
---- !u!4 &2873016467272762043 stripped
+--- !u!4 &4093440229962830119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2014422382701454349, guid: 9c6879596ab44c948991650e567487dd, type: 3}
-  m_PrefabInstance: {fileID: 4335747334976579254}
+  m_PrefabInstance: {fileID: 2538473592568313130}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6266121083333094237
 PrefabInstance:
