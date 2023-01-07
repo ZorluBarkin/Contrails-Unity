@@ -13,7 +13,7 @@ public class AAMissileScript : MonoBehaviour
     private readonly float warmUpTime = 2f;
     private float warmingUp = 0f;
     public GameObject propulsionEffect = null;
-    private float effectDeletionTimer = 3f;
+    [SerializeField] private float effectDeletionTimer = 3f;
     private float effectDeletionTime = 0f;
     private ParticleSystem.MainModule particleMain; // something empty
     private ParticleSystem.MinMaxGradient particleColor = new Color(0, 0, 0, 0);
@@ -209,8 +209,8 @@ public class AAMissileScript : MonoBehaviour
         else
         {
             DestroyTrailParticle();
-
-            //rb.velocity += new Vector3(maxOverload * Vector3.SignedAngle(transform.forward, Vector3.forward, Vector3.right) / 90, 
+            // this is not finished do this sometime
+            //rb.velocity += new Vector3(maxOverload * Vector3.SignedAngle(transform.forward, Vector3.forward, Vector3.right) / 90,
             //    0f, 
             //    maxOverload * Vector3.SignedAngle(transform.forward, Vector3.forward, Vector3.forward) / 90);
         }
@@ -246,7 +246,7 @@ public class AAMissileScript : MonoBehaviour
                 particleColor = particleMain.startColor;
             }
 
-            particleColor.color = new Color(1, 1, 1, Mathf.Clamp01((3 - effectDeletionTime) / 3));
+            particleColor.color = new Color(1, 1, 1, Mathf.Clamp01((effectDeletionTimer - effectDeletionTime) / effectDeletionTimer));
             particleMain.startColor = particleColor;
 
             propulsionEffect.transform.position += propulsionEffect.transform.forward * 1f;

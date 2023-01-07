@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6557887527433863403}
   - component: {fileID: 8967880487588805077}
   - component: {fileID: 7743829078319591513}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Vertical Fins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5038851622822896865}
   - component: {fileID: 294329438665936367}
   - component: {fileID: 1125331107185025744}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rocket Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 4208651927320365939}
   - component: {fileID: 8788989615426119809}
   - component: {fileID: 4725534161435433242}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Exhaust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,8 @@ GameObject:
   - component: {fileID: 3849448285189999931}
   - component: {fileID: 3513960116194305208}
   - component: {fileID: 511013938244817309}
-  m_Layer: 0
+  - component: {fileID: 4403823950892840584}
+  m_Layer: 6
   m_Name: FFAR Might Mouse
   m_TagString: Rocket
   m_Icon: {fileID: 0}
@@ -299,7 +300,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &511013938244817309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +320,22 @@ MonoBehaviour:
   mass: 9.3
   blastRadius: {x: 0, y: 0}
   explossionEffect: {fileID: 1552366338733322475, guid: da6105ea9378a8144bf5243ddcab522b, type: 3}
-  propulsionEffect: {fileID: 3684191002983061560, guid: 9c6879596ab44c948991650e567487dd, type: 3}
+  propulsionEffect: {fileID: 7164411874660165041}
+  effectDeletionTimer: 3
+--- !u!136 &4403823950892840584
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3980769408199131171}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05
+  m_Height: 2.5
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5386596565135900735
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,8 +347,7 @@ GameObject:
   - component: {fileID: 5608968681527947626}
   - component: {fileID: 1731759926562851708}
   - component: {fileID: 3373691169197157999}
-  - component: {fileID: 3611423509099570520}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,20 +423,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3611423509099570520
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5386596565135900735}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8665050332731458066
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +434,7 @@ GameObject:
   - component: {fileID: 1489242625574270515}
   - component: {fileID: 7640426980344276698}
   - component: {fileID: 6737859516296286949}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Horizontal Fins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,10 +561,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Missile Burner Trail
       objectReference: {fileID: 0}
+    - target: {fileID: 3684191002983061560, guid: 9c6879596ab44c948991650e567487dd, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c6879596ab44c948991650e567487dd, type: 3}
 --- !u!4 &5456481403586697604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2014422382701454349, guid: 9c6879596ab44c948991650e567487dd, type: 3}
+  m_PrefabInstance: {fileID: 5786556621560446345}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7164411874660165041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3684191002983061560, guid: 9c6879596ab44c948991650e567487dd, type: 3}
   m_PrefabInstance: {fileID: 5786556621560446345}
   m_PrefabAsset: {fileID: 0}
