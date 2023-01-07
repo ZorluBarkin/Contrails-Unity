@@ -10,7 +10,7 @@ public class PodCapScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(deleteTimer >= deleteTime)
+        if(deleteTimer >= deleteTime || transform.position.y < 1f)
             Destroy(gameObject);
 
         deleteTimer = Time.deltaTime;

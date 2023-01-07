@@ -225,67 +225,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1160407507609365778, guid: 3b8b908429db78d46abcb674f9b944e4, type: 3}
   m_PrefabInstance: {fileID: 4335747335971432314}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &153640825
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1255646863}
-    m_Modifications:
-    - target: {fileID: -4631659437577179298, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: launch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6515972045894008792, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_Name
-      value: FFAR Might Mouse Rocket Pod 5 Stack
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
 --- !u!1 &439765946
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,67 +354,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
---- !u!1001 &502296616
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1255646865}
-    m_Modifications:
-    - target: {fileID: -4631659437577179298, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: launch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6515972045894008792, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_Name
-      value: FFAR Might Mouse Rocket Pod 5 Stack
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
 --- !u!1 &524694513
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,67 +545,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &747926214
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1255646862}
-    m_Modifications:
-    - target: {fileID: -4631659437577179298, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: launch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6515972045894008792, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_Name
-      value: FFAR Might Mouse Rocket Pod 5 Stack
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
 --- !u!1 &851181918
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,67 +662,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1018516719
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1255646861}
-    m_Modifications:
-    - target: {fileID: -4631659437577179298, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: launch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6515972045894008792, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_Name
-      value: FFAR Might Mouse Rocket Pod 5 Stack
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
 --- !u!1 &1080931333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,32 +810,8 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9219103821002937, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9219103821002937, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 9219103821002937, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.24
-      objectReference: {fileID: 0}
     - target: {fileID: 667811488280830303, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 667811488280830303, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 667811488280830303, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 667811488280830303, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 667811488280830303, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
@@ -1122,105 +854,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2734982605285265038, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_Constraints
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 2805658886741093445, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
       propertyPath: m_Name
       value: A-4 Skyhawk
       objectReference: {fileID: 0}
-    - target: {fileID: 2805658886741093445, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3307044519380075785, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3307044519380075785, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3307044519380075785, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692310338628445407, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692310338628445407, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.87
-      objectReference: {fileID: 0}
-    - target: {fileID: 3692310338628445407, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 3972028123488691496, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3972028123488691496, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 3972028123488691496, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 8077418567994658798, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8077418567994658798, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.87
-      objectReference: {fileID: 0}
-    - target: {fileID: 8077418567994658798, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 8482706450566080034, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8482706450566080034, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8482706450566080034, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
---- !u!4 &1255646861 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8077418567994658798, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-  m_PrefabInstance: {fileID: 1255646860}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1255646862 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9219103821002937, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-  m_PrefabInstance: {fileID: 1255646860}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1255646863 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3307044519380075785, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-  m_PrefabInstance: {fileID: 1255646860}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1255646864 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3972028123488691496, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-  m_PrefabInstance: {fileID: 1255646860}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1255646865 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3692310338628445407, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}
-  m_PrefabInstance: {fileID: 1255646860}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1276778164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,67 +1082,6 @@ Transform:
   m_Father: {fileID: 851181919}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1919931073
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1255646864}
-    m_Modifications:
-    - target: {fileID: -4631659437577179298, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: launch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2719323486510811798, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6515972045894008792, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
-      propertyPath: m_Name
-      value: FFAR Might Mouse Rocket Pod 5 Stack
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d0330affb70a69243aa695d056ba25ea, type: 3}
 --- !u!1 &1931302722
 GameObject:
   m_ObjectHideFlags: 0

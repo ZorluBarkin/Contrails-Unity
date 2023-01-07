@@ -10,8 +10,7 @@ public class RocketScript : MonoBehaviour
 
     public float maxSpeed = 700f; // m/s
     public float burnTime = 1.10f;
-    public float burnTimer = 0f;
-    public float mass = 9.3f;
+    private float burnTimer = 0f;
 
     public Vector2 blastRadius = Vector2.zero;
     public GameObject explossionEffect = null;
@@ -30,7 +29,6 @@ public class RocketScript : MonoBehaviour
             rb = GetComponent<Rigidbody>();
 
         rb.velocity = transform.forward * initialSpeed;
-        rb.mass = mass;
 
         particleMain = propulsionEffect.GetComponent<ParticleSystem>().main;
     }

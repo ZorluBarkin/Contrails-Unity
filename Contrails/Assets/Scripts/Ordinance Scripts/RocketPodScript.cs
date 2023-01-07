@@ -10,9 +10,11 @@ public class RocketPodScript : MonoBehaviour
     public Mesh capOffShape = null;
     public GameObject capShape = null;
     public int capNumber = 2;
+    public float launcherLenght = 1.0f; // 1f for the ffar might mouse, 2f for zuni
+    public float launcherDiameter = 0.4f; // 0.5 for zuni, 0.4 for 7x might mouse and 0.6 for 39x mighty mouse
     public float initialSpeed = 0.0f;
 
-    public bool armed = false;
+    public bool armed = false; // they also have a safety distance which is 47m for Might mouse. (no need for simulating)
     private bool empty = false;
     private bool jettisoned = false;
     public bool jettison = false;
@@ -23,7 +25,7 @@ public class RocketPodScript : MonoBehaviour
     private float launchIntervalTimer = 0f;
     public float maxLaunchSpeed = 200; // m/s
     public float deviation = 2f; // inaccuracy in degrees
-    public int rocketCount = 0;
+    public int rocketCount = 7; // 7 is small pod and 19 is large pod for mighty mouse, zuni only comes with 2 or 4 can be stacked 3 times
     private bool popCap = true;
     #endregion
 
@@ -33,6 +35,8 @@ public class RocketPodScript : MonoBehaviour
     {
         if(aircraftsRigidBody == null)
             aircraftsRigidBody = transform.parent.parent.GetComponent<Rigidbody>();
+
+        transform.position += -transform.up * (launcherDiameter / 2);
     }
 
     // Update is called once per frame
@@ -61,6 +65,8 @@ public class RocketPodScript : MonoBehaviour
             if(transform.position.y < 5f && jettisoned)
                 Destroy(this.gameObject);
 
+            launch = false;
+            armed = false;
             launchIntervalTimer = 0f;
             return;
         }
@@ -71,17 +77,17 @@ public class RocketPodScript : MonoBehaviour
             if (popCap)
             {
                 transform.GetChild(0).GetComponent<MeshFilter>().mesh = capOffShape;
-                transform.GetChild(0).transform.localScale = new Vector3(0.5f, 1f, 0.5f);
+                transform.GetChild(0).transform.localScale = new Vector3(launcherDiameter, launcherLenght, launcherDiameter);
 
                 // spawn caps which pop off, 2 max 1-0 min
                 Vector3 spawnPos = transform.position;
-                spawnPos += transform.forward * 2f;
+                spawnPos += transform.forward * launcherLenght;
 
                 for(int i = 0; i < capNumber; i++)
                 {
                     if(i > 0)
                     {
-                        spawnPos -= transform.forward * 4f;
+                        spawnPos -= transform.forward * (launcherLenght * 2);
                         GameObject podCap = Instantiate(capShape, spawnPos, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
                         podCap.GetComponent<Rigidbody>().velocity = this.transform.forward * aircraftsRigidBody.velocity.magnitude;
                     }
