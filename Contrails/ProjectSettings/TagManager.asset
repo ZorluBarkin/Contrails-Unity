@@ -4,9 +4,24 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - AAM
   - ParticleEffect
-  - Rocket
+  - Gun
+  - IR
+  - SAHR
+  - AHR
+  - SmallBomb
+  - MediumBomb
+  - LargeBomb
+  - GBU
+  - SmallRocket
+  - MediumRocket
+  - LargeRocket
+  - AGM
+  - CBU
+  - Napalm
+  - ARM
+  - BeamRider
+  - AShM
   layers:
   - Default
   - TransparentFX

@@ -11,29 +11,30 @@ public class BombScript : MonoBehaviour
     private Rigidbody rb = null;
 
     public float mass = 227f; // in kg
+    public float bombWidth = 0.5f;
 
-    #region shape Bools
-    public bool sphere = false;
-    public bool shortCylinder = false;
-    public bool midCylidner = false;
-    public bool capcule = false;
-    public bool longCylinder = false;
-    #endregion
-
-    public float dropVelocity = 0f; // the velocity when the bomb was dropped from the plane
+    public float dropVelocity = 35f; // the velocity when the bomb was dropped from the plane, 40 ensures to drop forwards
+    public bool armed = false;
+    public bool launch = false;
+    private bool launched = false;
+    public float deviation = 10f; // in degrees // 10 8 6 5
+    public float verticalDispersion = 5f; // in m/s
+    private float maxLaunchSpeed = 340.29f * 1.5f; // 1.5 mach
 
     #region Guidance Variables
-    public bool guided = false;
+    //public bool guided = false;
     public bool targetSet = false;
     [HideInInspector] public Vector3 impactPoint = Vector3.zero;
     public GameObject target = null;
     public float turnRate = 5f;
+    public float dragCoefficient = 0.155f; // for mk82 its max at 0.155
     #endregion
 
     #region Explosion Variables
-    public float TNTPayload = 0f;
+    public float payload = 0f; // in kg, Tritonal explosive
+    
+    private float TNTPayload = 0f;
     public Vector2 blastRadius = Vector2.zero;
-    private BoxCollider boxCollider = null;
     [SerializeField] private GameObject explosionEffect = null; // assign in editor
 
     // fuze
@@ -48,27 +49,56 @@ public class BombScript : MonoBehaviour
         if (explosionEffect == null)
             explosionEffect = null; // make the default effect here
 
-        if(boxCollider == null)
-            boxCollider = GetComponent<BoxCollider>();
-
         if(rb == null)
             rb = GetComponent<Rigidbody>();
 
-        rb.drag = SetDragCoefficient();
-        rb.mass = mass;
-        rb.velocity = transform.forward * dropVelocity;
+        transform.position -= transform.up * (bombWidth / 2);
+
+        TNTPayload = 2.25f * payload; // 9 MJ/kg (Tritonal) = 4 MJ/Kg (TNT) at the same weight, Hence, tritonal is 2.25 times the weight of TNT.
+        //Time.timeScale = 30f; // for testing
     }
 
     private void Update()
     {
-        if (targetSet)
+        if (!armed)
+            return;
+
+        if (launch)
         {
-            if(target != null)
+            if( dropVelocity > maxLaunchSpeed )
+            {
+                Debug.Log("Too fast to drop"); // turn this to on screen warning
+                return;
+            }
+
+            launch = false;
+            launched = true;
+            rb = transform.AddComponent<Rigidbody>();
+
+            transform.parent = null;
+            transform.position -= transform.up * 2f;
+            transform.rotation = transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), Random.Range(-deviation, deviation));
+
+            rb.angularDrag = 0.1550f;
+            rb.drag = dragCoefficient;
+            rb.mass = mass;
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            rb.velocity = transform.forward * (dropVelocity + Random.Range(-verticalDispersion, verticalDispersion));
+        }
+
+        if (targetSet && launched)
+        {
+            if (target != null)
                 impactPoint = target.transform.position;
 
-            if (guided)
-                DoGuidance(impactPoint);
+            DoGuidance(impactPoint);
         }
+        else
+        {
+            if(rb != null)
+                transform.rotation = Quaternion.LookRotation(rb.velocity);
+        }
+            
 
         if (timerStarter)
         {
@@ -79,11 +109,6 @@ public class BombScript : MonoBehaviour
             
         }
 
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        timerStarter = true;
     }
 
     private void DoGuidance(Vector3 impactPoint)
@@ -100,7 +125,9 @@ public class BombScript : MonoBehaviour
         // do explosion
         RaycastHit hit;
         Physics.SphereCast(transform.position, blastRadius.x, Vector3.up, out hit, blastRadius.y);
-        Instantiate(explosionEffect, transform.position, Quaternion.identity);
+
+        if (explosionEffect != null && Vector3.Angle(Camera.main.transform.forward, transform.position - Camera.main.transform.position) < 100f)
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
 
         //Debug.Log(hit.transform);
 
@@ -108,58 +135,12 @@ public class BombScript : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private float SetDragCoefficient()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (sphere)
-        {
-            shortCylinder = false;
-            midCylidner = false;
-            capcule = false;
-            longCylinder = false;
-            return 0.47f;
-        } 
-        else if (shortCylinder)
-        {
-            sphere = false;
-            midCylidner = false;
-            capcule = false;
-            longCylinder = false;
-            return 0.6f;
-        }  
-        else if (midCylidner)
-        {
-            sphere = false;
-            shortCylinder = false;
-            capcule = false;
-            longCylinder = false;
-            return 0.35f;
-        }
-        else if (longCylinder)
-        {
-            sphere = false;
-            shortCylinder = false;
-            midCylidner = false;
-            capcule = false;
-            return 0.24f;
-        }
-        else if (capcule)
-        {
-            sphere = false;
-            shortCylinder = false;
-            midCylidner = false;
-            longCylinder = false;
-            return 0.295f;
-        }
-        else // default is the sphere body
-        {
-            sphere = true;
-            shortCylinder = false;
-            midCylidner = false;
-            capcule = false;
-            longCylinder = false;
-            return 0.47f;
-        }
-        
+        if (collision.gameObject.layer == 6)
+            return;
+
+        timerStarter = true;
     }
 
 }

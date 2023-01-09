@@ -9,7 +9,8 @@ public class AAMissileScript : MonoBehaviour
 {
     private Rigidbody rb;
     public float mass = 85.3f;
-    public bool Active = false;
+    public bool active = false;
+    public bool armed = false;
     private readonly float warmUpTime = 2f;
     private float warmingUp = 0f;
     public GameObject propulsionEffect = null;
@@ -91,7 +92,7 @@ public class AAMissileScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!Active)
+        if (!active)
             return;
 
         if (warmingUp < warmUpTime)
@@ -114,6 +115,9 @@ public class AAMissileScript : MonoBehaviour
                 
             if (targetLocked)
             {
+                if (!armed)
+                    return;
+
                 DoGuidance(impactPoint);
 
                 if (proximityDistance > distanceToTarget)

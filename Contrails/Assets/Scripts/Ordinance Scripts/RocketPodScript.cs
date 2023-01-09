@@ -15,12 +15,12 @@ public class RocketPodScript : MonoBehaviour
     public float initialSpeed = 0.0f;
 
     public bool armed = false; // they also have a safety distance which is 47m for Might mouse. (no need for simulating)
+    public bool launch = false;
     private bool empty = false;
     private bool jettisoned = false;
     public bool jettison = false;
 
     #region Launch Variables
-    public bool launch = false;
     public float launchInterval = 0.2f;
     private float launchIntervalTimer = 0f;
     public float maxLaunchSpeed = 200; // m/s
@@ -77,7 +77,7 @@ public class RocketPodScript : MonoBehaviour
             if (popCap)
             {
                 transform.GetChild(0).GetComponent<MeshFilter>().mesh = capOffShape;
-                transform.GetChild(0).transform.localScale = new Vector3(launcherDiameter, launcherLenght, launcherDiameter);
+                transform.GetChild(0).transform.localScale = new Vector3(launcherDiameter, launcherLenght / 2, launcherDiameter); // divide lenght by 2 because cylinders are 1:2 ratiod not 1:1
 
                 // spawn caps which pop off, 2 max 1-0 min
                 Vector3 spawnPos = transform.position;
@@ -106,7 +106,7 @@ public class RocketPodScript : MonoBehaviour
             {
                 LaunchPosition = transform.forward * 3 + transform.position;
 
-                Instantiate(rocket, LaunchPosition,  transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation), 
+                Instantiate(rocket, LaunchPosition, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation), 
                     Random.Range(-deviation, deviation), Random.Range(-deviation, deviation))); 
                 // script has an aircraftsRigidBody.velocity.magnitude might add to rockets as well
                 rocketCount--;

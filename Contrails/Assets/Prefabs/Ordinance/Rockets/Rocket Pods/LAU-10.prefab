@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8419855265113676769}
   m_Layer: 0
   m_Name: LAU-10
-  m_TagString: Untagged
+  m_TagString: MediumRocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,10 +50,10 @@ MonoBehaviour:
   capOffShape: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
   capShape: {fileID: 526667856071740596, guid: 6a78faca8a153324d8128d8a2c130226, type: 3}
   capNumber: 2
-  launcherLenght: 1
+  launcherLenght: 1.75
   launcherDiameter: 0.5
   initialSpeed: 0
-  armed: 1
+  armed: 0
   jettison: 0
   launch: 0
   launchInterval: 0.2
@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 5798023113044589872}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 2.4, z: 0.5}
+  m_LocalScale: {x: 0.5, y: 1.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7988442128285400617}

@@ -31,7 +31,7 @@ public class FlightScript : MonoBehaviour
         if(rb == null)
             rb = GetComponent<Rigidbody>();
 
-        if (this.gameObject.CompareTag("AAM"))
+        if (this.gameObject.CompareTag("IR") || this.gameObject.CompareTag("SAHR") || this.gameObject.CompareTag("AHR"))
         {
             simpleLift = true;
             AAMScript = GetComponent<AAMissileScript>();
