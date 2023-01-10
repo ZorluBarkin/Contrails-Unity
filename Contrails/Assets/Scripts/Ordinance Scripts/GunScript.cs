@@ -22,7 +22,6 @@ public class GunScript : MonoBehaviour
     //private float warmUpTimer = 0f;
 
     private float fireTimer = 0f;
-
     public int ammoCount = 100;
     public float tracerRate = 5f; // how many rounds between tracers ex: 5; N N N N T - N N N N T
 
@@ -34,13 +33,12 @@ public class GunScript : MonoBehaviour
     void FixedUpdate()
     {
         if (empty)
-        {
             return;
-        }
 
         if (fireRateChanged)
         {
             setFireRate();
+            fireRateChanged = false;
         }
 
         if (armed && fire)
@@ -59,7 +57,7 @@ public class GunScript : MonoBehaviour
         }
     }
 
-    private void Fire()
+    private void Fire() // redo with max rpm at 2500, test with different computers decide on max after the results.
     {
 
         if (spawnTwo)

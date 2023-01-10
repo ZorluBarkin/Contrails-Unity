@@ -463,8 +463,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7211426838589401278}
+  - component: {fileID: 6219651462572248607}
   m_Layer: 0
-  m_Name: Mark 4 Mod 0
+  m_Name: Mk 4 Mod 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,6 +489,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6219651462572248607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7111933830708764998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b525d2d371604ba45968d52a75537146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armed: 0
+  fire: 0
+  fireRateChangeable: 0
+  fireRate: 1000
+  weight: 630.5
+  maxWeight: 630.5
+  emptyWeight: 357
 --- !u!1 &7660466307187410177
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +800,10 @@ PrefabInstance:
       propertyPath: ammoCount
       value: 375
       objectReference: {fileID: 0}
+    - target: {fileID: 6114902123712380592, guid: ed4b6530797f110439eb21ec2a521d67, type: 3}
+      propertyPath: deviation
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6114902123712380593, guid: ed4b6530797f110439eb21ec2a521d67, type: 3}
       propertyPath: m_Name
       value: Mk-11 Mod 0 Lower
@@ -794,7 +818,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6114902123712380599, guid: ed4b6530797f110439eb21ec2a521d67, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.17600001
+      value: -0.21
       objectReference: {fileID: 0}
     - target: {fileID: 6114902123712380599, guid: ed4b6530797f110439eb21ec2a521d67, type: 3}
       propertyPath: m_LocalPosition.z
@@ -850,6 +874,10 @@ PrefabInstance:
       propertyPath: ammoCount
       value: 375
       objectReference: {fileID: 0}
+    - target: {fileID: 6114902123712380592, guid: ed4b6530797f110439eb21ec2a521d67, type: 3}
+      propertyPath: deviation
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6114902123712380593, guid: ed4b6530797f110439eb21ec2a521d67, type: 3}
       propertyPath: m_Name
       value: Mk-11 Mod 0 Upper
@@ -864,7 +892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6114902123712380599, guid: ed4b6530797f110439eb21ec2a521d67, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.026000008
+      value: -0.36
       objectReference: {fileID: 0}
     - target: {fileID: 6114902123712380599, guid: ed4b6530797f110439eb21ec2a521d67, type: 3}
       propertyPath: m_LocalPosition.z
