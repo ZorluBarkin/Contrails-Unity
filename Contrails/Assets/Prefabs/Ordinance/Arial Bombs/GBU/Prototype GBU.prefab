@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3365440262468462779}
   - component: {fileID: 3365440262468462777}
   - component: {fileID: 979349449628679674}
+  - component: {fileID: 5653928203646547440}
   m_Layer: 6
   m_Name: Prototype GBU
-  m_TagString: GBU
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,6 +76,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0.9}
+--- !u!114 &5653928203646547440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365440262468462772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 8
 --- !u!1001 &3478635618170422421
 PrefabInstance:
   m_ObjectHideFlags: 0

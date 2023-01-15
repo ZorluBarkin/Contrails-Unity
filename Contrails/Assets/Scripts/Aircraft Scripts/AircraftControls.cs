@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public enum WeaponType
 {
-    Gun,
+    GunPod,
     IR,
-    SAHR,
-    AHR,
+    SARH,
+    ARH,
     BeamRider,
-    smallBomb,
-    mediumBomb,
-    largeBomb,
+    SmallBomb,
+    MediumBomb,
+    LargeBomb,
     GBU,
     CBU,
     Napalm,
@@ -22,6 +24,7 @@ public enum WeaponType
     AGM,
     ARM,
     AShM,
+    DropTank,
     Empty // only for use in pylon script
 }
 
@@ -29,7 +32,6 @@ public class AircraftControls : MonoBehaviour
 {
     #region Weaponry Variables
     public List<GameObject> pylonList = new List<GameObject>(); // pylons will always start at index 1, then comes the guns
-    public List<GunScript> gunList = new List<GunScript>(); // comes after pylons untill end, currently
     public int pylonNumber = 0;
     private int pylonsAssigned = 0;
 
@@ -40,8 +42,8 @@ public class AircraftControls : MonoBehaviour
 
     // AAM's
     public List<AAMissileScript> IRList = new List<AAMissileScript>();
-    public List<AAMissileScript> SAHRList = new List<AAMissileScript>();
-    public List<AAMissileScript> AHRList = new List<AAMissileScript>();
+    public List<AAMissileScript> SARHList = new List<AAMissileScript>();
+    public List<AAMissileScript> ARHList = new List<AAMissileScript>();
     public List<AAMissileScript> beamRiderList = new List<AAMissileScript>();
 
     // Bombs
@@ -56,41 +58,74 @@ public class AircraftControls : MonoBehaviour
     public List<AGMScript> AGMList = new List<AGMScript>();
     public List<AGMScript> ARMList = new List<AGMScript>();
     public List<AGMScript> AShMList = new List<AGMScript>();
+
+    // GUNS
+    public List<GunScript> gunList = new List<GunScript>();
+    public List<GunPodScript> gunPodList = new List<GunPodScript>();
+    public int totalAmmo = 0;
+
+    // Drop Tank
+    public List<DropTankScript> dropTankList = new List<DropTankScript>();
+
     #endregion
     
-    public WeaponType currentSelection = WeaponType.Gun;
+    public WeaponType currentSelection = WeaponType.Empty;
     //NOTE: a launching of a weapon is to delete its respective child model under the plane and intantiating it where the deleted object was.
+    public bool weaponsChanged = false;
+
+    #region Maneuver Variables
+
+    public GameObject flyPoint = null;
+
+    [Range(-1, 1)] public float pitch = 0f;
+    [Range(-1, 1)] public float yaw = 0f;
+    [Range(-1, 1)] public float roll = 0f;
+
+    public float mouseX = 0f; // may delete
+    public float mouseY = 0f; // may delete
+    public float throttle = 0f;
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         GetWeapons();
+
+        //if (flyPoint) // does not work
+        //    flyPoint.transform.position = Camera.main.GetComponentInChildren<Transform>().position; // fly point should always be 1st child of main cam
     }
 
     // gets input
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.R)) // arm the selected weapons?
+        if (weaponsChanged)
         {
-            ArmWeapons();
+            ClearWeaponLists();
+            GetWeapons();
+            weaponsChanged = false;
         }
 
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            for(int i = 0; i < gunList.Count; i++)
-                gunList[i].fire = true;
-        }
-        else
-        {
-            for (int i = 0; i < gunList.Count; i++)
-            {
-                if (gunList[i].fire == true)
-                    gunList[i].fire = false;
-            }
-                
-        }
+        GetAircraftInput();
 
+    }
+
+    private void LateUpdate()
+    {
+        totalAmmo = CalculateAmmo();
+    }
+
+    private int CalculateAmmo()
+    {
+        int ammo = 0;
+        for (int i = 0; i < gunList.Count; i++)
+            ammo += gunList[i].ammoCount;
+
+        for (int i = 0; i < gunPodList.Count; i++)
+            ammo += gunPodList[i].totalAmmo;
+
+        return ammo;
     }
 
     /// <summary>
@@ -98,238 +133,97 @@ public class AircraftControls : MonoBehaviour
     /// </summary>
     private void GetWeapons()
     {
-        if (pylonList.Count == 0)
+        if (pylonList.Count == 0) // gets the pylons
         {
             for (int i = 0; i < pylonNumber; i++)
                 pylonList.Add(transform.GetChild(i + 1).gameObject);
         }
 
-        if (gunList.Count == 0)
+        if (gunList.Count == 0) // gets the guns
         {
             for (int i = 0; i < transform.childCount - pylonNumber - 1; i++)
                 gunList.Add(transform.GetChild(i + pylonNumber + 1).gameObject.GetComponent<GunScript>());
         }
 
-        if(smallRocketPodList.Count == 0) // need to reach to child and get the objects tag
+        for (int i = 0; i < pylonList.Count; i++)
         {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for(int j = 0; j < pylonList[i].transform.childCount; j++)
-                {
-                    if (pylonList[i].transform.GetChild(j).tag == "SmallRocket")
-                    {
-                        smallRocketPodList.Add(pylonList[i].transform.GetChild(j).GetComponent<RocketPodScript>());
-                    }
-                }
-            }
-        }
 
-        if(mediumRocketPodList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
+            for (int j = 0; j < pylonList[i].transform.childCount; j++)
             {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
-                {
-                    if (pylonList[i].transform.GetChild(j).tag == "MediumRocket")
-                    {
-                        smallRocketPodList.Add(pylonList[i].transform.GetChild(j).GetComponent<RocketPodScript>());
-                    }
-                }
-            }
-        }
+                WeaponTypeScript weaponTypeScript = pylonList[i].transform.GetChild(j).GetComponent<WeaponTypeScript>();
+                GameObject weapon = pylonList[i].transform.GetChild(j).gameObject;
 
-        if(largeRocketPodList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                if (weaponTypeScript.weaponType == WeaponType.GunPod)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "largeRocket")
-                    {
-                        smallRocketPodList.Add(pylonList[i].transform.GetChild(j).GetComponent<RocketPodScript>());
-                    }
+                    gunPodList.Add(weapon.GetComponent<GunPodScript>());
                 }
-            }
-        }
-
-        if(IRList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.IR)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "IR")
-                    {
-                        IRList.Add(pylonList[i].transform.GetChild(j).GetComponent<AAMissileScript>());
-                    }
+                    IRList.Add(weapon.GetComponent<AAMissileScript>());
                 }
-            }
-        }
-
-        if(SAHRList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.SARH)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "SAHR")
-                    {
-                        SAHRList.Add(pylonList[i].transform.GetChild(j).GetComponent<AAMissileScript>());
-                    }
+                    SARHList.Add(weapon.GetComponent<AAMissileScript>());
                 }
-            }
-        }
-
-        if(AHRList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.ARH)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "AHR")
-                    {
-                        AHRList.Add(pylonList[i].transform.GetChild(j).GetComponent<AAMissileScript>());
-                    }
+                    ARHList.Add(weapon.GetComponent<AAMissileScript>());
                 }
-            }
-        }
-
-        if(smallBombList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.BeamRider)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "SmallBomb")
-                    {
-                        smallBombList.Add(pylonList[i].transform.GetChild(j).GetComponent<BombScript>());
-                    }
+                    beamRiderList.Add(weapon.GetComponent<AAMissileScript>());
                 }
-            }
-        }
-
-        if(mediumBombList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.SmallBomb)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "MediumBomb")
-                    {
-                        mediumBombList.Add(pylonList[i].transform.GetChild(j).GetComponent<BombScript>());
-                    }
+                    smallBombList.Add(weapon.GetComponent<BombScript>());
                 }
-            }
-        }
-
-        if(largeBombList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.MediumBomb)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "LargeBomb")
-                    {
-                        largeBombList.Add(pylonList[i].transform.GetChild(j).GetComponent<BombScript>());
-                    }
+                    mediumBombList.Add(weapon.GetComponent<BombScript>());
                 }
-            }
-        }
-        
-        if(GBUList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.LargeBomb)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "GBU")
-                    {
-                        GBUList.Add(pylonList[i].transform.GetChild(j).GetComponent<BombScript>());
-                    }
+                    largeBombList.Add(weapon.GetComponent<BombScript>());
                 }
-            }
-        }
-        
-        if(beamRiderList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.GBU)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "BeamRider")
-                    {
-                        beamRiderList.Add(pylonList[i].transform.GetChild(j).GetComponent<AAMissileScript>());
-                    }
+                    GBUList.Add(weapon.GetComponent<BombScript>());
                 }
-            }
-        }
-         
-        if(CBUList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.CBU)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "CBU")
-                    {
-                        CBUList.Add(pylonList[i].transform.GetChild(j).GetComponent<BombScript>());
-                    }
+                    CBUList.Add(weapon.GetComponent<BombScript>());
                 }
-            }
-        }
-         
-        if(napalmList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.Napalm)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "Napalm")
-                    {
-                        napalmList.Add(pylonList[i].transform.GetChild(j).GetComponent<BombScript>());
-                    }
+                    napalmList.Add(weapon.GetComponent<BombScript>());
                 }
-            }
-        }
-         
-        if(AGMList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.SmallRocket)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "AGM")
-                    {
-                        AGMList.Add(pylonList[i].transform.GetChild(j).GetComponent<AGMScript>());
-                    }
+                    smallRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
                 }
-            }
-        }
-         
-        if(ARMList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.MediumRocket)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "ARM")
-                    {
-                        ARMList.Add(pylonList[i].transform.GetChild(j).GetComponent<AGMScript>());
-                    }
+                    mediumRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
                 }
-            }
-        }
-         
-        if(AShMList.Count == 0)
-        {
-            for (int i = 0; i < pylonList.Count; i++)
-            {
-                for (int j = 0; j < pylonList[i].transform.childCount; j++)
+                else if (weaponTypeScript.weaponType == WeaponType.LargeRocket)
                 {
-                    if (pylonList[i].transform.GetChild(j).tag == "AShM")
-                    {
-                        AShMList.Add(pylonList[i].transform.GetChild(j).GetComponent<AGMScript>());
-                    }
+                    largeRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
+                }
+                else if (weaponTypeScript.weaponType == WeaponType.AGM)
+                {
+                    AGMList.Add(weapon.GetComponent<AGMScript>());
+                }
+                else if (weaponTypeScript.weaponType == WeaponType.ARM)
+                {
+                    ARMList.Add(weapon.GetComponent<AGMScript>());
+                }
+                else if (weaponTypeScript.weaponType == WeaponType.AShM)
+                {
+                    AShMList.Add(weapon.GetComponent<AGMScript>());
+                }
+                else if (weaponTypeScript.weaponType == WeaponType.DropTank)
+                {
+                    dropTankList.Add(weapon.GetComponent<DropTankScript>());
                 }
             }
         }
@@ -337,11 +231,47 @@ public class AircraftControls : MonoBehaviour
     }
 
     /// <summary>
+    /// Clears every List except gunlist (guns are child of aircraft)
+    /// </summary>
+    private void ClearWeaponLists()
+    {
+        // Rockets
+        smallRocketPodList.Clear();
+        mediumRocketPodList.Clear();
+        largeRocketPodList.Clear();
+
+        // AAMs
+        IRList.Clear();
+        SARHList.Clear();
+        ARHList.Clear();
+        beamRiderList.Clear();
+
+        // Bombs
+        smallBombList.Clear();
+        mediumBombList.Clear();
+        largeBombList.Clear();
+        GBUList.Clear();
+        CBUList.Clear();
+        napalmList.Clear();
+
+        // AGMs
+        AGMList.Clear();
+        ARMList.Clear();
+        AShMList.Clear();
+
+        // Gun Pods
+        gunPodList.Clear();
+
+        // Drpo Tanks
+        dropTankList.Clear();
+    }
+
+    /// <summary>
     /// Arms weapons which are in lists of their respective types, only arms the selected type
     /// </summary>
     private void ArmWeapons()
     {
-        if (currentSelection == WeaponType.Gun)
+        if (currentSelection == WeaponType.GunPod)
         {
             for (int i = 0; i < gunList.Count; i++)
             {
@@ -349,6 +279,14 @@ public class AircraftControls : MonoBehaviour
                     gunList[i].armed = true;
                 else
                     gunList[i].armed = false;
+            }
+
+            for(int i = 0; i < gunPodList.Count; i++)
+            {
+                if (gunPodList[i].armed == false)
+                    gunPodList[i].armed = true;
+                else
+                    gunPodList[i].armed = false;
             }
         }
         else if (currentSelection == WeaponType.IR)
@@ -361,27 +299,27 @@ public class AircraftControls : MonoBehaviour
                     IRList[i].armed = false;
             }
         }
-        else if (currentSelection == WeaponType.SAHR)
+        else if (currentSelection == WeaponType.SARH)
         {
-            for (int i = 0; i < SAHRList.Count; i++)
+            for (int i = 0; i < SARHList.Count; i++)
             {
-                if (SAHRList[i].armed == false)
-                    SAHRList[i].armed = true;
+                if (SARHList[i].armed == false)
+                    SARHList[i].armed = true;
                 else
-                    SAHRList[i].armed = false;
+                    SARHList[i].armed = false;
             }
         }
-        else if (currentSelection == WeaponType.AHR)
+        else if (currentSelection == WeaponType.ARH)
         {
-            for (int i = 0; i < AHRList.Count; i++)
+            for (int i = 0; i < ARHList.Count; i++)
             {
-                if (AHRList[i].armed == false)
-                    AHRList[i].armed = true;
+                if (ARHList[i].armed == false)
+                    ARHList[i].armed = true;
                 else
-                    AHRList[i].armed = false;
+                    ARHList[i].armed = false;
             }
         }
-        else if (currentSelection == WeaponType.smallBomb)
+        else if (currentSelection == WeaponType.SmallBomb)
         {
             for (int i = 0; i < smallBombList.Count; i++)
             {
@@ -391,7 +329,7 @@ public class AircraftControls : MonoBehaviour
                     smallBombList[i].armed = false;
             }
         }
-        else if (currentSelection == WeaponType.mediumBomb)
+        else if (currentSelection == WeaponType.MediumBomb)
         {
             for (int i = 0; i < mediumBombList.Count; i++)
             {
@@ -401,7 +339,7 @@ public class AircraftControls : MonoBehaviour
                     mediumBombList[i].armed = false;
             }
         }
-        else if (currentSelection == WeaponType.largeBomb)
+        else if (currentSelection == WeaponType.LargeBomb)
         {
             for (int i = 0; i < largeBombList.Count; i++)
             {
@@ -512,5 +450,118 @@ public class AircraftControls : MonoBehaviour
             }
         }
 
+    }
+
+    private void GetAircraftInput()
+    {
+        if (Input.GetKeyDown(KeyCode.R)) // arm the selected weapons?
+        {
+            ArmWeapons();
+        }
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            UseWeapon();
+        }
+        else
+        {
+            CeaseFire();
+        }
+
+        // Movement
+        if (Input.GetKey(KeyCode.W))
+        {
+            pitch = 1;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            pitch = -1;
+        }
+        else
+        {
+            pitch = 0;
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            roll = 1;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            roll = -1;
+        }
+        else
+        {
+            roll = 0;
+        }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            yaw = 1;
+        }
+        else if (Input.GetKey(KeyCode.Q))
+        {
+            yaw = -1;
+        }
+        else
+        {
+            yaw = 0;
+        }
+
+        mouseX = Input.GetAxis("Mouse X") * GameSettings._mouseSensitivity;
+        mouseY = -Input.GetAxis("Mouse Y") * GameSettings._mouseSensitivity;
+
+        // Throttle Input
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            throttle += 0.5f * Time.deltaTime; // add sensitivity * ThrottleSensitivity
+            throttle = Mathf.Clamp01(throttle);
+        }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            throttle -= 0.5f * Time.deltaTime; // add sensitivity * ThrottleSensitivity
+            throttle = Mathf.Clamp01(throttle);
+        }
+
+        // lock mouse inputs, used for looking around
+        if (Input.GetKey(KeyCode.C))
+        {
+
+        }
+
+        FlyToPoint(flyPoint.transform);
+
+        // ittarate over flaps
+        if (Input.GetKey(KeyCode.F))
+        {
+
+        }
+
+        // gears up or down
+        if (Input.GetKey(KeyCode.G))
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// Lanuches / Fires the selected weapon
+    /// </summary>
+    private void UseWeapon()
+    {
+
+    }
+
+    /// <summary>
+    /// Ceases the firing of selected weapon, guns rocket pods etc.
+    /// </summary>
+    private void CeaseFire()
+    {
+
+    }
+
+    private void FlyToPoint(Transform flyPoint)
+    {
+        
     }
 }

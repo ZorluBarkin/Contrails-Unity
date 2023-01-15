@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7333740965010254777}
   m_Layer: 0
   m_Name: Colt Mk12
-  m_TagString: Gun
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,13 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7fb72d110f0dd44a735e994478da15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeOfWeapon: 0
   bullet: {fileID: 7700828586940230061, guid: f81221a51141bf54699f5e81e360e214, type: 3}
   muzzleSmoke: {fileID: 0}
-  Armed: 0
+  armed: 0
   fire: 0
   fireRate: 1000
   fireRateChanged: 0
   deviation: 3
-  warmUpTime: 0
   ammoCount: 100
   tracerRate: 5

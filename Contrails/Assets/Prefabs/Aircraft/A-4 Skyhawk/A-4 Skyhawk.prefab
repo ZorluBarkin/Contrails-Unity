@@ -59,8 +59,8 @@ MonoBehaviour:
   largeRocketPodList: []
   IRList:
   - {fileID: 8034195259763838458, guid: 3b8b908429db78d46abcb674f9b944e4, type: 3}
-  SAHRList: []
-  AHRList: []
+  SARHList: []
+  ARHList: []
   beamRiderList: []
   smallBombList:
   - {fileID: 8434261487498437956, guid: 3a6e69e9499baae4da12e744f0fb6c43, type: 3}
@@ -75,6 +75,7 @@ MonoBehaviour:
   AGMList: []
   ARMList: []
   AShMList: []
+  dropTankList: []
 --- !u!1 &3369085933214511053
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,8 +135,8 @@ MonoBehaviour:
   largeRocketPodList: []
   IRList:
   - {fileID: 8034195259763838458, guid: 3b8b908429db78d46abcb674f9b944e4, type: 3}
-  SAHRList: []
-  AHRList: []
+  SARHList: []
+  ARHList: []
   beamRiderList: []
   smallBombList:
   - {fileID: 8434261487498437956, guid: 3a6e69e9499baae4da12e744f0fb6c43, type: 3}
@@ -150,6 +151,7 @@ MonoBehaviour:
   AGMList: []
   ARMList: []
   AShMList: []
+  dropTankList: []
 --- !u!1 &5028147448755984102
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,8 +210,8 @@ MonoBehaviour:
   - {fileID: 1228705937700604775, guid: 835c0d4616a380b4aa9be49fe9a9a754, type: 3}
   largeRocketPodList: []
   IRList: []
-  SAHRList: []
-  AHRList: []
+  SARHList: []
+  ARHList: []
   beamRiderList: []
   smallBombList:
   - {fileID: 8434261487498437956, guid: 3a6e69e9499baae4da12e744f0fb6c43, type: 3}
@@ -225,6 +227,7 @@ MonoBehaviour:
   AGMList: []
   ARMList: []
   AShMList: []
+  dropTankList: []
 --- !u!1 &5955946166284444162
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,8 +287,8 @@ MonoBehaviour:
   largeRocketPodList: []
   IRList:
   - {fileID: 8034195259763838458, guid: 3b8b908429db78d46abcb674f9b944e4, type: 3}
-  SAHRList: []
-  AHRList: []
+  SARHList: []
+  ARHList: []
   beamRiderList: []
   smallBombList:
   - {fileID: 8434261487498437956, guid: 3a6e69e9499baae4da12e744f0fb6c43, type: 3}
@@ -300,6 +303,7 @@ MonoBehaviour:
   AGMList: []
   ARMList: []
   AShMList: []
+  dropTankList: []
 --- !u!1 &8338459923374785960
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,8 +363,8 @@ MonoBehaviour:
   largeRocketPodList: []
   IRList:
   - {fileID: 8034195259763838458, guid: 3b8b908429db78d46abcb674f9b944e4, type: 3}
-  SAHRList: []
-  AHRList: []
+  SARHList: []
+  ARHList: []
   beamRiderList: []
   smallBombList:
   - {fileID: 8434261487498437956, guid: 3a6e69e9499baae4da12e744f0fb6c43, type: 3}
@@ -375,6 +379,7 @@ MonoBehaviour:
   AGMList: []
   ARMList: []
   AShMList: []
+  dropTankList: []
 --- !u!1001 &411343100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -504,6 +509,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1264868349171927765, guid: 98eb31cd1fc3ce34db48c43ad7735c3e, type: 3}
+      propertyPath: flightMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264868349171927765, guid: 98eb31cd1fc3ce34db48c43ad7735c3e, type: 3}
+      propertyPath: turnTorque.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264868349171927765, guid: 98eb31cd1fc3ce34db48c43ad7735c3e, type: 3}
+      propertyPath: turnTorque.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264868349171927765, guid: 98eb31cd1fc3ce34db48c43ad7735c3e, type: 3}
+      propertyPath: turnTorque.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264868349171927765, guid: 98eb31cd1fc3ce34db48c43ad7735c3e, type: 3}
+      propertyPath: aircraftControls
+      value: 
+      objectReference: {fileID: 2628462869161042270}
     - target: {fileID: 1826749887481142342, guid: 98eb31cd1fc3ce34db48c43ad7735c3e, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -615,6 +640,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5254563490091150527, guid: 98eb31cd1fc3ce34db48c43ad7735c3e, type: 3}
   m_PrefabInstance: {fileID: 4733140981119569376}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2628462869161042270 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7337863151152278718, guid: 98eb31cd1fc3ce34db48c43ad7735c3e, type: 3}
+  m_PrefabInstance: {fileID: 4733140981119569376}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2805658886741093445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1c95b7639c5f34a8caa78dead9d2a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2805658886741093445 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7440172264989335973, guid: 98eb31cd1fc3ce34db48c43ad7735c3e, type: 3}
@@ -629,10 +665,10 @@ Rigidbody:
   m_GameObject: {fileID: 2805658886741093445}
   serializedVersion: 2
   m_Mass: 4.581
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 2.88
+  m_AngularDrag: 1.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 0
   m_CollisionDetection: 0

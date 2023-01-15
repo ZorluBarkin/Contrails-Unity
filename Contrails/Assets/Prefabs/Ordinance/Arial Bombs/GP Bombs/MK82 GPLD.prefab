@@ -1019,9 +1019,10 @@ GameObject:
   - component: {fileID: 8555257464555414131}
   - component: {fileID: 542519857961843891}
   - component: {fileID: 7136162200362761503}
+  - component: {fileID: -5036068615937705366}
   m_Layer: 6
   m_Name: MK82 GPLD
-  m_TagString: MediumBomb
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1084,6 +1085,19 @@ CapsuleCollider:
   m_Height: 2.168
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5036068615937705366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139981922418304659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 6
 --- !u!1 &7792935632160043196
 GameObject:
   m_ObjectHideFlags: 0

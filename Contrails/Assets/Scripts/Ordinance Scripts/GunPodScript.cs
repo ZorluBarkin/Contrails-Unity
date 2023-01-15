@@ -10,7 +10,7 @@ public class GunPodScript : MonoBehaviour
     public bool fire = false;
    
     private bool empty = false;
-    private int totalAmmo = 0;
+    public int totalAmmo = 0;
     private int calculatedAmmo = 0;
     private int initialAmmo = -1;
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6114902123712380592}
   m_Layer: 0
   m_Name: Basic 20mm Gun
-  m_TagString: Gun
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,11 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 7700828586940230061, guid: f81221a51141bf54699f5e81e360e214, type: 3}
   muzzleSmoke: {fileID: 0}
-  Armed: 0
+  armed: 0
   fire: 0
-  fireRate: 1500
+  fireRate: 2500
   fireRateChanged: 0
   deviation: 1
-  warmUpTime: 0
   ammoCount: 100
   tracerRate: 5

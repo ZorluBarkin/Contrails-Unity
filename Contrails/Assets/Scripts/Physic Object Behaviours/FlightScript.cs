@@ -6,6 +6,16 @@ using UnityEngine.UIElements;
 
 public class FlightScript : MonoBehaviour
 {
+    // lift modes
+    public enum FlightMode
+    {
+        SimpleLift,
+        Arcade,
+        Realistic
+    }
+    public FlightMode flightMode = FlightMode.Realistic;
+
+    public AircraftControls aircraftControls = null;
     private Rigidbody rb = null;
     private AAMissileScript AAMScript = null;
     private WeatherScript weather = null;
@@ -13,15 +23,22 @@ public class FlightScript : MonoBehaviour
     #region Maneuverability Variables
     public AnimationCurve liftCurve = null;
     public float LiftCoefficient = 0f;
-    public float wingArea = 28f; // m^2 first generation of f-16 has 26 m^2 wing area
+    public float wingArea = 28f; // m^2 // first generation of f-16 has 26 m^2 wing area
     public float MaxSpeed = 0f; // might not need
-    public float stallSpeed = 85f; // m/s
+    public float stallSpeed = 85f; // m/s // may not need
+    public float thrust = 4218.41f;
+    public Vector3 turnTorque = new Vector3(1f, 1f, 1f);
+    private float forceMultiplier = 0.1f;
     #endregion
 
-    // lift modes
-    private bool simpleLift = false;
+    #region Control Variables
+    private float throttle = 1f; // if 100% its 1 else lower if WEP go for 1.05 - 1.10 etc.
 
-    public float lift = 0f;
+    #endregion
+
+    public float lift = 0f; // make it private wehn test are done
+
+    private bool arcadeSet = false;
 
     private void Start() // to check the method for lift calclulation.
     {
@@ -31,12 +48,8 @@ public class FlightScript : MonoBehaviour
         if(rb == null)
             rb = GetComponent<Rigidbody>();
 
-        if (this.gameObject.CompareTag("IR") || this.gameObject.CompareTag("SAHR") || this.gameObject.CompareTag("AHR"))
-        {
-            simpleLift = true;
-            AAMScript = GetComponent<AAMissileScript>();
+        if(flightMode == FlightMode.SimpleLift)
             rb.useGravity = false;
-        }
     }
 
     /// <summary>
@@ -44,26 +57,38 @@ public class FlightScript : MonoBehaviour
     /// </summary>
     public void FixedUpdate()
     {
+        throttle = aircraftControls.throttle;
 
-        if (simpleLift)
+        if (flightMode == FlightMode.SimpleLift)
         {
             if (rb.velocity.magnitude < 100 && AAMScript.burnTimer > AAMScript.burnTime)
             {
                 rb.useGravity = true;
-                simpleLift = false;
+                flightMode = FlightMode.Realistic;
             }
             return;
         }
-        //else
-        //{
-            //lift = LiftCoefficient * (weather.airDensity[GetAltitudeIndex()] * rb.velocity.magnitude * rb.velocity.magnitude / 2) * wingArea;
+        else if (flightMode == FlightMode.Arcade)
+        {
+            if (!arcadeSet)
+            {
+                rb.useGravity = false;
+                arcadeSet = true;
+            }
 
-            // Get lift coefficient
-            LiftCoefficient = liftCurve.Evaluate(Vector3.Angle(Vector3.forward, transform.forward));
-            // Calculate lift
-            lift = weather.airDensity[GetAltitudeIndex()];
-            rb.AddForce(transform.up * LiftCoefficient * (weather.airDensity[GetAltitudeIndex()] * rb.velocity.magnitude * rb.velocity.magnitude / 2) * wingArea); // too big need to understand why
-        //}
+            rb.AddRelativeForce(transform.forward * thrust * throttle, ForceMode.Force);
+            rb.AddRelativeTorque(new Vector3(turnTorque.x * aircraftControls.pitch, turnTorque.y * aircraftControls.yaw, turnTorque.z * aircraftControls.roll) * forceMultiplier, ForceMode.Acceleration);
+        }
+        else // deafault is realistic
+        {
+          //lift = LiftCoefficient * (weather.airDensity[GetAltitudeIndex()] * rb.velocity.magnitude * rb.velocity.magnitude / 2) * wingArea;
+
+          // Get lift coefficient
+          LiftCoefficient = liftCurve.Evaluate(Vector3.Angle(Vector3.forward, transform.forward));
+          // Calculate lift
+          lift = weather.airDensity[GetAltitudeIndex()];
+          rb.AddForce(transform.up * LiftCoefficient * (weather.airDensity[GetAltitudeIndex()] * rb.velocity.magnitude * rb.velocity.magnitude / 2) * wingArea); // too big need to understand why
+        }
 
     }
 

@@ -30,8 +30,8 @@ public class PylonScript : MonoBehaviour
 
     // AAM's
     public List<GameObject> IRList = new List<GameObject>();
-    public List<GameObject> SAHRList = new List<GameObject>();
-    public List<GameObject> AHRList = new List<GameObject>();
+    public List<GameObject> SARHList = new List<GameObject>();
+    public List<GameObject> ARHList = new List<GameObject>();
     public List<GameObject> beamRiderList = new List<GameObject>();
 
     // Bombs
@@ -46,6 +46,10 @@ public class PylonScript : MonoBehaviour
     public List<GameObject> AGMList = new List<GameObject>();
     public List<GameObject> ARMList = new List<GameObject>();
     public List<GameObject> AShMList = new List<GameObject>();
+
+    // Drop Tank
+    public List<GameObject> dropTankList = new List<GameObject>();
+
     #endregion
 
     // Start is called before the first frame update
@@ -89,6 +93,7 @@ public class PylonScript : MonoBehaviour
             }
 
             ApplyChanges();
+            aircraftControls.weaponsChanged = true;
             applyChanges = false;
         }
 
@@ -104,7 +109,7 @@ public class PylonScript : MonoBehaviour
 
         if (selectedType == WeaponType.Empty)
             return;
-        else if(selectedType == WeaponType.Gun)
+        else if(selectedType == WeaponType.GunPod)
         {
             for (int i = 0; i < gunPodList.Count; i++)
                 innerTypeSelection.Add(gunPodList[i].name);
@@ -114,32 +119,32 @@ public class PylonScript : MonoBehaviour
             for (int i = 0; i < IRList.Count; i++)
                 innerTypeSelection.Add(IRList[i].name);
         }
-        else if(selectedType == WeaponType.SAHR)
+        else if(selectedType == WeaponType.SARH)
         {
-            for (int i = 0; i < SAHRList.Count; i++)
-                innerTypeSelection.Add(SAHRList[i].name);
+            for (int i = 0; i < SARHList.Count; i++)
+                innerTypeSelection.Add(SARHList[i].name);
         }
-        else if(selectedType == WeaponType.AHR)
+        else if(selectedType == WeaponType.ARH)
         {
-            for (int i = 0; i < AHRList.Count; i++)
-                innerTypeSelection.Add(AHRList[i].name);
+            for (int i = 0; i < ARHList.Count; i++)
+                innerTypeSelection.Add(ARHList[i].name);
         }
         else if(selectedType == WeaponType.BeamRider)
         {
             for (int i = 0; i < beamRiderList.Count; i++)
                 innerTypeSelection.Add(beamRiderList[i].name);
         }
-        else if(selectedType == WeaponType.smallBomb)
+        else if(selectedType == WeaponType.SmallBomb)
         {
             for (int i = 0; i < smallBombList.Count; i++)
                 innerTypeSelection.Add(smallBombList[i].name);
         }
-        else if(selectedType == WeaponType.mediumBomb)
+        else if(selectedType == WeaponType.MediumBomb)
         {
             for (int i = 0; i < mediumBombList.Count; i++)
                 innerTypeSelection.Add(mediumBombList[i].name);
         }
-        else if(selectedType == WeaponType.largeBomb)
+        else if(selectedType == WeaponType.LargeBomb)
         {
             for (int i = 0; i < largeBombList.Count; i++)
                 innerTypeSelection.Add(largeBombList[i].name);
@@ -189,6 +194,11 @@ public class PylonScript : MonoBehaviour
             for (int i = 0; i < AShMList.Count; i++)
                 innerTypeSelection.Add(AShMList[i].name);
         }
+        else if(selectedType == WeaponType.DropTank)
+        {
+            for (int i = 0; i < dropTankList.Count; i++)
+                innerTypeSelection.Add(dropTankList[i].name);
+        }
 
     }
 
@@ -200,7 +210,7 @@ public class PylonScript : MonoBehaviour
 
         if (selectedType == WeaponType.Empty)
             return;
-        else if (selectedType == WeaponType.Gun)
+        else if (selectedType == WeaponType.GunPod)
         {
             Instantiate(gunPodList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
@@ -208,27 +218,27 @@ public class PylonScript : MonoBehaviour
         {
             Instantiate(IRList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
-        else if (selectedType == WeaponType.SAHR)
+        else if (selectedType == WeaponType.SARH)
         {
-            Instantiate(SAHRList[selectionInteger], transform.position, Quaternion.identity, transform);
+            Instantiate(SARHList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
-        else if (selectedType == WeaponType.AHR)
+        else if (selectedType == WeaponType.ARH)
         {
-            Instantiate(AHRList[selectionInteger], transform.position, Quaternion.identity, transform);
+            Instantiate(ARHList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
         else if (selectedType == WeaponType.BeamRider)
         {
             Instantiate(beamRiderList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
-        else if (selectedType == WeaponType.smallBomb)
+        else if (selectedType == WeaponType.SmallBomb)
         {
             Instantiate(smallBombList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
-        else if (selectedType == WeaponType.mediumBomb)
+        else if (selectedType == WeaponType.MediumBomb)
         {
             Instantiate(mediumBombList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
-        else if (selectedType == WeaponType.largeBomb)
+        else if (selectedType == WeaponType.LargeBomb)
         {
             Instantiate(largeBombList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
@@ -267,6 +277,10 @@ public class PylonScript : MonoBehaviour
         else if (selectedType == WeaponType.AShM)
         {
             Instantiate(AShMList[selectionInteger], transform.position, Quaternion.identity, transform);
+        }
+        else if (selectedType == WeaponType.DropTank)
+        {
+            Instantiate(dropTankList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
 
     }

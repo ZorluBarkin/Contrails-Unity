@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AGMScript : MonoBehaviour
 {
-
     public bool armed = false;
 
     // Start is called before the first frame update
