@@ -24,7 +24,7 @@ public enum WeaponType
     AGM,
     ARM,
     AShM,
-    DropTank,
+    ExternalFuelTank,
     Empty // only for use in pylon script
 }
 
@@ -221,7 +221,7 @@ public class AircraftControls : MonoBehaviour
                 {
                     AShMList.Add(weapon.GetComponent<AGMScript>());
                 }
-                else if (weaponTypeScript.weaponType == WeaponType.DropTank)
+                else if (weaponTypeScript.weaponType == WeaponType.ExternalFuelTank)
                 {
                     dropTankList.Add(weapon.GetComponent<DropTankScript>());
                 }

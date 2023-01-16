@@ -194,7 +194,7 @@ public class PylonScript : MonoBehaviour
             for (int i = 0; i < AShMList.Count; i++)
                 innerTypeSelection.Add(AShMList[i].name);
         }
-        else if(selectedType == WeaponType.DropTank)
+        else if(selectedType == WeaponType.ExternalFuelTank)
         {
             for (int i = 0; i < dropTankList.Count; i++)
                 innerTypeSelection.Add(dropTankList[i].name);
@@ -278,7 +278,7 @@ public class PylonScript : MonoBehaviour
         {
             Instantiate(AShMList[selectionInteger], transform.position, Quaternion.identity, transform);
         }
-        else if (selectedType == WeaponType.DropTank)
+        else if (selectedType == WeaponType.ExternalFuelTank)
         {
             Instantiate(dropTankList[selectionInteger], transform.position, Quaternion.identity, transform);
         }

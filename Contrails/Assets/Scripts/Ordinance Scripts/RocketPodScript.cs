@@ -36,7 +36,7 @@ public class RocketPodScript : MonoBehaviour
         if(aircraftsRigidBody == null)
             aircraftsRigidBody = transform.parent.parent.GetComponent<Rigidbody>();
 
-        transform.position += -transform.up * (launcherDiameter / 2);
+        transform.position -= transform.up * (launcherDiameter / 2);
     }
 
     // Update is called once per frame
