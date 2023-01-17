@@ -106,98 +106,82 @@ public class PylonScript : MonoBehaviour
     /// </summary>
     private void GetWeaponSelection()
     {
-
-        if (selectedType == WeaponType.Empty)
-            return;
-        else if(selectedType == WeaponType.GunPod)
+        switch (selectedType)
         {
-            for (int i = 0; i < gunPodList.Count; i++)
-                innerTypeSelection.Add(gunPodList[i].name);
-        }
-        else if(selectedType == WeaponType.IR)
-        {
-            for (int i = 0; i < IRList.Count; i++)
-                innerTypeSelection.Add(IRList[i].name);
-        }
-        else if(selectedType == WeaponType.SARH)
-        {
-            for (int i = 0; i < SARHList.Count; i++)
-                innerTypeSelection.Add(SARHList[i].name);
-        }
-        else if(selectedType == WeaponType.ARH)
-        {
-            for (int i = 0; i < ARHList.Count; i++)
-                innerTypeSelection.Add(ARHList[i].name);
-        }
-        else if(selectedType == WeaponType.BeamRider)
-        {
-            for (int i = 0; i < beamRiderList.Count; i++)
-                innerTypeSelection.Add(beamRiderList[i].name);
-        }
-        else if(selectedType == WeaponType.SmallBomb)
-        {
-            for (int i = 0; i < smallBombList.Count; i++)
-                innerTypeSelection.Add(smallBombList[i].name);
-        }
-        else if(selectedType == WeaponType.MediumBomb)
-        {
-            for (int i = 0; i < mediumBombList.Count; i++)
-                innerTypeSelection.Add(mediumBombList[i].name);
-        }
-        else if(selectedType == WeaponType.LargeBomb)
-        {
-            for (int i = 0; i < largeBombList.Count; i++)
-                innerTypeSelection.Add(largeBombList[i].name);
-        }
-        else if(selectedType == WeaponType.GBU)
-        {
-            for (int i = 0; i < GBUList.Count; i++)
-                innerTypeSelection.Add(GBUList[i].name);
-        }
-        else if(selectedType == WeaponType.CBU)
-        {
-            for (int i = 0; i < CBUList.Count; i++)
-                innerTypeSelection.Add(CBUList[i].name);
-        }
-        else if(selectedType == WeaponType.Napalm)
-        {
-            for (int i = 0; i < napalmList.Count; i++)
-                innerTypeSelection.Add(napalmList[i].name);
-        }
-        else if(selectedType == WeaponType.SmallRocket)
-        {
-            for (int i = 0; i < smallRocketPodList.Count; i++)
-                innerTypeSelection.Add(smallRocketPodList[i].name);
-        }
-        else if(selectedType == WeaponType.MediumRocket)
-        {
-            for (int i = 0; i < mediumRocketPodList.Count; i++)
-                innerTypeSelection.Add(mediumRocketPodList[i].name);
-        }
-        else if(selectedType == WeaponType.LargeRocket)
-        {
-            for (int i = 0; i < largeRocketPodList.Count; i++)
-                innerTypeSelection.Add(largeRocketPodList[i].name);
-        }
-        else if(selectedType == WeaponType.AGM)
-        {
-            for (int i = 0; i < AGMList.Count; i++)
-                innerTypeSelection.Add(AGMList[i].name);
-        }
-        else if(selectedType == WeaponType.ARM)
-        {
-            for (int i = 0; i < ARMList.Count; i++)
-                innerTypeSelection.Add(ARMList[i].name);
-        }
-        else if(selectedType == WeaponType.AShM)
-        {
-            for (int i = 0; i < AShMList.Count; i++)
-                innerTypeSelection.Add(AShMList[i].name);
-        }
-        else if(selectedType == WeaponType.ExternalFuelTank)
-        {
-            for (int i = 0; i < dropTankList.Count; i++)
-                innerTypeSelection.Add(dropTankList[i].name);
+            case WeaponType.GunPod:
+                for (int i = 0; i < gunPodList.Count; i++)
+                    innerTypeSelection.Add(gunPodList[i].name);
+                break;
+            case WeaponType.IR:
+                for (int i = 0; i < IRList.Count; i++)
+                    innerTypeSelection.Add(IRList[i].name);
+                break;
+            case WeaponType.SARH:
+                for (int i = 0; i < SARHList.Count; i++)
+                    innerTypeSelection.Add(SARHList[i].name);
+                break;
+            case WeaponType.ARH:
+                for (int i = 0; i < ARHList.Count; i++)
+                    innerTypeSelection.Add(ARHList[i].name);
+                break;
+            case WeaponType.BeamRider:
+                for (int i = 0; i < beamRiderList.Count; i++)
+                    innerTypeSelection.Add(beamRiderList[i].name);
+                break;
+            case WeaponType.SmallBomb:
+                for (int i = 0; i < smallBombList.Count; i++)
+                    innerTypeSelection.Add(smallBombList[i].name);
+                break;
+            case WeaponType.MediumBomb:
+                for (int i = 0; i < mediumBombList.Count; i++)
+                    innerTypeSelection.Add(mediumBombList[i].name);
+                break;
+            case WeaponType.LargeBomb:
+                for (int i = 0; i < largeBombList.Count; i++)
+                    innerTypeSelection.Add(largeBombList[i].name);
+                break;
+            case WeaponType.GBU:
+                for (int i = 0; i < GBUList.Count; i++)
+                    innerTypeSelection.Add(GBUList[i].name);
+                break;
+            case WeaponType.CBU:
+                for (int i = 0; i < CBUList.Count; i++)
+                    innerTypeSelection.Add(CBUList[i].name);
+                break;
+            case WeaponType.Napalm:
+                for (int i = 0; i < napalmList.Count; i++)
+                    innerTypeSelection.Add(napalmList[i].name);
+                break;
+            case WeaponType.SmallRocket:
+                for (int i = 0; i < smallRocketPodList.Count; i++)
+                    innerTypeSelection.Add(smallRocketPodList[i].name);
+                break;
+            case WeaponType.MediumRocket:
+                for (int i = 0; i < mediumRocketPodList.Count; i++)
+                    innerTypeSelection.Add(mediumRocketPodList[i].name);
+                break;
+            case WeaponType.LargeRocket:
+                for (int i = 0; i < largeRocketPodList.Count; i++)
+                    innerTypeSelection.Add(largeRocketPodList[i].name);
+                break;
+            case WeaponType.AGM:
+                for (int i = 0; i < AGMList.Count; i++)
+                    innerTypeSelection.Add(AGMList[i].name);
+                break;
+            case WeaponType.ARM:
+                for (int i = 0; i < ARMList.Count; i++)
+                    innerTypeSelection.Add(ARMList[i].name);
+                break;
+            case WeaponType.AShM:
+                for (int i = 0; i < AShMList.Count; i++)
+                    innerTypeSelection.Add(AShMList[i].name);
+                break;
+            case WeaponType.ExternalFuelTank:
+                for (int i = 0; i < dropTankList.Count; i++)
+                    innerTypeSelection.Add(dropTankList[i].name);
+                break;
+            default: 
+                break;
         }
 
     }
@@ -208,79 +192,64 @@ public class PylonScript : MonoBehaviour
     private void ApplyChanges()
     {
 
-        if (selectedType == WeaponType.Empty)
-            return;
-        else if (selectedType == WeaponType.GunPod)
+        switch (selectedType)
         {
-            Instantiate(gunPodList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.IR)
-        {
-            Instantiate(IRList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.SARH)
-        {
-            Instantiate(SARHList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.ARH)
-        {
-            Instantiate(ARHList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.BeamRider)
-        {
-            Instantiate(beamRiderList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.SmallBomb)
-        {
-            Instantiate(smallBombList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.MediumBomb)
-        {
-            Instantiate(mediumBombList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.LargeBomb)
-        {
-            Instantiate(largeBombList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.GBU)
-        {
-            Instantiate(GBUList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.CBU)
-        {
-            Instantiate(CBUList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.Napalm)
-        {
-            Instantiate(napalmList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.SmallRocket)
-        {
-            Instantiate(smallRocketPodList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.MediumRocket)
-        {
-            Instantiate(mediumRocketPodList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.LargeRocket)
-        {
-            Instantiate(largeRocketPodList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.AGM)
-        {
-            Instantiate(AGMList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.ARM)
-        {
-            Instantiate(ARMList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.AShM)
-        {
-            Instantiate(AShMList[selectionInteger], transform.position, Quaternion.identity, transform);
-        }
-        else if (selectedType == WeaponType.ExternalFuelTank)
-        {
-            Instantiate(dropTankList[selectionInteger], transform.position, Quaternion.identity, transform);
+            case WeaponType.GunPod:
+                Instantiate(gunPodList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.IR:
+                Instantiate(IRList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.SARH:
+                Instantiate(SARHList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.ARH:
+                Instantiate(ARHList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.BeamRider:
+                Instantiate(beamRiderList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.SmallBomb:
+                Instantiate(smallBombList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.MediumBomb:
+                Instantiate(mediumBombList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.LargeBomb:
+                Instantiate(largeBombList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.GBU:
+                Instantiate(GBUList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.CBU:
+                Instantiate(CBUList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.Napalm:
+                Instantiate(napalmList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.SmallRocket:
+                Instantiate(smallRocketPodList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.MediumRocket:
+                Instantiate(mediumRocketPodList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.LargeRocket:
+                Instantiate(largeRocketPodList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.AGM:
+                Instantiate(AGMList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.ARM:
+                Instantiate(ARMList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.AShM:
+                Instantiate(AShMList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            case WeaponType.ExternalFuelTank:
+                Instantiate(dropTankList[selectionInteger], transform.position, Quaternion.identity, transform);
+                break;
+            default:
+                break;
         }
 
     }

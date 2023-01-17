@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 8611918660859860173}
   - component: {fileID: 1372605289513358689}
   - component: {fileID: 4685131258394859761}
+  - component: {fileID: -6351858600800320522}
   m_Layer: 6
   m_Name: MK84 GPLD
   m_TagString: Untagged
@@ -339,6 +340,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 7
+--- !u!54 &-6351858600800320522
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3985728379442237165}
+  serializedVersion: 2
+  m_Mass: 920
+  m_Drag: 0.155
+  m_AngularDrag: 0.155
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
 --- !u!1 &4617863974819948548
 GameObject:
   m_ObjectHideFlags: 0

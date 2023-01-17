@@ -153,79 +153,69 @@ public class AircraftControls : MonoBehaviour
                 WeaponTypeScript weaponTypeScript = pylonList[i].transform.GetChild(j).GetComponent<WeaponTypeScript>();
                 GameObject weapon = pylonList[i].transform.GetChild(j).gameObject;
 
-                if (weaponTypeScript.weaponType == WeaponType.GunPod)
+                switch (weaponTypeScript.weaponType)
                 {
-                    gunPodList.Add(weapon.GetComponent<GunPodScript>());
+                    case WeaponType.GunPod:
+                        gunPodList.Add(weapon.GetComponent<GunPodScript>());
+                        break;
+                    case WeaponType.IR:
+                        IRList.Add(weapon.GetComponent<AAMissileScript>());
+                        break;
+                    case WeaponType.SARH:
+                        SARHList.Add(weapon.GetComponent<AAMissileScript>());
+                        break;
+                    case WeaponType.ARH:
+                        ARHList.Add(weapon.GetComponent<AAMissileScript>());
+                        break;
+                    case WeaponType.BeamRider:
+                        beamRiderList.Add(weapon.GetComponent<AAMissileScript>());
+                        break;
+                    case WeaponType.SmallBomb:
+                        smallBombList.Add(weapon.GetComponent<BombScript>());
+                        break;
+                    case WeaponType.MediumBomb:
+                        mediumBombList.Add(weapon.GetComponent<BombScript>());
+                        break;
+                    case WeaponType.LargeBomb:
+                        largeBombList.Add(weapon.GetComponent<BombScript>());
+                        break;
+                    case WeaponType.GBU:
+                        GBUList.Add(weapon.GetComponent<BombScript>());
+                        break;
+                    case WeaponType.CBU:
+                        CBUList.Add(weapon.GetComponent<BombScript>());
+                        break;
+                    case WeaponType.Napalm:
+                        napalmList.Add(weapon.GetComponent<BombScript>());
+                        break;
+                    case WeaponType.SmallRocket:
+                        smallRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
+                        break;
+                    case WeaponType.MediumRocket:
+                        mediumRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
+                        break;
+                    case WeaponType.LargeRocket:
+                        largeRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
+                        break;
+                    case WeaponType.AGM:
+                        AGMList.Add(weapon.GetComponent<AGMScript>());
+                        break;
+                    case WeaponType.ARM:
+                        ARMList.Add(weapon.GetComponent<AGMScript>());
+                        break;
+                    case WeaponType.AShM:
+                        AShMList.Add(weapon.GetComponent<AGMScript>());
+                        break;
+                    case WeaponType.ExternalFuelTank:
+                        dropTankList.Add(weapon.GetComponent<DropTankScript>());
+                        break;
+                    default: // Do nothing
+                        break;
+
                 }
-                else if (weaponTypeScript.weaponType == WeaponType.IR)
-                {
-                    IRList.Add(weapon.GetComponent<AAMissileScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.SARH)
-                {
-                    SARHList.Add(weapon.GetComponent<AAMissileScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.ARH)
-                {
-                    ARHList.Add(weapon.GetComponent<AAMissileScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.BeamRider)
-                {
-                    beamRiderList.Add(weapon.GetComponent<AAMissileScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.SmallBomb)
-                {
-                    smallBombList.Add(weapon.GetComponent<BombScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.MediumBomb)
-                {
-                    mediumBombList.Add(weapon.GetComponent<BombScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.LargeBomb)
-                {
-                    largeBombList.Add(weapon.GetComponent<BombScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.GBU)
-                {
-                    GBUList.Add(weapon.GetComponent<BombScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.CBU)
-                {
-                    CBUList.Add(weapon.GetComponent<BombScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.Napalm)
-                {
-                    napalmList.Add(weapon.GetComponent<BombScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.SmallRocket)
-                {
-                    smallRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.MediumRocket)
-                {
-                    mediumRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.LargeRocket)
-                {
-                    largeRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.AGM)
-                {
-                    AGMList.Add(weapon.GetComponent<AGMScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.ARM)
-                {
-                    ARMList.Add(weapon.GetComponent<AGMScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.AShM)
-                {
-                    AShMList.Add(weapon.GetComponent<AGMScript>());
-                }
-                else if (weaponTypeScript.weaponType == WeaponType.ExternalFuelTank)
-                {
-                    dropTankList.Add(weapon.GetComponent<DropTankScript>());
-                }
+
             }
+
         }
 
     }
@@ -271,183 +261,171 @@ public class AircraftControls : MonoBehaviour
     /// </summary>
     private void ArmWeapons()
     {
-        if (currentSelection == WeaponType.GunPod)
+        switch (currentSelection)
         {
-            for (int i = 0; i < gunList.Count; i++)
-            {
-                if (gunList[i].armed == false)
-                    gunList[i].armed = true;
-                else
-                    gunList[i].armed = false;
-            }
+            case WeaponType.GunPod:
+                for (int i = 0; i < gunList.Count; i++)
+                {
+                    if (!gunList[i].armed)
+                        gunList[i].armed = true;
+                    else
+                        gunList[i].armed = false;
+                }
 
-            for(int i = 0; i < gunPodList.Count; i++)
-            {
-                if (gunPodList[i].armed == false)
-                    gunPodList[i].armed = true;
-                else
-                    gunPodList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.IR)
-        {
-            for (int i = 0; i < IRList.Count; i++)
-            {
-                if (IRList[i].armed == false)
-                    IRList[i].armed = true;
-                else
-                    IRList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.SARH)
-        {
-            for (int i = 0; i < SARHList.Count; i++)
-            {
-                if (SARHList[i].armed == false)
-                    SARHList[i].armed = true;
-                else
-                    SARHList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.ARH)
-        {
-            for (int i = 0; i < ARHList.Count; i++)
-            {
-                if (ARHList[i].armed == false)
-                    ARHList[i].armed = true;
-                else
-                    ARHList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.SmallBomb)
-        {
-            for (int i = 0; i < smallBombList.Count; i++)
-            {
-                if (smallBombList[i].armed == false)
-                    smallBombList[i].armed = true;
-                else
-                    smallBombList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.MediumBomb)
-        {
-            for (int i = 0; i < mediumBombList.Count; i++)
-            {
-                if (mediumBombList[i].armed == false)
-                    mediumBombList[i].armed = true;
-                else
-                    mediumBombList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.LargeBomb)
-        {
-            for (int i = 0; i < largeBombList.Count; i++)
-            {
-                if (largeBombList[i].armed == false)
-                    largeBombList[i].armed = true;
-                else
-                    largeBombList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.GBU)
-        {
-            for (int i = 0; i < GBUList.Count; i++)
-            {
-                if (GBUList[i].armed == false)
-                    GBUList[i].armed = true;
-                else
-                    GBUList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.SmallRocket)
-        {
-            for (int i = 0; i < smallRocketPodList.Count; i++)
-            {
-                if (smallRocketPodList[i].armed == false)
-                    smallRocketPodList[i].armed = true;
-                else
-                    smallRocketPodList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.MediumRocket)
-        {
-            for (int i = 0; i < mediumRocketPodList.Count; i++)
-            {
-                if (mediumRocketPodList[i].armed == false)
-                    mediumRocketPodList[i].armed = true;
-                else
-                    mediumRocketPodList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.LargeRocket)
-        {
-            for (int i = 0; i < largeRocketPodList.Count; i++)
-            {
-                if (largeRocketPodList[i].armed == false)
-                    largeRocketPodList[i].armed = true;
-                else
-                    largeRocketPodList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.BeamRider)
-        {
-            for (int i = 0; i < beamRiderList.Count; i++)
-            {
-                if (beamRiderList[i].armed == false)
-                    beamRiderList[i].armed = true;
-                else
-                    beamRiderList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.CBU)
-        {
-            for (int i = 0; i < CBUList.Count; i++)
-            {
-                if (CBUList[i].armed == false)
-                    CBUList[i].armed = true;
-                else
-                    CBUList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.Napalm)
-        {
-            for (int i = 0; i < napalmList.Count; i++)
-            {
-                if (napalmList[i].armed == false)
-                    napalmList[i].armed = true;
-                else
-                    napalmList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.AGM)
-        {
-            for (int i = 0; i < AGMList.Count; i++)
-            {
-                if (AGMList[i].armed == false)
-                    AGMList[i].armed = true;
-                else
-                    AGMList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.ARM)
-        {
-            for (int i = 0; i < AGMList.Count; i++)
-            {
-                if (AGMList[i].armed == false)
-                    AGMList[i].armed = true;
-                else
-                    AGMList[i].armed = false;
-            }
-        }
-        else if (currentSelection == WeaponType.AShM)
-        {
-            for (int i = 0; i < AGMList.Count; i++)
-            {
-                if (AGMList[i].armed == false)
-                    AGMList[i].armed = true;
-                else
-                    AGMList[i].armed = false;
-            }
+                for (int i = 0; i < gunPodList.Count; i++)
+                {
+                    if (!gunPodList[i].armed)
+                        gunPodList[i].armed = true;
+                    else
+                        gunPodList[i].armed = false;
+                }
+                break;
+            case WeaponType.IR:
+                for (int i = 0; i < IRList.Count; i++)
+                {
+                    if (!IRList[i].armed)
+                        IRList[i].armed = true;
+                    else
+                        IRList[i].armed = false;
+                }
+                break;
+            case WeaponType.SARH:
+                for (int i = 0; i < SARHList.Count; i++)
+                {
+                    if (!SARHList[i].armed)
+                        SARHList[i].armed = true;
+                    else
+                        SARHList[i].armed = false;
+                }
+                break;
+            case WeaponType.ARH:
+                for (int i = 0; i < ARHList.Count; i++)
+                {
+                    if (!ARHList[i].armed)
+                        ARHList[i].armed = true;
+                    else
+                        ARHList[i].armed = false;
+                }
+                break;
+            case WeaponType.BeamRider:
+                for (int i = 0; i < beamRiderList.Count; i++)
+                {
+                    if (!beamRiderList[i].armed)
+                        beamRiderList[i].armed = true;
+                    else
+                        beamRiderList[i].armed = false;
+                }
+                break;
+            case WeaponType.SmallBomb:
+                for (int i = 0; i < smallBombList.Count; i++)
+                {
+                    if (!smallBombList[i].armed)
+                        smallBombList[i].armed = true;
+                    else
+                        smallBombList[i].armed = false;
+                }
+                break;
+            case WeaponType.MediumBomb:
+                for (int i = 0; i < mediumBombList.Count; i++)
+                {
+                    if (!mediumBombList[i].armed)
+                        mediumBombList[i].armed = true;
+                    else
+                        mediumBombList[i].armed = false;
+                }
+                break;
+            case WeaponType.LargeBomb:
+                for (int i = 0; i < largeBombList.Count; i++)
+                {
+                    if (!largeBombList[i].armed)
+                        largeBombList[i].armed = true;
+                    else
+                        largeBombList[i].armed = false;
+                }
+                break;
+            case WeaponType.GBU:
+                for (int i = 0; i < GBUList.Count; i++)
+                {
+                    if (!GBUList[i].armed)
+                        GBUList[i].armed = true;
+                    else
+                        GBUList[i].armed = false;
+                }
+                break;
+            case WeaponType.CBU:
+                for (int i = 0; i < CBUList.Count; i++)
+                {
+                    if (!CBUList[i].armed)
+                        CBUList[i].armed = true;
+                    else
+                        CBUList[i].armed = false;
+                }
+                break;
+            case WeaponType.Napalm:
+                for (int i = 0; i < napalmList.Count; i++)
+                {
+                    if (!napalmList[i].armed)
+                        napalmList[i].armed = true;
+                    else
+                        napalmList[i].armed = false;
+                }
+                break;
+            case WeaponType.SmallRocket:
+                for (int i = 0; i < smallRocketPodList.Count; i++)
+                {
+                    if (!smallRocketPodList[i].armed)
+                        smallRocketPodList[i].armed = true;
+                    else
+                        smallRocketPodList[i].armed = false;
+                }
+                break;
+            case WeaponType.MediumRocket:
+                for (int i = 0; i < mediumRocketPodList.Count; i++)
+                {
+                    if (!mediumRocketPodList[i].armed)
+                        mediumRocketPodList[i].armed = true;
+                    else
+                        mediumRocketPodList[i].armed = false;
+                }
+                break;
+            case WeaponType.LargeRocket:
+                for (int i = 0; i < largeRocketPodList.Count; i++)
+                {
+                    if (!largeRocketPodList[i].armed)
+                        largeRocketPodList[i].armed = true;
+                    else
+                        largeRocketPodList[i].armed = false;
+                }
+                break;
+            case WeaponType.AGM:
+                for (int i = 0; i < AGMList.Count; i++)
+                {
+                    if (!AGMList[i].armed)
+                        AGMList[i].armed = true;
+                    else
+                        AGMList[i].armed = false;
+                }
+                break;
+            case WeaponType.ARM:
+                for (int i = 0; i < AGMList.Count; i++)
+                {
+                    if (!AGMList[i].armed)
+                        AGMList[i].armed = true;
+                    else
+                        AGMList[i].armed = false;
+                }
+                break;
+            case WeaponType.AShM:
+                for (int i = 0; i < AGMList.Count; i++)
+                {
+                    if (!AGMList[i].armed)
+                        AGMList[i].armed = true;
+                    else
+                        AGMList[i].armed = false;
+                }
+                break;
+            default: // do nothing
+                break;
         }
 
     }

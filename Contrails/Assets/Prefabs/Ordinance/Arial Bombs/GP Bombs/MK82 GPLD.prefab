@@ -1020,6 +1020,7 @@ GameObject:
   - component: {fileID: 542519857961843891}
   - component: {fileID: 7136162200362761503}
   - component: {fileID: -5036068615937705366}
+  - component: {fileID: 6991002378184224202}
   m_Layer: 6
   m_Name: MK82 GPLD
   m_TagString: Untagged
@@ -1098,6 +1099,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 6
+--- !u!54 &6991002378184224202
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139981922418304659}
+  serializedVersion: 2
+  m_Mass: 230
+  m_Drag: 0.155
+  m_AngularDrag: 0.155
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
 --- !u!1 &7792935632160043196
 GameObject:
   m_ObjectHideFlags: 0

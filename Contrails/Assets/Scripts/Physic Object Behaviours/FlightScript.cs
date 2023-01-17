@@ -59,35 +59,32 @@ public class FlightScript : MonoBehaviour
     {
         throttle = aircraftControls.throttle;
 
-        if (flightMode == FlightMode.SimpleLift)
+        switch(flightMode)
         {
-            if (rb.velocity.magnitude < 100 && AAMScript.burnTimer > AAMScript.burnTime)
-            {
-                rb.useGravity = true;
-                flightMode = FlightMode.Realistic;
-            }
-            return;
-        }
-        else if (flightMode == FlightMode.Arcade)
-        {
-            if (!arcadeSet)
-            {
-                rb.useGravity = false;
-                arcadeSet = true;
-            }
-
-            rb.AddRelativeForce(transform.forward * thrust * throttle, ForceMode.Force);
-            rb.AddRelativeTorque(new Vector3(turnTorque.x * aircraftControls.pitch, turnTorque.y * aircraftControls.yaw, turnTorque.z * aircraftControls.roll) * forceMultiplier, ForceMode.Acceleration);
-        }
-        else // deafault is realistic
-        {
-          //lift = LiftCoefficient * (weather.airDensity[GetAltitudeIndex()] * rb.velocity.magnitude * rb.velocity.magnitude / 2) * wingArea;
-
-          // Get lift coefficient
-          LiftCoefficient = liftCurve.Evaluate(Vector3.Angle(Vector3.forward, transform.forward));
-          // Calculate lift
-          lift = weather.airDensity[GetAltitudeIndex()];
-          rb.AddForce(transform.up * LiftCoefficient * (weather.airDensity[GetAltitudeIndex()] * rb.velocity.magnitude * rb.velocity.magnitude / 2) * wingArea); // too big need to understand why
+            case FlightMode.SimpleLift:
+                if (rb.velocity.magnitude < 100 && AAMScript.burnTimer > AAMScript.burnTime)
+                {
+                    rb.useGravity = true;
+                    flightMode = FlightMode.Realistic;
+                }
+                break;
+            case FlightMode.Arcade:
+                if (!arcadeSet)
+                {
+                    rb.useGravity = false;
+                    arcadeSet = true;
+                }
+                rb.AddRelativeForce(transform.forward * thrust * throttle, ForceMode.Force);
+                rb.AddRelativeTorque(new Vector3(turnTorque.x * aircraftControls.pitch, turnTorque.y * aircraftControls.yaw, turnTorque.z * aircraftControls.roll) * forceMultiplier, ForceMode.Acceleration);
+                break;
+            default: // deafault is realistic
+              //lift = LiftCoefficient * (weather.airDensity[GetAltitudeIndex()] * rb.velocity.magnitude * rb.velocity.magnitude / 2) * wingArea;
+              // Get lift coefficient
+              LiftCoefficient = liftCurve.Evaluate(Vector3.Angle(Vector3.forward, transform.forward));
+              // Calculate lift
+              lift = weather.airDensity[GetAltitudeIndex()];
+              rb.AddForce(transform.up * LiftCoefficient * (weather.airDensity[GetAltitudeIndex()] * rb.velocity.magnitude * rb.velocity.magnitude / 2) * wingArea); // too big need to understand why
+                break;
         }
 
     }

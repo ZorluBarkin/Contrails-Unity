@@ -31,11 +31,17 @@ public class AAMissileScript : MonoBehaviour
     #endregion
 
     #region Missile Tracking Modes
-    [SerializeField] private bool IR = false;
+    public enum TrackingType
+    {
+        IR,
+        SARH,
+        ARH,
+        BeamRider
+    }
+    public TrackingType trackingType = TrackingType.IR; // public for now
+
     [SerializeField] private bool allAspect = false; // only meaningful for IR missiles
-    [SerializeField] private bool SARH = false;
-    [SerializeField] private bool ARH = false;
-    [SerializeField] private bool beamRider = false;
+
     #endregion
 
     #region Tracking Variables
@@ -68,7 +74,7 @@ public class AAMissileScript : MonoBehaviour
         if (explosionEffect == null)
             explosionEffect = null; // make the default effect here
 
-        if(target != null)
+        if (target != null)
         {
             targetLocked = true;
             targetRb = target.GetComponent<Rigidbody>();
@@ -77,13 +83,11 @@ public class AAMissileScript : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody>();
 
-        if(propulsionEffect == null)
+        if (propulsionEffect == null)
             propulsionEffect = transform.GetChild(1).gameObject; // make trail child object always at index 1
-            
 
         rb.mass = mass;
         rb.maxAngularVelocity = Mathf.Infinity;
-        DefineTrackingStyle();
 
         particleMain = propulsionEffect.GetComponent<ParticleSystem>().main;
 
@@ -105,14 +109,14 @@ public class AAMissileScript : MonoBehaviour
         {
             distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
             CalculateLead(distanceToTarget, leadStopDistance);
-            
+
             // self destruct conditions
             if (burnTimer > burnTime)
             {
                 if (Vector3.Angle(this.transform.position, target.transform.position) > gimbalLimit / 2 || rb.velocity.magnitude < 70) // this means it cant track
                     Debug.Log("SD");//Explode();
             }
-                
+
             if (targetLocked)
             {
                 if (!armed)
@@ -122,7 +126,7 @@ public class AAMissileScript : MonoBehaviour
 
                 if (proximityDistance > distanceToTarget)
                     Explode();
-            }       
+            }
         }
         else
         {
@@ -145,36 +149,21 @@ public class AAMissileScript : MonoBehaviour
     {
         GameObject currentTarget = null;
 
-        if (IR) // FF
+        switch (trackingType)
         {
-            if (allAspect)
-            {
-
-            }
-            // unless its aim9x search target in a 45 degree cone or less dependent on the model
-
-            // send a raycast to check for high heat source, select the highest one.
-
-            // might end up always raytyracing the target are to see flares at one point might be too costly
-            targetLocked = true;
-            return currentTarget;
+            case TrackingType.IR: 
+                // search and find the brightest source
+                return currentTarget;
+            case TrackingType.SARH: 
+                // search for what the planes radar can see
+                return currentTarget;
+            case TrackingType.ARH: 
+                // go with the radar of plane with a pre determined range then switch to active search
+                return currentTarget;
+            default: // there is no target lock on beam riders
+                return null;
         }
-        else if (ARH) // after a while should go into active search mode first seacrh mode for ARH missiles are SARH. // FF after some point
-        {
-            
-            targetLocked = true;
-            return currentTarget;
-        }
-        else if (SARH) // use the aircrafts radar to get impact point (Not a beam rider, this is actually guided and only gets the target info from the launching plane)
-        {
 
-            targetLocked = true;
-            return currentTarget;
-        }
-        // no need for target search for beam rider as it just follows the aircrafts low angle radar (one raycast forward of aircraft will be enough)
-
-        targetLocked = false;
-        return currentTarget;
     }
 
     private void CalculateLead(float distanceToTarget, float trackingStopDistance)
@@ -263,34 +252,6 @@ public class AAMissileScript : MonoBehaviour
         else
         {
             propulsionEffect = null;
-        }
-    }
-
-    private void DefineTrackingStyle()
-    {
-        if (ARH)
-        {
-            IR = false;
-            SARH = false;
-            beamRider= false;
-        }
-        else if (SARH)
-        {
-            IR = false; 
-            ARH = false;
-            beamRider= false;
-        }
-        else if (beamRider)
-        {
-            IR= false;
-            ARH = false;
-            SARH= false;
-        }
-        else // default is IR
-        {
-            SARH= false;
-            ARH = false;
-            beamRider= false;
         }
     }
 

@@ -1103,6 +1103,7 @@ GameObject:
   - component: {fileID: 3881835276659539812}
   - component: {fileID: 5859424766855167688}
   - component: {fileID: 3730861172852133241}
+  - component: {fileID: 5343226272855928911}
   m_Layer: 6
   m_Name: MK81 GPLD
   m_TagString: Untagged
@@ -1181,3 +1182,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 5
+--- !u!54 &5343226272855928911
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434261487498437956}
+  serializedVersion: 2
+  m_Mass: 120
+  m_Drag: 0.155
+  m_AngularDrag: 0.155
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3

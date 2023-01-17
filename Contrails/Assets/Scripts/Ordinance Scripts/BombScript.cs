@@ -73,16 +73,15 @@ public class BombScript : MonoBehaviour
 
             launch = false;
             launched = true;
-            rb = transform.AddComponent<Rigidbody>();
 
             transform.parent = null;
             transform.position -= transform.up * 2f;
-            transform.rotation = transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), Random.Range(-deviation, deviation));
+            transform.rotation = transform.rotation * Quaternion.Euler(
+                Random.Range(-deviation, deviation), 
+                Random.Range(-deviation, deviation), 
+                Random.Range(-deviation, deviation));
 
-            rb.angularDrag = 0.1550f;
-            rb.drag = dragCoefficient;
-            rb.mass = mass;
-            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            rb.useGravity = true;
             rb.velocity = transform.forward * (dropVelocity + Random.Range(-verticalDispersion, verticalDispersion));
         }
 

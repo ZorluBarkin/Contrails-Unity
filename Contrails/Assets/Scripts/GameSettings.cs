@@ -132,39 +132,33 @@ public class GameSettings : MonoBehaviour
             //boresight.GetComponent<RectTransform>().sizeDelta = new Vector2(boresightSize, boresightSize); // makes them dissappear
             //crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(crosshairSize, crosshairSize);
 
-            if (hudColour == HUDColour.Yellow)
+            switch (hudColour)
             {
-                HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(255, 255, 0, hudTransparency);
+                case HUDColour.Yellow:
+                    HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(255, 255, 0, hudTransparency);
+                    break;
+                case HUDColour.Green:
+                    HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(0, 255, 0, hudTransparency);
+                    break;
+                case HUDColour.Blue:
+                    HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 255, hudTransparency);
+                    break;
+                case HUDColour.Red:
+                    HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(255, 0, 0, hudTransparency);
+                    break;
+                case HUDColour.Black:
+                    HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 0, hudTransparency);
+                    break;
+                case HUDColour.Magenta:
+                    HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 255, hudTransparency);
+                    break;
+                default:
+                    HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(255, 255, 255, hudTransparency);
+                    break;
             }
-            else if(hudColour == HUDColour.Green)
-            {
-                HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(0, 255, 0, hudTransparency);
-            }
-            else if(hudColour == HUDColour.Blue)
-            {
-                HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 255, hudTransparency);
-            }
-            else if(hudColour == HUDColour.Red)
-            {
-                HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(255, 0, 0, hudTransparency);
-            }
-            else if(hudColour == HUDColour.Black)
-            {
-                HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 0, hudTransparency);
-            }
-            else if(hudColour == HUDColour.Magenta)
-            {
-                HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(255, 0, 255, hudTransparency);
-            }
-            //else if(hudColour == HUDColour.Pink) // pink does not work, no idea why
-            //{
-            //    HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(255, 75, 75, hudTransparency);
-            //}
-            else // default is white
-            {
-                HUD.transform.GetChild(i).GetComponent<UnityEngine.UI.Image>().color = new Color(255, 255, 255, hudTransparency);
-            }
+
         }
+    
     }
 
 }
