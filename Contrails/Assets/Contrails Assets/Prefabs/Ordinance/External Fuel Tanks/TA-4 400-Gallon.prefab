@@ -387,8 +387,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8569946284377545412}
   - component: {fileID: -5535365047661655100}
-  - component: {fileID: 3486149872733473079}
   - component: {fileID: 2907226390965096323}
+  - component: {fileID: 3486149872733473079}
   m_Layer: 0
   m_Name: TA-4 400-Gallon
   m_TagString: Untagged
@@ -428,6 +428,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2907226390965096323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5150893742051378640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 18
 --- !u!114 &3486149872733473079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,19 +463,6 @@ MonoBehaviour:
   numberOfTanksInUse: 1
   jettison: 0
   speed: 0
---- !u!114 &2907226390965096323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5150893742051378640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 17
 --- !u!1 &7167744106116361677
 GameObject:
   m_ObjectHideFlags: 0

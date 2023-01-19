@@ -1017,9 +1017,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8555257464555414131}
+  - component: {fileID: -5036068615937705366}
   - component: {fileID: 542519857961843891}
   - component: {fileID: 7136162200362761503}
-  - component: {fileID: -5036068615937705366}
   - component: {fileID: 6991002378184224202}
   m_Layer: 6
   m_Name: MK82 GPLD
@@ -1044,6 +1044,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5036068615937705366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139981922418304659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 7
 --- !u!114 &542519857961843891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,7 +1083,7 @@ MonoBehaviour:
   dragCoefficient: 0.155
   payload: 98
   blastRadius: {x: 0, y: 0}
-  explosionEffect: {fileID: 1552366338733322475, guid: da6105ea9378a8144bf5243ddcab522b,
+  explosionEffect: {fileID: 7536931602910118782, guid: d0943265cea17e245abbc0c6f1997e7d,
     type: 3}
   fuzeTime: 0
 --- !u!136 &7136162200362761503
@@ -1087,19 +1100,6 @@ CapsuleCollider:
   m_Height: 2.168
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5036068615937705366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5139981922418304659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 6
 --- !u!54 &6991002378184224202
 Rigidbody:
   m_ObjectHideFlags: 0

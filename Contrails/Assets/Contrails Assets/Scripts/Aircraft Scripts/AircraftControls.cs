@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public enum WeaponType
 {
+    Empty,
     GunPod,
     IR,
     SARH,
@@ -24,8 +26,8 @@ public enum WeaponType
     AGM,
     ARM,
     AShM,
-    ExternalFuelTank,
-    Empty // only for use in pylon script
+    ExternalFuelTank
+     // only for use in pylon script
 }
 
 public class AircraftControls : MonoBehaviour
@@ -70,6 +72,7 @@ public class AircraftControls : MonoBehaviour
     #endregion
     
     public WeaponType currentSelection = WeaponType.Empty;
+    private int weaponTypeCount = 0;
     //NOTE: a launching of a weapon is to delete its respective child model under the plane and intantiating it where the deleted object was.
     public bool weaponsChanged = false;
 
@@ -91,6 +94,9 @@ public class AircraftControls : MonoBehaviour
     void Start()
     {
         GetWeapons();
+
+        weaponTypeCount = Enum.GetNames(typeof(WeaponType)).Length -1;
+        currentSelection = WeaponType.Empty;
 
         //if (flyPoint) // does not work
         //    flyPoint.transform.position = Camera.main.GetComponentInChildren<Transform>().position; // fly point should always be 1st child of main cam
@@ -431,7 +437,23 @@ public class AircraftControls : MonoBehaviour
     }
 
     private void GetAircraftInput()
-    {
+    { // TODO: need to make these controls remappable to any key the user wants
+        #region Weapon Inputs
+        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            currentSelection++;
+
+            if ((int)currentSelection >= weaponTypeCount)
+                currentSelection = 0;
+        }
+        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            currentSelection--;
+
+            if ((int)currentSelection < 0)
+                currentSelection = (WeaponType)weaponTypeCount;
+        }
+
         if (Input.GetKeyDown(KeyCode.R)) // arm the selected weapons?
         {
             ArmWeapons();
@@ -445,6 +467,7 @@ public class AircraftControls : MonoBehaviour
         {
             CeaseFire();
         }
+        #endregion
 
         // Movement
         if (Input.GetKey(KeyCode.W))

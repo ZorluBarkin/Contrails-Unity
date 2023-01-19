@@ -1100,9 +1100,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4963537606158819748}
+  - component: {fileID: 3730861172852133241}
   - component: {fileID: 3881835276659539812}
   - component: {fileID: 5859424766855167688}
-  - component: {fileID: 3730861172852133241}
   - component: {fileID: 5343226272855928911}
   m_Layer: 6
   m_Name: MK81 GPLD
@@ -1127,6 +1127,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3730861172852133241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434261487498437956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 6
 --- !u!114 &3881835276659539812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1170,19 +1183,6 @@ CapsuleCollider:
   m_Height: 1.781
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3730861172852133241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8434261487498437956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 5
 --- !u!54 &5343226272855928911
 Rigidbody:
   m_ObjectHideFlags: 0

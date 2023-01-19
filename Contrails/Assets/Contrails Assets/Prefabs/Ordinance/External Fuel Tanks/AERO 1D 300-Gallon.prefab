@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3718662445072092528}
   - component: {fileID: 5166897773141116566}
-  - component: {fileID: -7585886489685216}
   - component: {fileID: 5165752353693537565}
+  - component: {fileID: -7585886489685216}
   m_Layer: 0
   m_Name: AERO 1D 300-Gallon
   m_TagString: Untagged
@@ -51,6 +51,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5165752353693537565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148163481380213348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 18
 --- !u!114 &-7585886489685216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,19 +86,6 @@ MonoBehaviour:
   numberOfTanksInUse: 1
   jettison: 0
   speed: 0
---- !u!114 &5165752353693537565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148163481380213348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e31746b8e09ae842a26a7b801a3711a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 17
 --- !u!1 &2526314751530699559
 GameObject:
   m_ObjectHideFlags: 0
