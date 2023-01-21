@@ -13,7 +13,7 @@ public class BombScript : MonoBehaviour
     public float mass = 227f; // in kg
     public float bombWidth = 0.5f;
 
-    public float dropVelocity = 35f; // the velocity when the bomb was dropped from the plane, 40 ensures to drop forwards
+    public float dropVelocity = 0f; // the velocity when the bomb was dropped from the plane, 40 ensures to drop forwards
     public bool armed = false;
     public bool launch = false;
     private bool launched = false;
@@ -65,9 +65,12 @@ public class BombScript : MonoBehaviour
 
         if (launch)
         {
+            dropVelocity = FlightScript._speed;
+
             if( dropVelocity > maxLaunchSpeed )
             {
                 Debug.Log("Too fast to drop"); // turn this to on screen warning
+                launch = false;
                 return;
             }
 
@@ -81,6 +84,7 @@ public class BombScript : MonoBehaviour
                 Random.Range(-deviation, deviation), 
                 Random.Range(-deviation, deviation));
 
+            rb.isKinematic = false;
             rb.useGravity = true;
             rb.velocity = transform.forward * (dropVelocity + Random.Range(-verticalDispersion, verticalDispersion));
         }

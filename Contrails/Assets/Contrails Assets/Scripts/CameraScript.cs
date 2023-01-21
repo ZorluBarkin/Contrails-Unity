@@ -63,7 +63,7 @@ public class CameraScript : MonoBehaviour
         boresightPosition = playerVehicle.transform.position;
         boresightPosition += playerVehicle.transform.forward * boresightDistance;
 
-        Vector3 position = playerVehicle.transform.position - transform.forward * 20 + transform.up * 7.5f;
+        Vector3 position = playerVehicle.transform.position - transform.forward * 25 + transform.up * 7.5f;
         transform.position = Vector3.Lerp(transform.position, position, GameSettings._cameraSpeed * Time.deltaTime);
         
 

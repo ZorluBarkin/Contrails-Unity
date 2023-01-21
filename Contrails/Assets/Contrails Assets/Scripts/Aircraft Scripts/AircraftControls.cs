@@ -27,7 +27,7 @@ public enum WeaponType
     ARM,
     AShM,
     ExternalFuelTank
-     // only for use in pylon script
+    // only for use in pylon script
 }
 
 public class AircraftControls : MonoBehaviour
@@ -54,7 +54,7 @@ public class AircraftControls : MonoBehaviour
     public List<BombScript> largeBombList = new List<BombScript>();
     public List<BombScript> GBUList = new List<BombScript>();
     public List<BombScript> CBUList = new List<BombScript>();
-    public List<BombScript> napalmList = new List<BombScript>();
+    public List<NapalmScript> napalmList = new List<NapalmScript>();
 
     // AGM
     public List<AGMScript> AGMList = new List<AGMScript>();
@@ -69,8 +69,10 @@ public class AircraftControls : MonoBehaviour
     // Drop Tank
     public List<DropTankScript> dropTankList = new List<DropTankScript>();
 
+    public int dropSeries = 1; // the amount of ordinance to drop at one time.
+    public static string weaponSelectionString = null;
     #endregion
-    
+
     public WeaponType currentSelection = WeaponType.Empty;
     private int weaponTypeCount = 0;
     //NOTE: a launching of a weapon is to delete its respective child model under the plane and intantiating it where the deleted object was.
@@ -95,7 +97,7 @@ public class AircraftControls : MonoBehaviour
     {
         GetWeapons();
 
-        weaponTypeCount = Enum.GetNames(typeof(WeaponType)).Length -1;
+        weaponTypeCount = Enum.GetNames(typeof(WeaponType)).Length - 1;
         currentSelection = WeaponType.Empty;
 
         //if (flyPoint) // does not work
@@ -192,7 +194,7 @@ public class AircraftControls : MonoBehaviour
                         CBUList.Add(weapon.GetComponent<BombScript>());
                         break;
                     case WeaponType.Napalm:
-                        napalmList.Add(weapon.GetComponent<BombScript>());
+                        napalmList.Add(weapon.GetComponent<NapalmScript>());
                         break;
                     case WeaponType.SmallRocket:
                         smallRocketPodList.Add(weapon.GetComponent<RocketPodScript>());
@@ -442,6 +444,7 @@ public class AircraftControls : MonoBehaviour
         if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentSelection++;
+            weaponSelectionString = currentSelection.ToString();
 
             if ((int)currentSelection >= weaponTypeCount)
                 currentSelection = 0;
@@ -449,9 +452,22 @@ public class AircraftControls : MonoBehaviour
         else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentSelection--;
+            weaponSelectionString = currentSelection.ToString();
 
             if ((int)currentSelection < 0)
                 currentSelection = (WeaponType)weaponTypeCount;
+        }
+
+        if (Input.GetKeyDown("[+]"))
+        {
+            dropSeries++;
+        }
+        else if (Input.GetKeyDown("[-]"))
+        {
+            dropSeries--;
+
+            if (dropSeries < 1)
+                dropSeries = 1;
         }
 
         if (Input.GetKeyDown(KeyCode.R)) // arm the selected weapons?
@@ -459,14 +475,27 @@ public class AircraftControls : MonoBehaviour
             ArmWeapons();
         }
 
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (currentSelection == WeaponType.GunPod || currentSelection == WeaponType.SmallRocket || 
+            currentSelection == WeaponType.MediumRocket || currentSelection == WeaponType.LargeRocket)
         {
-            UseWeapon();
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+                UseWeapon();
+            }
+            else if (Input.GetKeyUp(KeyCode.Mouse0))
+            {
+                CeaseFire();
+            }
         }
         else
         {
-            CeaseFire();
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                UseWeapon();
+            }
         }
+            
+
         #endregion
 
         // Movement
@@ -550,7 +579,194 @@ public class AircraftControls : MonoBehaviour
     /// </summary>
     private void UseWeapon()
     {
+        switch (currentSelection)
+        {
+            case WeaponType.GunPod:
+                for (int i = 0; i < gunList.Count; i++)
+                    gunList[i].fire = true;
 
+                for (int i = 0; i < gunPodList.Count; i++)
+                    gunPodList[i].fire = true;
+                break;
+            case WeaponType.IR:
+                //if(IRList.Count > 0)
+                //{
+                //    IRList[0].active = true;
+                //    IRList.RemoveAt(0);
+                //}
+                break;
+            case WeaponType.SARH:
+                //for (int i = 0; i < SARHList.Count; i++)
+                //{
+                //    if (!SARHList[i].armed)
+                //        SARHList[i].armed = true;
+                //    else
+                //        SARHList[i].armed = false;
+                //}
+                break;
+            case WeaponType.ARH:
+                //for (int i = 0; i < ARHList.Count; i++)
+                //{
+                //    if (!ARHList[i].armed)
+                //        ARHList[i].armed = true;
+                //    else
+                //        ARHList[i].armed = false;
+                //}
+                break;
+            case WeaponType.BeamRider:
+                //for (int i = 0; i < beamRiderList.Count; i++)
+                //{
+                //    if (!beamRiderList[i].armed)
+                //        beamRiderList[i].armed = true;
+                //    else
+                //        beamRiderList[i].armed = false;
+                //}
+                break;
+            case WeaponType.SmallBomb:
+                if (smallBombList.Count > dropSeries)
+                {
+                    for (int i = 0; i < dropSeries; i++)
+                    {
+                        smallBombList[i].launch = true;
+                        smallBombList.RemoveAt(i);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < smallBombList.Count; i++)
+                    {
+                        smallBombList[i].launch = true;
+                        smallBombList.RemoveRange(0, smallBombList.Count);
+                    }
+                        
+                }
+                break;
+            case WeaponType.MediumBomb:
+                if (mediumBombList.Count > dropSeries)
+                {
+                    for (int i = 0; i < dropSeries; i++)
+                    {
+                        mediumBombList[i].launch = true;
+                        mediumBombList.RemoveAt(i);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < mediumBombList.Count; i++)
+                    {
+                        mediumBombList[i].launch = true;
+                        mediumBombList.RemoveRange(0, mediumBombList.Count);
+                    }
+                        
+                }
+                break;
+            case WeaponType.LargeBomb:
+                if (largeBombList.Count > dropSeries)
+                {
+                    for (int i = 0; i < dropSeries; i++)
+                    {
+                        largeBombList[i].launch = true;
+                        largeBombList.RemoveAt(i);
+                    }
+                        
+                }
+                else
+                {
+                    for (int i = 0; i < largeBombList.Count; i++)
+                    {
+                        largeBombList[i].launch = true;
+                        largeBombList.RemoveRange(0, largeBombList.Count);
+                    }
+                        
+                }
+                break;
+            case WeaponType.GBU:
+                if(GBUList.Count > 0)
+                {
+                    GBUList[0].launch = true;
+                    GBUList.RemoveAt(0);
+                }
+                break;
+            case WeaponType.CBU:
+                if (CBUList.Count > dropSeries)
+                {
+                    for (int i = 0; i < dropSeries; i++)
+                    {
+                        CBUList[i].launch = true;
+                        CBUList.RemoveAt(i);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < CBUList.Count; i++)
+                    {
+                        CBUList[i].launch = true;
+                        CBUList.RemoveRange(0, CBUList.Count);
+                    }
+                        
+                }
+                break;
+            case WeaponType.Napalm:
+                if (napalmList.Count > dropSeries)
+                {
+                    for (int i = 0; i < dropSeries; i++)
+                    {
+                        napalmList[i].launch = true;
+                        napalmList.RemoveAt(i);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < napalmList.Count; i++)
+                    {
+                        napalmList[i].launch = true;
+                        napalmList.RemoveRange(0, napalmList.Count);
+                    }
+                        
+                }
+                break;
+            case WeaponType.SmallRocket:
+                for(int i = 0; i < smallRocketPodList.Count; i++)
+                    smallRocketPodList[i].launch = true;
+                break;
+            case WeaponType.MediumRocket:
+                for (int i = 0; i < mediumRocketPodList.Count; i++)
+                    mediumRocketPodList[i].launch = true;
+                break;
+            case WeaponType.LargeRocket:
+                for (int i = 0; i < largeRocketPodList.Count; i++)
+                    largeRocketPodList[i].launch = true;
+                break;
+            case WeaponType.AGM:
+                //for (int i = 0; i < AGMList.Count; i++)
+                //{
+                //    if (!AGMList[i].armed)
+                //        AGMList[i].armed = true;
+                //    else
+                //        AGMList[i].armed = false;
+                //}
+                break;
+            case WeaponType.ARM:
+                //for (int i = 0; i < AGMList.Count; i++)
+                //{
+                //    if (!AGMList[i].armed)
+                //        AGMList[i].armed = true;
+                //    else
+                //        AGMList[i].armed = false;
+                //}
+                break;
+            case WeaponType.AShM:
+                //for (int i = 0; i < AGMList.Count; i++)
+                //{
+                //    if (!AGMList[i].armed)
+                //        AGMList[i].armed = true;
+                //    else
+                //        AGMList[i].armed = false;
+                //}
+                break;
+            default: // do nothing
+                break;
+        }
     }
 
     /// <summary>
@@ -558,11 +774,34 @@ public class AircraftControls : MonoBehaviour
     /// </summary>
     private void CeaseFire()
     {
+        switch (currentSelection)
+        {
+            case WeaponType.GunPod:
+                for (int i = 0; i < gunList.Count; i++)
+                    gunList[i].fire = false;
 
+                for (int i = 0; i < gunPodList.Count; i++)
+                    gunPodList[i].fire = false;
+                break;
+            case WeaponType.SmallRocket:
+                for (int i = 0; i < smallRocketPodList.Count; i++)
+                    smallRocketPodList[i].launch = false;
+                break;
+            case WeaponType.MediumRocket:
+                for (int i = 0; i < mediumRocketPodList.Count; i++)
+                    mediumRocketPodList[i].launch = false;
+                break;
+            case WeaponType.LargeRocket:
+                for (int i = 0; i < largeRocketPodList.Count; i++)
+                    largeRocketPodList[i].launch = false;
+                break;
+            default: // do nothing
+                break;
+        }
     }
 
     private void FlyToPoint(Transform flyPoint)
     {
-        
+
     }
 }

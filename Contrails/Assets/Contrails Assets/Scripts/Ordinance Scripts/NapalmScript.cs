@@ -40,9 +40,20 @@ public class NapalmScript : MonoBehaviour
             model.transform.Rotate(rotateSpeed, 0, 0); // 5 is good
             return;
         }
-        
+
+        if (!armed)
+            return;
+
         if (launch)
         {
+            dropVelocity = FlightScript._speed;
+            //if(dropVelocity > maxLaunchSpeed)
+            //{
+            //    Debug.Log("Too fast to drop");
+            //    launch = false;
+            //    return;
+            //}
+
             launch = false;
             launched = true;
 
@@ -53,6 +64,7 @@ public class NapalmScript : MonoBehaviour
                 Random.Range(-deviation, deviation),
                 Random.Range(-deviation, deviation));
 
+            rb.isKinematic = false;
             rb.useGravity = true;
             rb.mass = weight;
             rb.velocity = transform.forward * (dropVelocity + Random.Range(-verticalDispersion, verticalDispersion));

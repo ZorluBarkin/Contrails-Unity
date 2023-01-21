@@ -7,12 +7,6 @@ using UnityEngine.UIElements;
 public class FlightScript : MonoBehaviour
 {
     // lift modes
-    public enum FlightMode
-    {
-        SimpleLift,
-        Arcade,
-        Realistic
-    }
     public FlightMode flightMode = FlightMode.Realistic;
 
     public AircraftControls aircraftControls = null;
@@ -29,6 +23,8 @@ public class FlightScript : MonoBehaviour
     public float thrust = 4218.41f;
     public Vector3 turnTorque = new Vector3(1f, 1f, 1f);
     private float forceMultiplier = 0.1f;
+
+    public static float _speed = 0f;
     #endregion
 
     #region Control Variables
@@ -48,6 +44,8 @@ public class FlightScript : MonoBehaviour
         if(rb == null)
             rb = GetComponent<Rigidbody>();
 
+        flightMode = GameSettings._flightMode;
+
         if(flightMode == FlightMode.SimpleLift)
             rb.useGravity = false;
     }
@@ -58,8 +56,8 @@ public class FlightScript : MonoBehaviour
     public void FixedUpdate()
     {
         throttle = aircraftControls.throttle;
-
-        switch(flightMode)
+        _speed = rb.velocity.magnitude;
+        switch (flightMode)
         {
             case FlightMode.SimpleLift:
                 if (rb.velocity.magnitude < 100 && AAMScript.burnTimer > AAMScript.burnTime)

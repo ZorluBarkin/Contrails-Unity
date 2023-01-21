@@ -1,8 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+
+public enum FlightMode
+{
+    SimpleLift,
+    Arcade,
+    Realistic
+}
 
 public class GameSettings : MonoBehaviour
 {
@@ -60,6 +68,12 @@ public class GameSettings : MonoBehaviour
 
     #endregion
 
+    #region Game Settings
+
+    public static FlightMode _flightMode = FlightMode.Realistic;
+    [SerializeField] FlightMode flightMode = FlightMode.Arcade; // setting it for now
+
+    #endregion
     // textures
 
     // Shaders
@@ -82,7 +96,7 @@ public class GameSettings : MonoBehaviour
         if (crosshair == null)
             crosshair = HUD.transform.GetChild(1).gameObject;
 
-        SetHUDSettings();
+        SetCursorSettings();
         //Debug.Log("displays connected: " + Display.displays.Length);
     }
 
@@ -93,7 +107,7 @@ public class GameSettings : MonoBehaviour
             SetGameSettings();
 
             if (HUDActive)
-                SetHUDSettings();
+                SetCursorSettings();
             else
                 HUD.SetActive(false);
 
@@ -106,7 +120,7 @@ public class GameSettings : MonoBehaviour
         // setting the sttaic variables
         _mouseSensitivity = mouseSensitivity;
         _cameraSpeed = cameraSpeed + 5;
-
+        _flightMode = flightMode;
         // Custom Application frame rate setting
         Application.targetFrameRate = targetFrameRate + 1;
 
@@ -122,11 +136,11 @@ public class GameSettings : MonoBehaviour
         }
     }
 
-    private void SetHUDSettings()
+    private void SetCursorSettings()
     {
         HUD.SetActive(true);
         
-        for(int i = 0; i < HUD.transform.childCount; i++)
+        for(int i = 0; i < 2; i++) // cursor should always be firs and second child
         {
 
             //boresight.GetComponent<RectTransform>().sizeDelta = new Vector2(boresightSize, boresightSize); // makes them dissappear

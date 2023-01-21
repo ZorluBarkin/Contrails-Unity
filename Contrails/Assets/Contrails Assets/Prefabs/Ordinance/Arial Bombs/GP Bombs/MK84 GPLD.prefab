@@ -312,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 920
   bombWidth: 0.457
-  dropVelocity: 40
+  dropVelocity: 0
   armed: 0
   launch: 0
   deviation: 5
@@ -353,7 +353,7 @@ Rigidbody:
   m_Drag: 0.155
   m_AngularDrag: 0.155
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
