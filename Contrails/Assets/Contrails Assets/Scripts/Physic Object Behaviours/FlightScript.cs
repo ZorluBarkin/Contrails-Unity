@@ -66,7 +66,7 @@ public class FlightScript : MonoBehaviour
                     flightMode = FlightMode.Realistic;
                 }
                 break;
-            case FlightMode.Arcade:
+            case FlightMode.Arcade: // Flight does not work good, like almost not at all
                 if (!arcadeSet)
                 {
                     rb.useGravity = false;

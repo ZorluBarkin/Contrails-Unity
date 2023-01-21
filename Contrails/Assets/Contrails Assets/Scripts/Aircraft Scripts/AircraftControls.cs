@@ -69,8 +69,9 @@ public class AircraftControls : MonoBehaviour
     // Drop Tank
     public List<DropTankScript> dropTankList = new List<DropTankScript>();
 
+    // TODO: Add ripple fire bool, right here with a fixed interval then add it to UseWeapon method
     public int dropSeries = 1; // the amount of ordinance to drop at one time.
-    public static string weaponSelectionString = null;
+    public static string _weaponSelectionString = null;
     #endregion
 
     public WeaponType currentSelection = WeaponType.Empty;
@@ -441,10 +442,11 @@ public class AircraftControls : MonoBehaviour
     private void GetAircraftInput()
     { // TODO: need to make these controls remappable to any key the user wants
         #region Weapon Inputs
+        // TODO: This goes to -1 fix it
         if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentSelection++;
-            weaponSelectionString = currentSelection.ToString();
+            _weaponSelectionString = "Weapon Selected: " + currentSelection.ToString();
 
             if ((int)currentSelection >= weaponTypeCount)
                 currentSelection = 0;
@@ -452,7 +454,7 @@ public class AircraftControls : MonoBehaviour
         else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentSelection--;
-            weaponSelectionString = currentSelection.ToString();
+            _weaponSelectionString = "Weapon Selected: " + currentSelection.ToString();
 
             if ((int)currentSelection < 0)
                 currentSelection = (WeaponType)weaponTypeCount;
@@ -707,7 +709,7 @@ public class AircraftControls : MonoBehaviour
                 }
                 break;
             case WeaponType.Napalm:
-                if (napalmList.Count > dropSeries)
+                if (napalmList.Count > dropSeries) // TODO: This breaks with drop series more than one
                 {
                     for (int i = 0; i < dropSeries; i++)
                     {

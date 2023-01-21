@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
@@ -58,6 +59,8 @@ public class GameSettings : MonoBehaviour
 
     #region Control Variables
 
+    public TextMeshProUGUI weaponSelectionTextMesh = null;
+
     // for use in other classes
     public static float _mouseSensitivity = 1f;
     public static float _cameraSpeed = 1f;
@@ -88,13 +91,16 @@ public class GameSettings : MonoBehaviour
         SetGameSettings();
 
         if (HUD == null)
-            HUD = GameObject.Find("HUD");
+            HUD = GameObject.Find("HUD").gameObject;
 
         if (boresight == null)
             boresight = HUD.transform.GetChild(0).gameObject;
 
         if (crosshair == null)
             crosshair = HUD.transform.GetChild(1).gameObject;
+
+        if (weaponSelectionTextMesh == null)
+            weaponSelectionTextMesh = HUD.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
 
         SetCursorSettings();
         //Debug.Log("displays connected: " + Display.displays.Length);
@@ -113,6 +119,9 @@ public class GameSettings : MonoBehaviour
 
             settingsChanged = false;
         }
+
+        // wrong place curretnly here for debug
+        weaponSelectionTextMesh.text = AircraftControls._weaponSelectionString; // add drop Series too
     }
 
     private void SetGameSettings()
