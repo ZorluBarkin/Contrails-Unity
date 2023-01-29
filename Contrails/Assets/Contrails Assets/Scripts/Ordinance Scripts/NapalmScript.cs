@@ -37,7 +37,7 @@ public class NapalmScript : MonoBehaviour
     {
         if (launched)
         {
-            model.transform.Rotate(rotateSpeed, 0, 0); // 5 is good
+            model.transform.Rotate(0, 0, rotateSpeed); // 5 is good
             return;
         }
 

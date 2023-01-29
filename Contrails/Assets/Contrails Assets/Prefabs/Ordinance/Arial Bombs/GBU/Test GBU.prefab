@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5653928203646547440}
   - component: {fileID: 1668895194642033616}
   m_Layer: 6
-  m_Name: Prototype GBU
+  m_Name: Test GBU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

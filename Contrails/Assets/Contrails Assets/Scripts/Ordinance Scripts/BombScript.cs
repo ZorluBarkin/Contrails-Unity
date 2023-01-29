@@ -22,7 +22,17 @@ public class BombScript : MonoBehaviour
     private float maxLaunchSpeed = 340.29f * 1.5f; // 1.5 mach
 
     #region Guidance Variables
-    //public bool guided = false;
+    // if the bomb is dumb then there will be no target set whcih will block guidance
+    public enum GuidanceType
+    {
+        MCLOS, // Radio
+        infrared, // Self homing, temperature
+        LaserGuided, // semi active
+        ElectroOptical, // self homing tv guided
+        Satellite // laser tracking but rays are from god
+    }
+    public GuidanceType guidanceType = GuidanceType.LaserGuided;
+
     public bool targetSet = false;
     [HideInInspector] public Vector3 impactPoint = Vector3.zero;
     public GameObject target = null;
@@ -91,8 +101,9 @@ public class BombScript : MonoBehaviour
 
         if (targetSet && launched)
         {
-            if (target != null)
-                impactPoint = target.transform.position;
+            impactPoint = TrackTarget();
+            //if (target != null) 
+            //    impactPoint = target.transform.position;
 
             DoGuidance(impactPoint);
         }
@@ -114,6 +125,34 @@ public class BombScript : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Traking done according to tracking type of bomb.
+    /// </summary>
+    private Vector3 TrackTarget()
+    {
+        switch (guidanceType)
+        {
+            case GuidanceType.infrared:
+                return Vector3.zero; // fill in
+            case GuidanceType.LaserGuided:
+                // send a laser from plane respecting the planes view angels update in a regular interval
+                return Vector3.zero; // fill in
+            case GuidanceType.ElectroOptical:
+                // look through bombs camer with BW shader lock and give target.transform.position
+                return Vector3.zero; // fill in
+            case GuidanceType.Satellite:
+                // do laser guiding but laser comes from god
+                return Vector3.zero; // fill in
+            default: // default is mclos
+                // change where the impact point is based on pilot input
+                return Vector3.zero; // fill in
+        }
+    }
+
+    /// <summary>
+    /// Guides the bomb on target
+    /// </summary>
+    /// <param name="impactPoint"></param>
     private void DoGuidance(Vector3 impactPoint)
     {
         Vector3 guidanceVector = impactPoint - transform.position;

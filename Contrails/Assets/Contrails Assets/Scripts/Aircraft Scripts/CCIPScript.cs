@@ -10,6 +10,9 @@ public class CCIPScript : MonoBehaviour
     public Rigidbody rb = null;
     public GameObject ordinance = null;
 
+    public bool CCRP = false;
+    public bool CCIP = false;
+
     // Start is called before the first frame update
     void Start()
     {
