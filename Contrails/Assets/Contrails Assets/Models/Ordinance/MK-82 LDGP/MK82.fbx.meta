@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bcbb0664fe44b674fa8ed462ee39668f
+guid: 46770b58f2f9a1c4692e9f7d75ecc228
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,53 +7,43 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MK83 Back
-    second: {fileID: 2100000, guid: beb51cb997ca7d24f8cb49f724288756, type: 2}
+      name: MK82 Body
+    second: {fileID: 2100000, guid: ac36f398cab5fc546bd7645b2fe0b80a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MK83 Body
-    second: {fileID: 2100000, guid: 07edb6bfa2430534ebf8148b53ddf286, type: 2}
+      name: MK82 Connector
+    second: {fileID: 2100000, guid: ab0ba018b5f243c4abb4be9dae84d5d1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MK83 Connector
-    second: {fileID: 2100000, guid: 5507f52cbb0d26f4bb92fc1291100777, type: 2}
+      name: MK82 Detail Label
+    second: {fileID: 2100000, guid: 9a84a40d494771442a8803587f5a50db, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MK83 Detail Label
-    second: {fileID: 2100000, guid: fa6c3a4949130794485697275c01e964, type: 2}
+      name: MK82 Fuze
+    second: {fileID: 2100000, guid: 2ced66cd8aa171a42bffcd9851f9a7c9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MK83 Fuze
-    second: {fileID: 2100000, guid: 3a1cdc54adaa8d14ea60a29c15fb2e00, type: 2}
+      name: MK82 Label
+    second: {fileID: 2100000, guid: a6bd01da3aff8c34aa66a88837a00d45, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MK83 Label
-    second: {fileID: 2100000, guid: 7e901c4cac68cc24db3375257a52c61c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MK83 Label.001
-    second: {fileID: 2100000, guid: c2e9e64def53d284bb10d34bc3c6b805, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MK83 Tip
-    second: {fileID: 2100000, guid: 7da1667fef2a9404ab1a5cbe5d36ac45, type: 2}
+      name: MK82 Tip
+    second: {fileID: 2100000, guid: a42736cb444b01b45ac73e03fc77c4a3, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: MK83 Detail Label
-    second: {fileID: 2800000, guid: a574625564e82574e86bf6880e7fca6a, type: 3}
+      name: MK82 Detail Label
+    second: {fileID: 2800000, guid: b3f50757d777c5a4fad8028a36369142, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: MK83 Label
-    second: {fileID: 2800000, guid: b060905dcb8ef3f47831ede28b5a96b0, type: 3}
+      name: MK82 Label
+    second: {fileID: 2800000, guid: bd93980ef33b54d459e93302a687ee2b, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
