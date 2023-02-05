@@ -14,7 +14,6 @@ public class PylonScript : MonoBehaviour
     private bool listSelection = false;
     public bool moreThanOneStack = false;
     private int stackNumber = 1; // 1 - 2
-    private int connectionPoints = 1; // 1-2-3
     public List<string> innerTypeSelection = new List<string>();
     public int selectionInteger = 0;
     #endregion

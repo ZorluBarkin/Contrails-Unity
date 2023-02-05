@@ -58,6 +58,11 @@ MonoBehaviour:
   crosshairSize: 0.25
   boresightSize: 0.25
   hudTransparency: 1
+  weaponSelectionTextMesh: {fileID: 0}
   mouseSensitivity: 1
   cameraSpeed: 5
+  flightMode: 1
+  selectionMat: {fileID: 2100000, guid: fe7315971647f2b4c930fa4865ca7b92, type: 2}
+  selectedMat: {fileID: 2100000, guid: 0124708cf1683c941ac867e5bc5e350e, type: 2}
+  appliedMat: {fileID: 2100000, guid: 02289ef0094f36b47bbfc879bf7a2081, type: 2}
   settingsChanged: 0

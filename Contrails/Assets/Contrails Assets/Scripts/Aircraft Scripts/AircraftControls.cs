@@ -35,7 +35,6 @@ public class AircraftControls : MonoBehaviour
     #region Weaponry Variables
     public List<GameObject> pylonList = new List<GameObject>(); // pylons will always start at index 1, then comes the guns
     public int pylonNumber = 0;
-    private int pylonsAssigned = 0;
 
     // Rockets
     public List<RocketPodScript> smallRocketPodList = new List<RocketPodScript>();

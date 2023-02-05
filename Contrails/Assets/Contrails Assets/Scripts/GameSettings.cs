@@ -76,6 +76,11 @@ public class GameSettings : MonoBehaviour
     public static FlightMode _flightMode = FlightMode.Realistic;
     [SerializeField] FlightMode flightMode = FlightMode.Arcade; // setting it for now
 
+    // selection material colours
+    public Material selectionMat = null;
+    public Material selectedMat = null;
+    public Material appliedMat = null;
+
     #endregion
     // textures
 
@@ -88,7 +93,7 @@ public class GameSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetGameSettings();
+        
 
         if (HUD == null)
             HUD = GameObject.Find("HUD").gameObject;
@@ -101,6 +106,8 @@ public class GameSettings : MonoBehaviour
 
         if (weaponSelectionTextMesh == null)
             weaponSelectionTextMesh = HUD.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+
+        SetGameSettings();
 
         SetCursorSettings();
         //Debug.Log("displays connected: " + Display.displays.Length);
@@ -135,7 +142,7 @@ public class GameSettings : MonoBehaviour
 
         if (screenNumber == 1)
         {
-            Camera.main.fieldOfView = targetFOV;
+            Camera.main.fieldOfView = targetFOV; 
             Camera.main.farClipPlane = farViewDistance;
             Camera.main.nearClipPlane = nearViewDistance;
         }

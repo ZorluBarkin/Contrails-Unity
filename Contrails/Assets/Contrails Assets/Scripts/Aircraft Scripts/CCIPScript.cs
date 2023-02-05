@@ -26,6 +26,8 @@ public class CCIPScript : MonoBehaviour
     void Update()
     {
         // Compute impact point
+        // idea: drop velocity (m/s) divided by Altitude (m) gives seconds of drop
+        // 
     }
 
 }

@@ -19,7 +19,7 @@ public class BombScript : MonoBehaviour
     private bool launched = false;
     public float deviation = 10f; // in degrees // 10 8 6 5
     public float verticalDispersion = 5f; // in m/s
-    private float maxLaunchSpeed = 340.29f * 1.5f; // 1.5 mach
+    public float maxLaunchSpeed = 340.29f * 1.5f; // 1.5 mach
 
     #region Guidance Variables
     // if the bomb is dumb then there will be no target set whcih will block guidance
@@ -77,7 +77,7 @@ public class BombScript : MonoBehaviour
         {
             dropVelocity = FlightScript._speed;
 
-            if( dropVelocity > maxLaunchSpeed )
+            if ( dropVelocity > maxLaunchSpeed )
             {
                 Debug.Log("Too fast to drop"); // turn this to on screen warning
                 launch = false;
@@ -88,11 +88,11 @@ public class BombScript : MonoBehaviour
             launched = true;
 
             transform.parent = null;
-            transform.position -= transform.up * 2f;
-            transform.rotation = transform.rotation * Quaternion.Euler(
-                Random.Range(-deviation, deviation), 
-                Random.Range(-deviation, deviation), 
-                Random.Range(-deviation, deviation));
+            //transform.position -= transform.up * 2f; //closed for test
+            //transform.rotation = transform.rotation * Quaternion.Euler(
+            //    Random.Range(-deviation, deviation), 
+            //    Random.Range(-deviation, deviation), 
+            //    Random.Range(-deviation, deviation));
 
             rb.isKinematic = false;
             rb.useGravity = true;
@@ -123,6 +123,12 @@ public class BombScript : MonoBehaviour
             
         }
 
+    }
+
+    // to make it go forward, this emulates the real life distance a bomb can travel
+    private void FixedUpdate()
+    {
+        rb.AddForce(rb.mass * Physics.gravity.magnitude * new Vector3(transform.forward.x, 0, transform.forward.z));
     }
 
     /// <summary>

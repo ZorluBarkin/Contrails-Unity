@@ -151,8 +151,11 @@ public class AAMissileScript : MonoBehaviour
 
         switch (trackingType)
         {
-            case TrackingType.IR: 
+            case TrackingType.IR:
                 // search and find the brightest source
+                if (allAspect) // change this later
+                    return currentTarget;
+
                 return currentTarget;
             case TrackingType.SARH: 
                 // search for what the planes radar can see
