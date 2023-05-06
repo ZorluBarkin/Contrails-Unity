@@ -59,7 +59,6 @@ public class GunScript : MonoBehaviour
 
     private void Fire() // redo with max rpm at 2500, test with different computers decide on max after the results.
     {
-
         if (spawnTwo)
         {
             if (sequential)
@@ -68,9 +67,9 @@ public class GunScript : MonoBehaviour
                 {
                     if (fireTimer > 1f / (fireRate / (1f / Time.deltaTime)))
                     {
-                        Instantiate<GameObject>(bullet,transform.position + transform.forward * 6.5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
+                        Instantiate<GameObject>(bullet, transform.position + transform.forward * 6.5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
                         Random.Range(-deviation, deviation), Random.Range(-deviation, deviation)));
-                        Instantiate<GameObject>(bullet,transform.position + transform.forward * 5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
+                        Instantiate<GameObject>(bullet, transform.position + transform.forward * 5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
                         Random.Range(-deviation, deviation), Random.Range(-deviation, deviation)));
 
                         ammoCount -= 2;
@@ -97,9 +96,9 @@ public class GunScript : MonoBehaviour
             {
                 if (fireTimer > 1f / (fireRate / (1f / Time.deltaTime)))
                 {
-                    Instantiate<GameObject>(bullet, transform.position + transform.forward * 6.5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation), 
+                    Instantiate<GameObject>(bullet, transform.position + transform.forward * 6.5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
                         Random.Range(-deviation, deviation), Random.Range(-deviation, deviation)));
-                    Instantiate<GameObject>(bullet, transform.position + transform.forward * 5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation), 
+                    Instantiate<GameObject>(bullet, transform.position + transform.forward * 5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
                         Random.Range(-deviation, deviation), Random.Range(-deviation, deviation)));
 
                     ammoCount -= 2;
@@ -113,7 +112,7 @@ public class GunScript : MonoBehaviour
         {
             if (fireTimer > 1f / (fireRate / (1f / Time.deltaTime)))
             {
-                Instantiate<GameObject>(bullet, transform.position + transform.forward * 5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation), 
+                Instantiate<GameObject>(bullet, transform.position + transform.forward * 5f, transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
                     Random.Range(-deviation, deviation), Random.Range(-deviation, deviation)));
 
                 ammoCount--;
@@ -121,7 +120,7 @@ public class GunScript : MonoBehaviour
             }
             fireTimer += Time.deltaTime;
         }
-        
+
     }
 
     private void setFireRate()

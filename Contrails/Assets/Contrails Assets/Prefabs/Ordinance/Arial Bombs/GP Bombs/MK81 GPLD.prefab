@@ -69,17 +69,18 @@ MonoBehaviour:
   deviation: 10
   verticalDispersion: 35
   maxLaunchSpeed: 510.435
+  terminalVelocity: -1
   guidanceType: 2
   targetSet: 0
   impactPoint: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
   turnRate: 5
-  dragCoefficient: 0.155
   payload: 45
   blastRadius: {x: 0, y: 0}
   explosionEffect: {fileID: 1552366338733322475, guid: da6105ea9378a8144bf5243ddcab522b,
     type: 3}
   fuzeTime: 0
+  testTime: 0
 --- !u!136 &5859424766855167688
 CapsuleCollider:
   m_ObjectHideFlags: 0

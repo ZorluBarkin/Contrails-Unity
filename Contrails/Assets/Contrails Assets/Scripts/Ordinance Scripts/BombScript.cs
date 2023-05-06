@@ -13,13 +13,15 @@ public class BombScript : MonoBehaviour
     public float mass = 227f; // in kg
     public float bombWidth = 0.5f;
 
-    public float dropVelocity = 0f; // the velocity when the bomb was dropped from the plane, 40 ensures to drop forwards
+    public float dropVelocity = 0f; // the velocity when the bomb was dropped from the plane, Vertical dispersion + 5f ensures a drop forwards
     public bool armed = false;
     public bool launch = false;
     private bool launched = false;
     public float deviation = 10f; // in degrees // 10 8 6 5
     public float verticalDispersion = 5f; // in m/s
     public float maxLaunchSpeed = 340.29f * 1.5f; // 1.5 mach
+    private float calculatedDrag = 1.52f / 3;
+    public float terminalVelocity = -1; // if -1 then dont use this calculation
 
     #region Guidance Variables
     // if the bomb is dumb then there will be no target set whcih will block guidance
@@ -37,7 +39,6 @@ public class BombScript : MonoBehaviour
     [HideInInspector] public Vector3 impactPoint = Vector3.zero;
     public GameObject target = null;
     public float turnRate = 5f;
-    public float dragCoefficient = 0.155f; // for mk82 its max at 0.155
     #endregion
 
     #region Explosion Variables
@@ -53,6 +54,9 @@ public class BombScript : MonoBehaviour
     private float fuzeTimer = 0f;
     #endregion
 
+
+    public float testTime = 0f; // test
+    private float factor = 2f; // test
     // Start is called before the first frame update
     void Start()
     {
@@ -66,10 +70,20 @@ public class BombScript : MonoBehaviour
 
         TNTPayload = 2.25f * payload; // 9 MJ/kg (Tritonal) = 4 MJ/Kg (TNT) at the same weight, Hence, tritonal is 2.25 times the weight of TNT.
         //Time.timeScale = 30f; // for testing
+
+        if (terminalVelocity > 0) // prefered calculation type
+            calculatedDrag = Physics.gravity.magnitude / terminalVelocity; // max acceleration Divided by terminal velocity gives ideal drag 
+        else // should be used if there is no terminal velocity data available and a drag coefficient data exists
+            rb.drag /= 3;
+        //factor = 8.9683f * Mathf.Pow(transform.position.y, -1.29f); // wrong
+        //Debug.Log(factor);
+        float time = Mathf.Sqrt(rb.mass / (Physics.gravity.magnitude * factor * rb.drag) * (float)System.Math.Acosh(System.Math.Pow(System.Math.E, (transform.position.y * factor * rb.drag) / rb.mass)));
+        Debug.Log(time);
     }
 
     private void Update()
     {
+        testTime += Time.deltaTime; // test
         if (!armed)
             return;
 
@@ -77,9 +91,12 @@ public class BombScript : MonoBehaviour
         {
             dropVelocity = FlightScript._speed;
 
+            if (dropVelocity <= verticalDispersion)
+                dropVelocity = verticalDispersion + 5f;
+
             if ( dropVelocity > maxLaunchSpeed )
             {
-                Debug.Log("Too fast to drop"); // turn this to on screen warning
+                Debug.Log("Too fast to drop"); // turn this to an on screen warning
                 launch = false;
                 return;
             }
@@ -88,12 +105,13 @@ public class BombScript : MonoBehaviour
             launched = true;
 
             transform.parent = null;
-            //transform.position -= transform.up * 2f; //closed for test
+            //transform.position -= transform.up * 2f;
             //transform.rotation = transform.rotation * Quaternion.Euler(
-            //    Random.Range(-deviation, deviation), 
-            //    Random.Range(-deviation, deviation), 
+            //    Random.Range(-deviation, deviation),
+            //    Random.Range(-deviation, deviation),
             //    Random.Range(-deviation, deviation));
 
+            rb.drag = calculatedDrag;
             rb.isKinematic = false;
             rb.useGravity = true;
             rb.velocity = transform.forward * (dropVelocity + Random.Range(-verticalDispersion, verticalDispersion));
@@ -117,7 +135,7 @@ public class BombScript : MonoBehaviour
         if (timerStarter)
         {
             fuzeTimer += Time.deltaTime;
-
+            Debug.Log(testTime); // test
             if(fuzeTimer >= fuzeTime)
                 Explode();
             
