@@ -10,7 +10,8 @@ public class NapalmEffectScript : MonoBehaviour
     public float rollingDistance = 90f;
     public Vector2 burnTemperature = new Vector2(900f, 1300f);
     private float DPS = 0f;
-    
+
+    public float reachHeight = 15;
     private bool spawnedInitial = false;
     private bool spawningDone = false;
     private bool spawned = false;
@@ -41,8 +42,23 @@ public class NapalmEffectScript : MonoBehaviour
         
         if (spawnedInitial && rolledTime > 0.5f && !spawned)
         {
+            RaycastHit hit;
+            Vector3 raycastPosition = new Vector3(transform.position.x, transform.position.y + reachHeight, transform.position.z);
+            if (Physics.Raycast(raycastPosition, -transform.up, out hit, reachHeight, LayerMask.GetMask("Ground")))
+            {
+                Debug.Log(hit.point.y);
+                transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
+            }
+
             spawned = true;
             Instantiate(particleEffect, transform.position, Quaternion.identity);
+
+            DOTScript spawnedDot = null;
+            if (particleEffect.gameObject.TryGetComponent<DOTScript>(out spawnedDot))
+            {
+                //spawnedDot
+            }
+
         }
 
 
@@ -51,16 +67,18 @@ public class NapalmEffectScript : MonoBehaviour
             transform.position += transform.forward * 90 * Time.deltaTime;
             rolledTime += Time.deltaTime;
         }
-        else
+        else 
+        {
             spawningDone = true;
 
-    }
+            RaycastHit hit;
+            Vector3 raycastPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            if (Physics.Raycast(raycastPosition, -transform.up, out hit, reachHeight + 5f, LayerMask.GetMask("Ground")))
+                transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
+            else
+                Destroy(gameObject);
+                
+        }
 
-    private void OnTriggerStay(Collider other)
-    {
-        //float hitHeatlth = other.gameObject.TryGetComponent</*CombatantScript???*/>().health -= DPS;
-
-        //if (hitHeatlth <= 0)
-        //    Destroy(other.gameObject);
     }
 }
