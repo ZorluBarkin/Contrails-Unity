@@ -35,18 +35,22 @@ public class DOTScript : MonoBehaviour
         tickTime += Time.deltaTime;
     }
 
+    float damageDone = 0;
     /// <summary>
     /// Used for Low performance objects that can be triggered for DOT, Example: NPC Tanks.
     /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerStay(Collider collision)
     {
+        // TODO: when enemy dies check by layer, if dead dont activate or when enbemy dies remove collider
+
         if (collision.gameObject.layer == LayerMask.GetMask("Ground"))
             return;
 
         if (tickTime < duration)
         {
-            Debug.Log(tickTime);
+            damageDone += damage * Time.deltaTime / 5;
+            Debug.Log(damageDone);
         }
         else
             Destroy(this);
