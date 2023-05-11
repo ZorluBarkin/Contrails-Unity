@@ -628,6 +628,8 @@ public class AircraftControls : MonoBehaviour
                 {
                     for (int i = 0; i < dropSeries; i++)
                     {
+                        if (!smallBombList[i].armed)
+                            return;
                         smallBombList[i].launch = true;
                         smallBombList.RemoveAt(i);
                     }
@@ -636,6 +638,8 @@ public class AircraftControls : MonoBehaviour
                 {
                     for (int i = 0; i < smallBombList.Count; i++)
                     {
+                        if (!smallBombList[i].armed)
+                            return;
                         smallBombList[i].launch = true;
                         smallBombList.RemoveRange(0, smallBombList.Count);
                     }
@@ -647,14 +651,19 @@ public class AircraftControls : MonoBehaviour
                 {
                     for (int i = 0; i < dropSeries; i++)
                     {
+                        if (!mediumBombList[i].armed)
+                            return;
                         mediumBombList[i].launch = true;
                         mediumBombList.RemoveAt(i);
+                        //mediumBombList[i] = null;
                     }
                 }
                 else
                 {
                     for (int i = 0; i < mediumBombList.Count; i++)
                     {
+                        if (!mediumBombList[i].armed)
+                            return;
                         mediumBombList[i].launch = true;
                         mediumBombList.RemoveRange(0, mediumBombList.Count);
                     }
@@ -666,6 +675,8 @@ public class AircraftControls : MonoBehaviour
                 {
                     for (int i = 0; i < dropSeries; i++)
                     {
+                        if (!largeBombList[i].armed)
+                            return;
                         largeBombList[i].launch = true;
                         largeBombList.RemoveAt(i);
                     }
@@ -675,6 +686,8 @@ public class AircraftControls : MonoBehaviour
                 {
                     for (int i = 0; i < largeBombList.Count; i++)
                     {
+                        if (!largeBombList[i].armed)
+                            return;
                         largeBombList[i].launch = true;
                         largeBombList.RemoveRange(0, largeBombList.Count);
                     }
@@ -684,6 +697,8 @@ public class AircraftControls : MonoBehaviour
             case WeaponType.GBU:
                 if(GBUList.Count > 0)
                 {
+                    if (!GBUList[0].armed)
+                        return;
                     GBUList[0].launch = true;
                     GBUList.RemoveAt(0);
                 }
@@ -712,6 +727,8 @@ public class AircraftControls : MonoBehaviour
                 {
                     for (int i = 0; i < dropSeries; i++)
                     {
+                        if (!napalmList[i].armed)
+                            return;
                         napalmList[i].launch = true;
                         napalmList.RemoveAt(i);
                     }
@@ -720,6 +737,8 @@ public class AircraftControls : MonoBehaviour
                 {
                     for (int i = 0; i < napalmList.Count; i++)
                     {
+                        if (!napalmList[i].armed)
+                            return;
                         napalmList[i].launch = true;
                         napalmList.RemoveRange(0, napalmList.Count);
                     }
