@@ -5,10 +5,11 @@ using UnityEngine;
 public class NapalmEffectScript : MonoBehaviour
 {
     public GameObject particleEffect = null;
-    public float burnTime = 120f; // seconds
+    //public float rollingDistance = 90f;
+
     private float burnTimer = 0f;
-    public float rollingDistance = 90f;
-    public Vector2 burnTemperature = new Vector2(900f, 1300f);
+    [HideInInspector] public float burnTime = 120f; // seconds
+    [HideInInspector] public Vector2 burnTemperature = new Vector2(900f, 1300f);
     private float DPS = 0f;
 
     public float reachHeight = 15;
@@ -22,9 +23,15 @@ public class NapalmEffectScript : MonoBehaviour
         if(particleEffect == null)
             particleEffect = transform.GetChild(0).gameObject;
 
-        DPS = burnTemperature.x + burnTemperature.y / 2 / 10 * 0.02f; // for now, NP-1 about 110DPS
+        DPS = (burnTemperature.x + burnTemperature.y) / 2 * 0.02f; // for now, NP-1 about 110DPS
 
-        Instantiate(particleEffect, transform.position, Quaternion.identity);
+        DOTScript childDOT = particleEffect.GetComponent<DOTScript>();
+
+        childDOT.duration = burnTime;
+        childDOT.damage = DPS;
+
+        SpawnFire();
+
         spawnedInitial = true;
     }
 
@@ -42,8 +49,9 @@ public class NapalmEffectScript : MonoBehaviour
         
         if (spawnedInitial && rolledTime > 0.5f && !spawned)
         {
-            RaycastHit hit;
             Vector3 raycastPosition = new Vector3(transform.position.x, transform.position.y + reachHeight, transform.position.z);
+
+            RaycastHit hit;
             if (Physics.Raycast(raycastPosition, -transform.up, out hit, reachHeight, LayerMask.GetMask("Ground")))
             {
                 Debug.Log(hit.point.y);
@@ -51,13 +59,7 @@ public class NapalmEffectScript : MonoBehaviour
             }
 
             spawned = true;
-            Instantiate(particleEffect, transform.position, Quaternion.identity);
-
-            DOTScript spawnedDot = null;
-            if (particleEffect.gameObject.TryGetComponent<DOTScript>(out spawnedDot))
-            {
-                //spawnedDot
-            }
+            SpawnFire();
 
         }
 
@@ -71,8 +73,9 @@ public class NapalmEffectScript : MonoBehaviour
         {
             spawningDone = true;
 
-            RaycastHit hit;
             Vector3 raycastPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            
+            RaycastHit hit;
             if (Physics.Raycast(raycastPosition, -transform.up, out hit, reachHeight + 5f, LayerMask.GetMask("Ground")))
                 transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
             else
@@ -80,5 +83,14 @@ public class NapalmEffectScript : MonoBehaviour
                 
         }
 
+    }
+
+    private void SpawnFire()
+    {
+        GameObject go = Instantiate(particleEffect, transform.position, Quaternion.identity);
+        DOTScript DOT = go.GetComponent<DOTScript>();
+        
+        DOT.damage = DPS;
+        DOT.duration = burnTime;
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DOTScript : MonoBehaviour
 {
-    public float duration = 120f;
-    public float damage = 110f;
+    [HideInInspector] public float duration = 120f;
+    [HideInInspector] public float damage = 110f;
 
     // NOTE: Napalm will damage everything but immobilize tanks
     // IDEA: make a modifier which makes armoured vehicle have %90 damage reduction

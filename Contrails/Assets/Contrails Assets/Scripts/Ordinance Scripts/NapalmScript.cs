@@ -22,6 +22,10 @@ public class NapalmScript : MonoBehaviour
     public float verticalDispersion = 5f; // in m/s
     private float rotateSpeed = 5f;
 
+    //public float rollingDistance = 90f;
+    public float burnDuration = 120f;
+    public Vector2 burnTemp = new Vector2(900, 1300);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,7 +82,13 @@ public class NapalmScript : MonoBehaviour
         
         Quaternion rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
 
-        Instantiate(explosionEffect, transform.position, rotation);
+        GameObject go =  Instantiate(explosionEffect, transform.position, rotation);
+        NapalmEffectScript napalmEffect = go.GetComponent<NapalmEffectScript>();//.burnTemperature = burnTemp;
+
+        napalmEffect.burnTime = burnDuration;
+        napalmEffect.burnTemperature = burnTemp;
+        //napalmEffect.rollingDistance = rollingDistance;
+
         Destroy(gameObject); // Destroy(gameObject, 3); // maybe for 3 seconds move forward spawning particle along the way
     }
 
