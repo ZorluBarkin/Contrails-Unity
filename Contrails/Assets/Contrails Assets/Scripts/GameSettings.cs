@@ -88,7 +88,7 @@ public class GameSettings : MonoBehaviour
 
     // VR Maybe?, i have no way to test it tho
 
-    public bool settingsChanged = false; // APPLY button saves and applies the changes it
+    public bool settingsChanged = false; // APPLY button saves and applies the changes
 
     // Start is called before the first frame update
     void Start()
@@ -137,6 +137,7 @@ public class GameSettings : MonoBehaviour
         _mouseSensitivity = mouseSensitivity;
         _cameraSpeed = cameraSpeed + 5;
         _flightMode = flightMode;
+
         // Custom Application frame rate setting
         Application.targetFrameRate = targetFrameRate + 1;
 

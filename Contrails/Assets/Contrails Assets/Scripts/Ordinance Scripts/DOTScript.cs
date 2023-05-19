@@ -50,7 +50,7 @@ public class DOTScript : MonoBehaviour
         if (tickTime < duration)
         {
             damageDone += damage * Time.deltaTime / 5;
-            Debug.Log(damageDone);
+            //Debug.Log(damageDone);
         }
         else
             Destroy(this);

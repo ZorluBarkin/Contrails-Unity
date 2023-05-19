@@ -77,8 +77,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7700828586940230063}
-  explosionEffect: {fileID: 1552366338733322475, guid: da6105ea9378a8144bf5243ddcab522b, type: 3}
+  explosionEffect: {fileID: 1552366338733322475, guid: da6105ea9378a8144bf5243ddcab522b,
+    type: 3}
+  poolParent: {fileID: 0}
+  shot: 0
   muzzleVelocity: 1050
+  lifeTime: 3
 --- !u!1 &7700828587952928039
 GameObject:
   m_ObjectHideFlags: 0
