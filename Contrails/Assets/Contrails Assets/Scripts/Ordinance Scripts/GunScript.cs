@@ -1,5 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿/*  
+ * Copyright 2023 Barkın Zorlu 
+ * All rights reserved.
+ * 
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+ */
+
+//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
 
 public class GunScript : MonoBehaviour
@@ -19,9 +27,9 @@ public class GunScript : MonoBehaviour
     public float fireRate = 1000f; // rpm need to turn to rps (divide by 60)
     public bool fireRateChanged = false;
     public float deviation = 2f; // deviation in degrees
-    private bool spawnTwo = false;
-    private bool sequential = false; // one time spawn 2 one time 1 maybe // 4500rpm // dont work
-    private int oscillatoryNumber = 0;
+    //private bool spawnTwo = false;
+    //private bool sequential = false; // one time spawn 2 one time 1 maybe // 4500rpm // dont work
+    //private int oscillatoryNumber = 0;
 
     //public float warmUpTime = 0f; // this is viable for rotary cannons // did not implement yet need to increase firerate untill warmup reached
     //private float warmUpTimer = 0f;
@@ -50,7 +58,7 @@ public class GunScript : MonoBehaviour
                 
         }
 
-        setFireRate();
+        //setFireRate();
     }
 
     void FixedUpdate()
@@ -60,7 +68,7 @@ public class GunScript : MonoBehaviour
 
         if (fireRateChanged)
         {
-            setFireRate();
+            //setFireRate();
             fireRateChanged = false;
         }
 
@@ -80,8 +88,9 @@ public class GunScript : MonoBehaviour
         }
     }
 
-    private void Fire(bool objectPooling = false) // can reliably calculate and fire x < 2500 times
+    private void Fire(bool objectPooling = false)
     {
+        #region commented out
         //if (spawnTwo)
         //{
         //    if (sequential)
@@ -222,7 +231,7 @@ public class GunScript : MonoBehaviour
         //    }
         //    fireTimer += Time.deltaTime;
         //}
-
+        #endregion
 
         if (fireTimer > 1f / (fireRate / (1f / Time.deltaTime)))
         {
@@ -231,9 +240,8 @@ public class GunScript : MonoBehaviour
                 if (!bulletArray[i].activeSelf)
                 {
                     bulletArray[i].transform.position = transform.position + transform.forward * 5f;
-                    bulletArray[i].transform.rotation = transform.rotation;
-                    //bulletArray[i].transform.parent = null;
-                    bulletArray[i].SetActive(true);
+                    bulletArray[i].transform.rotation = transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
+                        Random.Range(-deviation, deviation), Random.Range(-deviation, deviation));bulletArray[i].SetActive(true);
                     bulletScriptArray[i].shot = true;
                     break;
                 }
@@ -244,17 +252,17 @@ public class GunScript : MonoBehaviour
         fireTimer += Time.deltaTime;
     }
 
-    private void setFireRate()
-    {
-        if (fireRate > 4500)
-        {
-            spawnTwo = true;
-            sequential = false;
-        }
-        else if (fireRate > 3000 && fireRate < 4500)
-        {
-            spawnTwo = true;
-            sequential = true;
-        }
-    }
+    //private void setFireRate()
+    //{
+    //    if (fireRate > 4500)
+    //    {
+    //        spawnTwo = true;
+    //        sequential = false;
+    //    }
+    //    else if (fireRate > 3000 && fireRate < 4500)
+    //    {
+    //        spawnTwo = true;
+    //        sequential = true;
+    //    }
+    //}
 }
