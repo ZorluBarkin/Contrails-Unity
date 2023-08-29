@@ -23,6 +23,8 @@ public class HUDScript : MonoBehaviour
     [SerializeField]
     [Tooltip("Where plane is pointing, changes shape dependent on weapon system selected if no weapon is selected it's a circle.")]
     private GameObject boreSight = null;
+    private UnityEngine.UI.Image boreSightImage = null;
+    private bool boreSightTransparent = false;
 
     [Header("Movement and Input")]
     [SerializeField]
@@ -40,8 +42,8 @@ public class HUDScript : MonoBehaviour
 
     [SerializeField]
     private bool freelook = false;
-
-    public /*private*/ Vector3 lastCursorPosition = Vector3.zero;
+    
+    private Vector3 lastCursorPosition = Vector3.zero;
 
     private void Start()
     {
@@ -55,6 +57,10 @@ public class HUDScript : MonoBehaviour
 
         if (flyPoint == null)
             flyPoint = GameObject.Find("FlyPoint").transform; // Singleton
+
+        if (boreSight == null)
+            boreSight = transform.GetChild(1).gameObject;
+        boreSightImage = boreSight.GetComponent<UnityEngine.UI.Image>();
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -72,6 +78,18 @@ public class HUDScript : MonoBehaviour
     private void SetBoresight()
     {
         // make boresight change image based on weapon selected
+
+        // make boresight not appear at rear
+        if (!boreSightTransparent && Vector3.Dot(Camera.main.transform.forward, playerVehicle.transform.forward) < 0f )
+        {
+            boreSightTransparent = true;
+            boreSightImage.color = Color.clear;
+        }
+        else if (boreSightTransparent && Vector3.Dot(Camera.main.transform.forward, playerVehicle.transform.forward) > 0f)
+        {
+            boreSightTransparent = false;
+            boreSightImage.color = gameSettings.cursorColour;
+        }
 
         // update boresight position
         boreSight.transform.position = Camera.main.WorldToScreenPoint(playerVehicle.transform.position + playerVehicle.transform.forward * aimDistance);

@@ -155,11 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0067a399b56cdf347b32f6e494e84ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicle: {fileID: 0}
   crosshair: {fileID: 1301035282}
   boreSight: {fileID: 1861246707}
   aimDistance: 800
   lerpSpeed: 0.5
+  freelook: 1
 --- !u!114 &132974329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ Transform:
   m_Children:
   - {fileID: 1758335171}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0.449, y: 0.03, z: 0}
 --- !u!114 &173757196
 MonoBehaviour:
@@ -560,7 +560,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1181849146
 GameObject:
@@ -748,26 +748,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Settings
       objectReference: {fileID: 0}
-    - target: {fileID: 597071236867095191, guid: 330de2201539b394fa6a5cc43388a099,
-        type: 3}
-      propertyPath: HUDColour.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 597071236867095191, guid: 330de2201539b394fa6a5cc43388a099,
-        type: 3}
-      propertyPath: HUDColour.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 597071236867095191, guid: 330de2201539b394fa6a5cc43388a099,
-        type: 3}
-      propertyPath: HUDColour.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 597071236867095191, guid: 330de2201539b394fa6a5cc43388a099,
-        type: 3}
-      propertyPath: targetFrameRate
-      value: 61
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 330de2201539b394fa6a5cc43388a099, type: 3}
 --- !u!1 &1301035282
@@ -802,9 +782,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1212,7 +1192,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1562248823 stripped
 Transform:
@@ -1405,9 +1385,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1556,7 +1536,7 @@ PrefabInstance:
     - target: {fileID: 667811488280830303, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 667811488280830303, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}

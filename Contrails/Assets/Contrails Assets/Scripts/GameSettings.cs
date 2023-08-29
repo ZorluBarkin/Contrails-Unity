@@ -45,7 +45,7 @@ public class GameSettings : MonoBehaviour
     public GameObject crosshair = null;
     public GameObject boresight = null;
 
-    [SerializeField] private Color cursorColour = Color.white;
+    [SerializeField] public Color cursorColour = Color.white;
     [SerializeField] private Color HUDColour = Color.white;
 
     [SerializeField]
