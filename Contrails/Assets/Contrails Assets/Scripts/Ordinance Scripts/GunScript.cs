@@ -230,23 +230,30 @@ public class GunScript : MonoBehaviour
         //}
         #endregion
 
-        if (fireTimer > 1f / (fireRate / (1f / Time.deltaTime)))
+        if (objectPooling)
         {
-            for (int i = 0; i < bulletArray.Length; i++)
+            if (fireTimer > 1f / (fireRate / (1f / Time.deltaTime)))
             {
-                if (!bulletArray[i].activeSelf)
+                for (int i = 0; i < bulletArray.Length; i++)
                 {
-                    bulletArray[i].transform.position = transform.position + transform.forward * 5f;
-                    bulletArray[i].transform.rotation = transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
-                        Random.Range(-deviation, deviation), Random.Range(-deviation, deviation));bulletArray[i].SetActive(true);
-                    bulletScriptArray[i].shot = true;
-                    break;
+                    if (!bulletArray[i].activeSelf)
+                    {
+                        bulletArray[i].transform.position = transform.position + transform.forward * 5f;
+                        bulletArray[i].transform.rotation = transform.rotation * Quaternion.Euler(Random.Range(-deviation, deviation),
+                            Random.Range(-deviation, deviation), Random.Range(-deviation, deviation));bulletArray[i].SetActive(true);
+                        bulletScriptArray[i].shot = true;
+                        break;
+                    }
                 }
+                ammoCount--;
+                fireTimer = 0;
             }
-            ammoCount--;
-            fireTimer = 0;
+            fireTimer += Time.deltaTime;
         }
-        fireTimer += Time.deltaTime;
+        else
+        {
+            // instantiate instead
+        }
     }
 
     //private void setFireRate()

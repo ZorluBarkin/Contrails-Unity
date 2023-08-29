@@ -120,7 +120,7 @@ public class AircraftControls : MonoBehaviour
             weaponsChanged = false;
         }
 
-        GetAircraftInput();
+        GetWeaponInput();
 
     }
 
@@ -443,7 +443,7 @@ public class AircraftControls : MonoBehaviour
 
     }
 
-    private void GetAircraftInput()
+    private void GetWeaponInput()
     { // TODO: need to make these controls remappable to any key the user wants
         #region Weapon Inputs
         // TODO: This goes to -1 fix it
@@ -500,10 +500,12 @@ public class AircraftControls : MonoBehaviour
                 UseWeapon();
             }
         }
-            
+
 
         #endregion
 
+        // commented out
+        #region Movement input
         // Movement
         if (Input.GetKey(KeyCode.W))
         {
@@ -544,8 +546,8 @@ public class AircraftControls : MonoBehaviour
             yaw = 0;
         }
 
-        mouseX = Input.GetAxis("Mouse X") * GameSettings._mouseSensitivity;
-        mouseY = -Input.GetAxis("Mouse Y") * GameSettings._mouseSensitivity;
+        //mouseX = Input.GetAxis("Mouse X") * GameSettings._mouseSensitivity;
+        //mouseY = -Input.GetAxis("Mouse Y") * GameSettings._mouseSensitivity;
 
         // Throttle Input
         if (Input.GetKey(KeyCode.LeftShift))
@@ -562,10 +564,10 @@ public class AircraftControls : MonoBehaviour
         // lock mouse inputs, used for looking around
         if (Input.GetKey(KeyCode.C))
         {
-
+            
         }
 
-        FlyToPoint(flyPoint.transform);
+        //FlyToPoint(flyPoint.transform);
 
         // ittarate over flaps
         if (Input.GetKey(KeyCode.F))
@@ -578,6 +580,7 @@ public class AircraftControls : MonoBehaviour
         {
 
         }
+        #endregion
     }
 
     /// <summary>

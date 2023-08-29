@@ -77,7 +77,7 @@ MonoBehaviour:
   turnRate: 5
   payload: 202
   blastRadius: {x: 0, y: 0}
-  explosionEffect: {fileID: 1552366338733322475, guid: da6105ea9378a8144bf5243ddcab522b,
+  explosionEffect: {fileID: 7536931602910118782, guid: 7336e2187525e2e4894dd6bf71fb0463,
     type: 3}
   fuzeTime: 0
   testTime: 0

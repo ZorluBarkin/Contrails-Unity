@@ -4814,7 +4814,7 @@ GameObject:
   - component: {fileID: 7663372920993643532}
   - component: {fileID: 7664651537541046430}
   m_Layer: 0
-  m_Name: MK82 Explosion
+  m_Name: MK81 Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14892,8 +14892,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 8
-      minScalar: 4
+      scalar: 5
+      minScalar: 3
       maxCurve:
         serializedVersion: 2
         m_Curve:
