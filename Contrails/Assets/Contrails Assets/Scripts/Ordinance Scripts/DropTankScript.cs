@@ -11,7 +11,7 @@ using UnityEngine;
 public class DropTankScript : MonoBehaviour
 {
     public Rigidbody rb = null;
-    public AircraftControls aircraftControls = null;
+    public FlightScript flightScript = null;
     public float tankWidth = 0f;
 
     public float fuel = 0f; // in Litres
@@ -31,8 +31,8 @@ public class DropTankScript : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody>();
 
-        if (aircraftControls == null)
-            transform.parent.parent.GetComponent<AircraftControls>();
+        if (flightScript == null)
+            transform.parent.parent.GetComponent<FlightScript>();
 
         rb.useGravity = false;
         fullWeight = emptyWeight + fuel * 0.870f; // density of military grade jet fuel is 870 g / m^3 max.
@@ -67,7 +67,7 @@ public class DropTankScript : MonoBehaviour
             return;
 
         if (inUse)
-            fuel -= fuelUse * aircraftControls.throttle / numberOfTanksInUse;
+            fuel -= fuelUse * flightScript.throttle / numberOfTanksInUse;
 
     }
 }

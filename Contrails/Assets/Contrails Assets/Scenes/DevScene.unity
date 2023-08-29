@@ -158,8 +158,8 @@ MonoBehaviour:
   crosshair: {fileID: 1301035282}
   boreSight: {fileID: 1861246707}
   aimDistance: 800
-  lerpSpeed: 0.5
-  freelook: 1
+  lerpSpeed: 1
+  freelook: 0
 --- !u!114 &132974329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 6, z: -14}
+  m_Offset: {x: 0, y: 5, z: -20}
   m_ApplyAfter: 1
   m_PreserveComposition: 0
 --- !u!1 &1013130445
@@ -640,7 +640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181849146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 306, z: -814}
+  m_LocalPosition: {x: 0, y: 305, z: -820}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1149,7 +1149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d713e67b462279440aea03ed25dffc10, type: 2}
+  - {fileID: 2100000, guid: 9e99c2136a6aa724593a807e85d737d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1306,10 +1306,10 @@ MonoBehaviour:
   m_RecenterTarget: 0
   m_VerticalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 200
-    m_AccelTime: 0.3
-    m_DecelTime: 0.3
+    m_SpeedMode: 1
+    m_MaxSpeed: 1
+    m_AccelTime: 0.4
+    m_DecelTime: 0.4
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 1
@@ -1330,10 +1330,10 @@ MonoBehaviour:
     m_LegacyVelocityFilterStrength: -1
   m_HorizontalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 200
-    m_AccelTime: 0.3
-    m_DecelTime: 0.3
+    m_SpeedMode: 1
+    m_MaxSpeed: 1
+    m_AccelTime: 0.4
+    m_DecelTime: 0.4
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
     m_InvertInput: 0
@@ -1442,12 +1442,12 @@ GameObject:
   - component: {fileID: 1929882499}
   - component: {fileID: 1929882498}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Debug Shape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1929882497
 Transform:
   m_ObjectHideFlags: 0
@@ -1496,7 +1496,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 054cb4c1286910f418ec85e6a5ab451f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1597,6 +1597,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
+        type: 3}
+      propertyPath: turnTorque.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
+        type: 3}
+      propertyPath: turnTorque.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
+        type: 3}
+      propertyPath: turnTorque.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d04d5c8ac02f76c44a6557c2c797a9c8, type: 3}

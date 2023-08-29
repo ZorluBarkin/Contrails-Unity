@@ -38,6 +38,7 @@ public enum WeaponType
 public class AircraftControls : MonoBehaviour
 {
     #region Weaponry Variables
+    [Header("Weaponry Variables")]
     public List<GameObject> pylonList = new List<GameObject>(); // pylons will always start at index 1, then comes the guns
     public int pylonNumber = 0;
 
@@ -75,27 +76,13 @@ public class AircraftControls : MonoBehaviour
 
     // TODO: Add ripple fire bool, right here with a fixed interval then add it to UseWeapon method
     public int dropSeries = 1; // the amount of ordinance to drop at one time.
-    public static string _weaponSelectionString = null;
+    public static string _weaponSelectionString = null; // TODO: change this to non static
     #endregion
 
     public WeaponType currentSelection = WeaponType.Empty;
     private int weaponTypeCount = 0;
     //NOTE: a launching of a weapon is to delete its respective child model under the plane and intantiating it where the deleted object was.
     public bool weaponsChanged = false;
-
-    #region Maneuver Variables
-
-    public GameObject flyPoint = null;
-
-    [Range(-1, 1)] public float pitch = 0f;
-    [Range(-1, 1)] public float yaw = 0f;
-    [Range(-1, 1)] public float roll = 0f;
-
-    public float mouseX = 0f; // may delete
-    public float mouseY = 0f; // may delete
-    public float throttle = 0f;
-
-    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -504,72 +491,13 @@ public class AircraftControls : MonoBehaviour
 
         #endregion
 
-        // commented out
-        #region Movement input
-        // Movement
-        if (Input.GetKey(KeyCode.W))
-        {
-            pitch = 1;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            pitch = -1;
-        }
-        else
-        {
-            pitch = 0;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            roll = 1;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            roll = -1;
-        }
-        else
-        {
-            roll = 0;
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            yaw = 1;
-        }
-        else if (Input.GetKey(KeyCode.Q))
-        {
-            yaw = -1;
-        }
-        else
-        {
-            yaw = 0;
-        }
-
-        //mouseX = Input.GetAxis("Mouse X") * GameSettings._mouseSensitivity;
-        //mouseY = -Input.GetAxis("Mouse Y") * GameSettings._mouseSensitivity;
-
-        // Throttle Input
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            throttle += 0.5f * Time.deltaTime; // add sensitivity * ThrottleSensitivity
-            throttle = Mathf.Clamp01(throttle);
-        }
-        else if (Input.GetKey(KeyCode.LeftControl))
-        {
-            throttle -= 0.5f * Time.deltaTime; // add sensitivity * ThrottleSensitivity
-            throttle = Mathf.Clamp01(throttle);
-        }
-
-        // lock mouse inputs, used for looking around
-        if (Input.GetKey(KeyCode.C))
-        {
+        // lock mouse inputs, used for looking around // currently implemented in HUD.cs may move it here
+        //if (Input.GetKey(KeyCode.C))
+        //{
             
-        }
+        //}
 
-        //FlyToPoint(flyPoint.transform);
-
-        // ittarate over flaps
+        // ittarate over flap settings
         if (Input.GetKey(KeyCode.F))
         {
 
@@ -580,7 +508,6 @@ public class AircraftControls : MonoBehaviour
         {
 
         }
-        #endregion
     }
 
     /// <summary>

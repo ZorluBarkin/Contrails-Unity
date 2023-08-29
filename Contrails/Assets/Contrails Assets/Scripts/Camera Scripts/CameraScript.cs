@@ -65,27 +65,27 @@ public class CameraScript : MonoBehaviour
 
     private void MouseFlight()
     {
-        boresightPosition = playerVehicle.transform.position;
-        boresightPosition += playerVehicle.transform.forward * boresightDistance;
+        //boresightPosition = playerVehicle.transform.position;
+        //boresightPosition += playerVehicle.transform.forward * boresightDistance;
 
-        Vector3 position = playerVehicle.transform.position - transform.forward * 25 + transform.up * 7.5f;
-        //transform.position = Vector3.Lerp(transform.position, position, GameSettings._cameraSpeed * Time.deltaTime);
+        //Vector3 position = playerVehicle.transform.position - transform.forward * 25 + transform.up * 7.5f;
+        ////transform.position = Vector3.Lerp(transform.position, position, GameSettings._cameraSpeed * Time.deltaTime);
         
 
-        boresight.position = cam.WorldToScreenPoint(boresightPosition);
-        crosshair.position = Input.mousePosition;
+        //boresight.position = cam.WorldToScreenPoint(boresightPosition);
+        //crosshair.position = Input.mousePosition;
 
-        //Vector3 reachTo = new Vector3(transform.position.x + Input.mousePosition.x - Screen.width / 2, transform.position.y + Input.mousePosition.y - Screen.height / 2, transform.position.z + 200);
-        turnTo = Quaternion.Euler(transform.rotation.eulerAngles.x + aircraftControls.mouseY, transform.rotation.eulerAngles.y + aircraftControls.mouseX, 0);
+        ////Vector3 reachTo = new Vector3(transform.position.x + Input.mousePosition.x - Screen.width / 2, transform.position.y + Input.mousePosition.y - Screen.height / 2, transform.position.z + 200);
+        //turnTo = Quaternion.Euler(transform.rotation.eulerAngles.x + aircraftControls.mouseY, transform.rotation.eulerAngles.y + aircraftControls.mouseX, 0);
 
-        //cam.transform.rotation = Quaternion.RotateTowards(cam.transform.rotation, turnTo, 100f * Time.deltaTime); //turnTo;
+        ////cam.transform.rotation = Quaternion.RotateTowards(cam.transform.rotation, turnTo, 100f * Time.deltaTime); //turnTo;
 
-        cam.transform.rotation = Quaternion.Slerp(transform.rotation, turnTo, 100f * Time.deltaTime);
+        //cam.transform.rotation = Quaternion.Slerp(transform.rotation, turnTo, 100f * Time.deltaTime);
 
-        //cam.transform.rotation = Quaternion.Slerp(transform.rotation, turnTo, 5f * Time.deltaTime);
+        ////cam.transform.rotation = Quaternion.Slerp(transform.rotation, turnTo, 5f * Time.deltaTime);
 
-        // lock the camera to horizon
-        cam.transform.rotation = Quaternion.Euler(cam.transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, 0);
+        //// lock the camera to horizon
+        //cam.transform.rotation = Quaternion.Euler(cam.transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, 0);
     }
 
 }
