@@ -3,6 +3,7 @@
  * All rights reserved.
  */
 
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -19,7 +20,9 @@ public class HUDScript : MonoBehaviour
     [SerializeField]
     [Tooltip("Where plane player wants to go and where flypoint is, will not change if player is freelooking")]
     private GameObject crosshair = null;
-    
+    private UnityEngine.UI.Image crosshairImage = null;
+    private bool crosshairTransparent = false;
+
     [SerializeField]
     [Tooltip("Where plane is pointing, changes shape dependent on weapon system selected if no weapon is selected it's a circle.")]
     private GameObject boreSight = null;
@@ -35,14 +38,15 @@ public class HUDScript : MonoBehaviour
     private float mouseDeltaY = 0;
 
     [SerializeField]
-    [Tooltip("How fast mouse deltas reset to 0f, 1f works very well.")] 
-    private float lerpSpeed = 1f;
+    [Tooltip("How fast mouse deltas reset to 0f.")] 
+    [Range(1f, 10f)] private float lerpSpeed = 1f;
     
     private float sensitivity = 1f;
 
     [SerializeField]
     private bool freelook = false;
-    
+
+    [SerializeField]
     private Vector3 lastCursorPosition = Vector3.zero;
 
     private void Start()
@@ -58,6 +62,10 @@ public class HUDScript : MonoBehaviour
         if (flyPoint == null)
             flyPoint = GameObject.Find("FlyPoint").transform; // Singleton
 
+        if(crosshair == null)
+            crosshair = transform.GetChild(0).gameObject;
+        crosshairImage = crosshair.GetComponent<UnityEngine.UI.Image>();
+
         if (boreSight == null)
             boreSight = transform.GetChild(1).gameObject;
         boreSightImage = boreSight.GetComponent<UnityEngine.UI.Image>();
@@ -69,11 +77,12 @@ public class HUDScript : MonoBehaviour
     private void Update()
     {
         SetBoresight();
-        SetFlyPoint(FreeLook());
+        SetCrosshair();
+        flyPoint.position = SetFlyPoint(FreeLook());
     }
 
     /// <summary>
-    /// Boresight update and setting done here
+    /// Boresight Update and Setting.
     /// </summary>
     private void SetBoresight()
     {
@@ -96,9 +105,35 @@ public class HUDScript : MonoBehaviour
     }
 
     /// <summary>
+    /// Crosshair Hiding.
+    /// </summary>
+    private void SetCrosshair()
+    {
+        if (freelook)
+        {
+            if (!crosshairTransparent && Vector3.Dot(Camera.main.transform.forward, flyPoint.position - playerVehicle.transform.position) < 0f)
+            {
+                crosshairTransparent = true;
+                crosshairImage.color = Color.clear;
+            }
+            else if(crosshairTransparent && Vector3.Dot(Camera.main.transform.forward, flyPoint.position - playerVehicle.transform.position) > 0f)
+            {
+                crosshairTransparent = false;
+                crosshairImage.color = gameSettings.cursorColour;
+            }
+        }
+        else if (crosshairTransparent)
+        {
+            crosshairTransparent = false;
+            crosshairImage.color = gameSettings.cursorColour;
+        }
+    }
+
+    /// <summary>
     /// checks for input of free look, might move this to aircraft controls
     /// </summary>
     /// <returns></returns>
+    private Vector3 lastVehiclePos = Vector3.zero;
     private bool FreeLook()
     {
         freelook = false;
@@ -106,18 +141,20 @@ public class HUDScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             lastCursorPosition = Camera.main.transform.position + Camera.main.transform.forward * aimDistance;
+            lastVehiclePos = playerVehicle.transform.position;
         }
 
         if (Input.GetKey(KeyCode.C))
         {
+            lastCursorPosition += playerVehicle.transform.position - lastVehiclePos;
+            lastVehiclePos = playerVehicle.transform.position;
             freelook = true;
         }
-        //else // exit condition // does not work good
-        //{
-        //    crosshair.transform.position = Vector3.Lerp(Camera.main.WorldToScreenPoint(flyPoint.position), 
-        //        Camera.main.WorldToScreenPoint(lastCursorPosition), lerpSpeed / 100);
-        //    Debug.Log("Not pressed");
-        //}
+        else if(Input.GetKeyUp(KeyCode.C))
+        {
+            flyPoint.position = lastCursorPosition;
+            freelook = false;
+        }
 
         return freelook;
     }
@@ -125,22 +162,31 @@ public class HUDScript : MonoBehaviour
     /// <summary>
     /// Sets fly point via mouse input, freelook will cut fly algorithm, freelook here only makes crosshair not move
     /// </summary>
-    private void SetFlyPoint(bool freelook = false)
+    private Vector3 SetFlyPoint(bool freelook = false)
     {
-        mouseDeltaX += Input.GetAxis("Mouse X") * sensitivity;
-        mouseDeltaY += Input.GetAxis("Mouse Y") * sensitivity;
-
-        flyPoint.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Camera.main.transform.forward * aimDistance;
-
-        flyPoint.position += mouseDeltaX * flyPoint.transform.right;
-        flyPoint.position += mouseDeltaY * flyPoint.transform.up;
-
-        if(!freelook)
-            crosshair.transform.position = Camera.main.WorldToScreenPoint(flyPoint.position);
-        else // freelook
+        if (freelook)
+        {
             crosshair.transform.position = Camera.main.WorldToScreenPoint(lastCursorPosition);
+            return lastCursorPosition;
+        }
+        else
+        {
+            Vector3 newPos;
 
-        mouseDeltaX = Mathf.Lerp(mouseDeltaX, 0f, lerpSpeed);
-        mouseDeltaY = Mathf.Lerp(mouseDeltaY, 0f, lerpSpeed);
+            mouseDeltaX += Input.GetAxis("Mouse X") * sensitivity;
+            mouseDeltaY += Input.GetAxis("Mouse Y") * sensitivity;
+
+            newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Camera.main.transform.forward * aimDistance;
+
+            newPos += mouseDeltaX * flyPoint.transform.right;
+            newPos += mouseDeltaY * flyPoint.transform.up;
+            
+            crosshair.transform.position = Camera.main.WorldToScreenPoint(newPos);
+
+            mouseDeltaX = Mathf.Lerp(mouseDeltaX, 0f, lerpSpeed * Time.deltaTime);
+            mouseDeltaY = Mathf.Lerp(mouseDeltaY, 0f, lerpSpeed * Time.deltaTime);
+
+            return newPos;
+        }
     }
 }

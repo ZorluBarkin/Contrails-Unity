@@ -160,6 +160,7 @@ MonoBehaviour:
   aimDistance: 800
   lerpSpeed: 1
   freelook: 0
+  lastCursorPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &132974329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,6 +749,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 597071236867095191, guid: 330de2201539b394fa6a5cc43388a099,
+        type: 3}
+      propertyPath: targetFrameRate
+      value: 61
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 330de2201539b394fa6a5cc43388a099, type: 3}
 --- !u!1 &1301035282
@@ -1242,8 +1248,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1758335171}
   - component: {fileID: 1758335174}
-  - component: {fileID: 1758335176}
   - component: {fileID: 1758335177}
+  - component: {fileID: 1758335178}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1278,19 +1284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1758335176
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758335170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36d1163fa822e8b418a0a603ec078d5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Damping: 0
 --- !u!114 &1758335177
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1303,18 +1296,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9beda531928fc40968802117a5d256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RecenterTarget: 0
+  m_RecenterTarget: 1
   m_VerticalAxis:
     Value: 0
-    m_SpeedMode: 1
-    m_MaxSpeed: 1
-    m_AccelTime: 0.4
-    m_DecelTime: 0.4
+    m_SpeedMode: 0
+    m_MaxSpeed: 200
+    m_AccelTime: 0.2
+    m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 1
-    m_MinValue: -70
-    m_MaxValue: 70
+    m_MinValue: -85
+    m_MaxValue: 85
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0
@@ -1330,10 +1323,10 @@ MonoBehaviour:
     m_LegacyVelocityFilterStrength: -1
   m_HorizontalAxis:
     Value: 0
-    m_SpeedMode: 1
-    m_MaxSpeed: 1
-    m_AccelTime: 0.4
-    m_DecelTime: 0.4
+    m_SpeedMode: 0
+    m_MaxSpeed: 200
+    m_AccelTime: 0.2
+    m_DecelTime: 0.1
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
     m_InvertInput: 0
@@ -1353,6 +1346,19 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_ApplyBeforeBody: 0
+--- !u!114 &1758335178
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758335170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d1163fa822e8b418a0a603ec078d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Damping: 0
 --- !u!1 &1861246707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,7 +1453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1929882497
 Transform:
   m_ObjectHideFlags: 0
