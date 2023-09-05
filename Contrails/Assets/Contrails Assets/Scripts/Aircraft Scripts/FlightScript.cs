@@ -15,7 +15,7 @@ public class FlightScript : MonoBehaviour
     public FlightMode flightMode = FlightMode.Realistic;
 
     public AircraftControls aircraftControls = null;
-    private Rigidbody rb = null;
+    [SerializeField] private Rigidbody rb = null; // make it private only a
     private WeatherScript weather = null;
 
     #region Maneuverability Variables
@@ -60,7 +60,7 @@ public class FlightScript : MonoBehaviour
     #endregion
 
     #region Control Variables
-    public float throttle = 1f; // if 100% its 1 else lower if WEP go for 1.05 - 1.10 etc.
+    public float throttle = 0f; // if 100% its 1 else lower if WEP go for 1.05 - 1.10 etc.
 
     #endregion
 
@@ -80,6 +80,9 @@ public class FlightScript : MonoBehaviour
             flyPoint = GameObject.Find("FlyPoint").transform;
 
         throttle = 0f;
+
+        // temporary change
+        turnTorque *= 0.1f;
 
         //flightMode = GameSettings._flightMode;
 
@@ -150,11 +153,113 @@ public class FlightScript : MonoBehaviour
         #endregion
     }
 
+    public float hardTurnAngle = 20f;
+
+    [Tooltip("Vertical and Horizontal")] public Vector2 correctiveAngle = new Vector2(10f, 2f);
+
+    public float res;
+    [Tooltip("Backwards in World Space")][SerializeField]private bool backwards = false;
+    [Tooltip("Upside Down in World Space")][SerializeField]private bool upsideDown = false;
+
+    public float angleVertical;
+    public float angleHorizontal;
+
+    public Vector3 angleVector;
+    private float stateMult = 1f;
     private void FlyToPoint(Transform flyPoint)
     {
-        // fly to target
 
-        if(pitchOverride)
+        // fly to target                        // player vehicle
+        Vector3 direction = flyPoint.position - transform.position;
+
+        angleVertical/*float flypointVerticalAngle*/ = Vector3.SignedAngle(Vector3.up, direction.normalized, transform.forward); // flypoint vertical angle
+        // this being negative means cursor is on the right
+
+        angleHorizontal/*float flypointHorizontalAngle*/ = Vector3.SignedAngle(Vector3.right, direction.normalized, transform.forward); // flypoint horizontal angle
+        // this being negative means cursor is below the aircraft
+
+        // X is vertical, Y is horizontal, Z is
+        //vertical = Quaternion.FromToRotation(transform.forward, direction).eulerAngles;
+        angleVector = Quaternion.FromToRotation(transform.forward, flyPoint.position).eulerAngles;
+
+        // Horizontal turning
+        if(angleVector.y < 360f - hardTurnAngle && angleVector.y > hardTurnAngle) // horizontal hard turn
+        {
+            if (angleVector.y - 180f > 0f) // the point on the the right of the plane
+                calculatedRoll = 1f;
+            else
+                calculatedRoll = -1f;
+        }
+        else if(angleVector.y < 360f - correctiveAngle.y && angleVector.y > correctiveAngle.y) // correctiveAngle is like a deadzone
+        {
+            if (angleVector.y - 180f > 0f) // the point on the the right of the plane
+                calculatedYaw = -1f;
+            else
+                calculatedYaw = 1f;
+        }
+
+        // check if vehicle is headed backwards in world space
+        if (Vector3.Dot(transform.forward, Vector3.forward) < 0)
+            backwards = true;
+        else if (backwards)
+            backwards = false;
+
+        // check if vehicle is upside down in world space
+        if(Vector3.Dot(transform.up, Vector3.up) < 0) // if this results in 0 the plane is horizontal or completely vertical
+            upsideDown = true;
+        else if(upsideDown)
+            upsideDown = false;
+
+        if (Mathf.Abs(angleVector.x) > correctiveAngle.x)
+        {
+            // state assigning
+            if (backwards || upsideDown)
+                stateMult = -1;
+
+            if (upsideDown && backwards)
+                stateMult = 1;
+
+            if (angleVector.x - (90f + 1f) < 0) // looks below
+            {
+                calculatedPitch = 1f * stateMult;
+            }
+            else // looks up
+            {
+                calculatedPitch = -1f * stateMult;
+            }
+
+            stateMult = 1;
+        }
+        
+
+        //vertical /*float vehicleVerticalAngle*/ = Mathf.Abs(Vector3.SignedAngle(Vector3.up, transform.forward, direction.normalized)); // vehicle vertical angle
+
+        //horizontal /*float vehicleHorizontalAngle*/ = Vector3.SignedAngle(Vector3.right, transform.forward, direction.normalized); // vehicle horizontal angle
+
+        //angleVertical = flypointVerticalAngle - vehicleVerticalAngle;
+
+        //angleHorizontal = flypointHorizontalAngle - vehicleHorizontalAngle;
+
+        Debug.DrawRay(transform.position, direction, Color.blue);
+
+        //if (pitchAngle > turnAngle)
+        //    calculatedPitch = -1;
+        //else if (pitchAngle < -turnAngle)
+        //    calculatedPitch = 1;
+        //float mult = 1;
+
+        //// not local to vehicle make it local to vehicle
+        //// Desc: when vehicle turns 180 yaw it moves the other way.
+        //if (rollAngle > turnAngle && anglePlane < 0)
+        //    calculatedRoll = -1;
+        //else if (rollAngle < -turnAngle && anglePlane > 0)
+        //    calculatedRoll = 1;
+        //else if (rollAngle > turnAngle && anglePlane > 0)
+        //    calculatedRoll = -1;
+        //else if (rollAngle < -turnAngle && anglePlane < 0)
+        //    calculatedRoll = 1;
+
+        if (pitchOverride)
             calculatedPitch = pitch;
         
         if(rollOverride)
