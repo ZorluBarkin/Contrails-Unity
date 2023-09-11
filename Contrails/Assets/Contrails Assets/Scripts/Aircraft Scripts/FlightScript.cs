@@ -157,7 +157,7 @@ public class FlightScript : MonoBehaviour
     /* MOVE THESE UP AT SOME POINT */
     public float hardTurnAngle = 20f;
 
-    [Tooltip("Vertical and Horizontal")] public Vector2 correctiveAngle = new Vector2(10f, 2f);
+    [Tooltip("Vertical and Horizontal")] public Vector3 correctiveAngle = new Vector3(1f, 2f, 2f);
 
     //public Vector3 res;
     [Tooltip("Backwards in World Space")][SerializeField]private bool backwards = false;
@@ -220,6 +220,8 @@ public class FlightScript : MonoBehaviour
         rollStateMult = 1;
         //yawStateMult = 1;
 
+        //STATE MULTIPLIERS MAKES THE PLANE HAVE GIMBALL LOCK
+
         // check if vehicle is headed backwards in world space
         if (Vector3.Dot(transform.forward, Vector3.forward) < 0)
             backwards = true;
@@ -265,6 +267,23 @@ public class FlightScript : MonoBehaviour
                 calculatedYaw = -1f /** yawStateMult*/;
             else
                 calculatedYaw = 1f /** yawStateMult*/;
+        }
+        else
+        {
+
+            if (transform.rotation.eulerAngles.z > correctiveAngle.z + hardTurnAngle && transform.rotation.eulerAngles.z < 180f)
+                calculatedRoll = -1f;
+            else if (transform.rotation.eulerAngles.z < 360f - (correctiveAngle.z + hardTurnAngle) && transform.rotation.eulerAngles.z > 180f)
+                calculatedRoll = 1f;
+            else if (transform.rotation.eulerAngles.z > correctiveAngle.z && transform.rotation.eulerAngles.z < 180f)
+                calculatedRoll = -0.25f;//Mathf.Lerp(-1f, 0f, 0.5f);//-1f;
+            else if (transform.rotation.eulerAngles.z < 360f - correctiveAngle.z && transform.rotation.eulerAngles.z > 180f)
+                calculatedRoll = 0.25f;//Mathf.Lerp(1f, 0f, 0.5f);//1f;
+            else if (transform.rotation.eulerAngles.z < correctiveAngle.z && Mathf.Abs(transform.rotation.eulerAngles.z) > 0.05f)
+                calculatedRoll = -0.1f;//Debug.Log("Turn right");
+            else if (transform.rotation.eulerAngles.z > 360f - correctiveAngle.z && Mathf.Abs(transform.rotation.eulerAngles.z) > 0.05f)
+                calculatedRoll = 0.1f;//Debug.Log("turn left");
+
         }
 
         // Vertical Turning

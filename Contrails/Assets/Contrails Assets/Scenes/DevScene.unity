@@ -477,7 +477,7 @@ MonoBehaviour:
   throttle: 0
   lift: 0
   hardTurnAngle: 10
-  correctiveAngle: {x: 10, y: 2}
+  correctiveAngle: {x: 10, y: 2, z: 2}
   backwards: 0
   upsideDown: 0
   angle: 0
@@ -487,6 +487,7 @@ MonoBehaviour:
   globalAngleVector: {x: 0, y: 0, z: 0}
   pitchStateMult: 1
   rollStateMult: 1
+  yawStateMult: 1
   pullUp: 0
   rollAngle: {x: 0, y: 0}
   orgAngle: {x: 0, y: 0}
@@ -3059,7 +3060,7 @@ PrefabInstance:
     - target: {fileID: 2734982605285265038, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: m_Constraints
-      value: 32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2805658886741093445, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
@@ -3094,7 +3095,7 @@ PrefabInstance:
     - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: hardTurnAngle
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
@@ -3105,6 +3106,11 @@ PrefabInstance:
         type: 3}
       propertyPath: correctiveAngle.x
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
+        type: 3}
+      propertyPath: correctiveAngle.z
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7975650416021467148, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
