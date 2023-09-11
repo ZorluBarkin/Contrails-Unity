@@ -478,12 +478,20 @@ MonoBehaviour:
   lift: 0
   hardTurnAngle: 10
   correctiveAngle: {x: 10, y: 2}
-  res: 0
   backwards: 0
   upsideDown: 0
+  angle: 0
   angleVertical: 0
   angleHorizontal: 0
   angleVector: {x: 0, y: 0, z: 0}
+  globalAngleVector: {x: 0, y: 0, z: 0}
+  pitchStateMult: 1
+  rollStateMult: 1
+  pullUp: 0
+  rollAngle: {x: 0, y: 0}
+  orgAngle: {x: 0, y: 0}
+  localTargetPos: {x: 0, y: 0, z: 0}
+  globalTargetPos: {x: 0, y: 0, z: 0}
 --- !u!1 &173757193
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +556,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173757193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 172.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1459,7 +1467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181849146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: -20}
+  m_LocalPosition: {x: 0, y: 177.54, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2270,7 +2278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1516962769
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3001,7 +3009,7 @@ PrefabInstance:
     - target: {fileID: 667811488280830303, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 172.54
       objectReference: {fileID: 0}
     - target: {fileID: 667811488280830303, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
@@ -3051,7 +3059,7 @@ PrefabInstance:
     - target: {fileID: 2734982605285265038, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: m_Constraints
-      value: 14
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 2805658886741093445, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
@@ -3071,26 +3079,31 @@ PrefabInstance:
     - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: turnTorque.x
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: turnTorque.y
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: turnTorque.z
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: hardTurnAngle
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
         type: 3}
       propertyPath: correctiveAngle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774399407503886133, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
+        type: 3}
+      propertyPath: correctiveAngle.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7975650416021467148, guid: d04d5c8ac02f76c44a6557c2c797a9c8,
