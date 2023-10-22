@@ -1,3 +1,3 @@
 # Contrails
 Semi-arcade flight simulator.
-Currently stopped, the project will continue beinhg developed with Godot.
+Currently developement with Unity CEASED, the project will continue being developed with Godot.
