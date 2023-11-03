@@ -168,6 +168,14 @@ public class FlightScript : MonoBehaviour
     public float angleVertical;
     public float angleHorizontal;
 
+    [Space(20)]
+    public float quatX;
+    public float quatY;
+    public float quatZ;
+    public float quatW;
+    public Quaternion quat;
+    [Space(20)]
+
     public Vector3 angleVector;
     public Vector3 globalAngleVector;
 
@@ -211,6 +219,12 @@ public class FlightScript : MonoBehaviour
         // X is vertical, Y is horizontal, Z is
         //vertical = Quaternion.FromToRotation(transform.forward, direction).eulerAngles;
         angleVector = Quaternion.FromToRotation(transform.forward, localTargetPos).eulerAngles;
+        quat = Quaternion.FromToRotation(transform.forward, localTargetPos);
+
+        quatX = quat.x;
+        quatY = quat.y;
+        quatZ = quat.z;
+        quatW = quat.w;
 
         angleVector = new Vector3((angleVector.x + transform.rotation.eulerAngles.x) % 360f, (angleVector.y + transform.rotation.eulerAngles.y) % 360f, angleVector.z);
 
@@ -247,12 +261,28 @@ public class FlightScript : MonoBehaviour
 
         //if (upsideDown)
         //    yawStateMult = 1;
-        
+
         //if(upsideDown && backwards)
         //    yawStateMult = 1;
 
         //pullUp = false;
         // Horizontal Turning
+
+        if (angleVector.x < 0)
+            Debug.Log("Pitch Down");
+        else
+            Debug.Log("Pitch Up");
+
+        if (angleVector.y > 0 ) //&& Quaternion consider resulting vector comparison
+            Debug.Log("Yaw Right");
+        else
+            Debug.Log("Yaw Left");
+
+        if(angleVector.z > 0)
+            Debug.Log("roll Right");
+        else
+            Debug.Log("roll Left");
+
         if (angleVector.y < 360f - hardTurnAngle && angleVector.y > hardTurnAngle) // horizontal hard turn
         {
             if (angleVector.y - 180f > 0f) // the point on the the right of the plane

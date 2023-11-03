@@ -101,6 +101,12 @@ public class AAMissileScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        
+    }
+
+    private void Update()
+    {
         if (!active)
             return;
 
@@ -198,15 +204,15 @@ public class AAMissileScript : MonoBehaviour
 
         Vector3 guidanceVector = impactPoint - transform.position;
         Quaternion rotation = Quaternion.LookRotation(guidanceVector);
-        //Quaternion rotation = transform.Rotae(impactPoint);
+        //Quaternion rotation = transform.Rotate(impactPoint);
 
         if (burnTimer > 0.2f)
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, trackingRate * Time.deltaTime);
 
         if (burnTimer <= burnTime)
-            rb.AddForce(transform.forward * (thrust * Physics.gravity.magnitude / fuelAmount * 0.60f - Physics.gravity.magnitude), ForceMode.Acceleration); // 
-                                                                                                                                                            //rb.AddForce(transform.forward * 1206 * Physics.gravity.magnitude, ForceMode.Force);
-                                                                                                                                                            //rb.velocity += transform.forward * 5f; // 5f for now
+            rb.AddForce(transform.forward * (thrust * Physics.gravity.magnitude / fuelAmount * 0.60f - Physics.gravity.magnitude), ForceMode.Acceleration); 
+            //rb.AddForce(transform.forward * 1206 * Physics.gravity.magnitude, ForceMode.Force);
+            //rb.velocity += transform.forward * 5f; // 5f for now
         else
         {
             DestroyTrailParticle();

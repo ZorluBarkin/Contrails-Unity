@@ -88,6 +88,9 @@ public class HUDScript : MonoBehaviour
     {
         // make boresight change image based on weapon selected
 
+        if (playerVehicle == null) // temporary solution
+            return;
+
         // make boresight not appear at rear
         if (!boreSightTransparent && Vector3.Dot(Camera.main.transform.forward, playerVehicle.transform.forward) < 0f )
         {

@@ -8,6 +8,7 @@ TagManager:
   - ParticleEffect
   - FlyPoint
   - OrdinanceCamera
+  - Aircraft
   layers:
   - Default
   - TransparentFX
